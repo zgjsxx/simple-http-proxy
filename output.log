@@ -1,746 +1,236 @@
-2021-12-08 02:50:12,308[0x7fcbac0c48c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:328>
-2021-12-08 02:51:23,337[0x7ff5abe078c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:329>
-2021-12-08 02:52:13,770[0x7fb0940f98c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:329>
-2021-12-08 02:52:16,689[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:16,689[0x7fb0940f98c0] DEBUG server - new socket client 5  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:16,689[0x7fb0940f98c0] DEBUG server - client socket is 5  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - client socket 5 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:16,690[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:16,709[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - new socket client 7  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - client socket is 7  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - client socket 7 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:17,273[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:17,285[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:18,162[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:18,162[0x7fb0940f98c0] DEBUG server - new socket client 9  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:18,162[0x7fb0940f98c0] DEBUG server - client socket is 9  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - client socket 9 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - total_read 46   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - total_read 35   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,163[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - new socket client 11  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - client socket is 11  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - client socket 11 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,201[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,222[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:18,259[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:18,607[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:18,608[0x7fb0940f98c0] DEBUG server - new socket client 13  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:18,608[0x7fb0940f98c0] DEBUG server - client socket is 13  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:18,609[0x7fb0940f98c0] DEBUG server - client socket 13 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:18,609[0x7fb0940f98c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,610[0x7fb0940f98c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,610[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,610[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,610[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:18,622[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:20,953[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:20,953[0x7fb0940f98c0] DEBUG server - new socket client 15  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:20,953[0x7fb0940f98c0] DEBUG server - client socket is 15  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - client socket 15 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - total_read 49   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:20,954[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:20,970[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:21,739[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:21,739[0x7fb0940f98c0] DEBUG server - new socket client 17  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:21,739[0x7fb0940f98c0] DEBUG server - client socket is 17  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - client socket 17 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - total_read 39   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - total_read 28   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:21,740[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:21,754[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:22,622[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:22,622[0x7fb0940f98c0] DEBUG server - new socket client 19  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:22,622[0x7fb0940f98c0] DEBUG server - client socket is 19  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - client socket 19 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,623[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,631[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - new socket client 21  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - client socket is 21  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - client socket 21 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:22,960[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - new socket client 22  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - client socket is 22  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - client socket 22 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,049[0x7fb0940f98c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:52:23,062[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:52:23,071[0x7fb0940f98c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:22,051[0x7fc292c1c8c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:336>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - new socket client 2  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - client socket is 2  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - client socket 2 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,485[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,486[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,486[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,501[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:43,508[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:43,508[0x7fc292c1c8c0] DEBUG server - new socket client 4  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:43,508[0x7fc292c1c8c0] DEBUG server - client socket is 4  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:43,509[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:43,509[0x7fc292c1c8c0] DEBUG server - new socket client 5  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:43,509[0x7fc292c1c8c0] DEBUG server - client socket is 5  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:43,509[0x7fc292c1c8c0] DEBUG server - client socket 4 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:43,509[0x7fc292c1c8c0] DEBUG server - total_read 39   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,510[0x7fc292c1c8c0] DEBUG server - total_read 28   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,510[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,510[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,510[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - client socket 5 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - total_read 42   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - total_read 31   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,525[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:43,639[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:43,651[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:44,962[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:44,962[0x7fc292c1c8c0] DEBUG server - new socket client 8  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:44,962[0x7fc292c1c8c0] DEBUG server - client socket is 8  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:44,962[0x7fc292c1c8c0] DEBUG server - client socket 8 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:44,963[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:44,963[0x7fc292c1c8c0] DEBUG server - total_read 33   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:44,963[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:44,963[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:44,963[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:44,979[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,845[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,845[0x7fc292c1c8c0] DEBUG server - new socket client 10  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,845[0x7fc292c1c8c0] DEBUG server - client socket is 10  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,845[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,845[0x7fc292c1c8c0] DEBUG server - new socket client 11  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,846[0x7fc292c1c8c0] DEBUG server - client socket is 11  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,847[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,847[0x7fc292c1c8c0] DEBUG server - new socket client 12  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,847[0x7fc292c1c8c0] DEBUG server - client socket is 12  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,847[0x7fc292c1c8c0] DEBUG server - client socket 10 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,848[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,848[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,848[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,848[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,848[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,926[0x7fc292c1c8c0] DEBUG server - client socket 11 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,926[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,927[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,927[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,927[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,927[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,931[0x7fc292c1c8c0] DEBUG server - client socket 12 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,931[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,931[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,931[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,932[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,932[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client 15  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - client socket is 15  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client 16  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - client socket is 16  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - new socket client 17  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - client socket is 17  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - client socket 15 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,936[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,937[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,937[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,937[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - client socket 16 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,941[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,947[0x7fc292c1c8c0] DEBUG server - client socket 17 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:45,947[0x7fc292c1c8c0] DEBUG server - total_read 51   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,948[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,948[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,948[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,948[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:45,951[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,951[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,951[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:45,998[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - new socket client 14  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - client socket is 14  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - client socket 14 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - total_read 45   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,268[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,269[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,269[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,320[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:46,690[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:46,690[0x7fc292c1c8c0] DEBUG server - new socket client 19  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - client socket is 19  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - client socket 19 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - total_read 33   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,691[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:46,719[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,089[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - new socket client 21  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - client socket is 21  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - client socket 21 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - total_read 54   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,091[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,104[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - new socket client 23  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - client socket is 23  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - client socket 23 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - total_read 42   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - total_read 31   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,504[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,515[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,646[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,646[0x7fc292c1c8c0] DEBUG server - new socket client 25  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,646[0x7fc292c1c8c0] DEBUG server - client socket is 25  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,647[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,647[0x7fc292c1c8c0] DEBUG server - new socket client 26  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,647[0x7fc292c1c8c0] DEBUG server - client socket is 26  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - client socket 25 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,649[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - new socket client 28  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - client socket is 28  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - new socket client 29  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,678[0x7fc292c1c8c0] DEBUG server - client socket is 29  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client 30  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - client socket is 30  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client 31  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - client socket is 31  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - new socket client 32  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,679[0x7fc292c1c8c0] DEBUG server - client socket is 32  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - new socket client 33  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - client socket is 33  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - new socket client 34  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - client socket is 34  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:47,680[0x7fc292c1c8c0] DEBUG server - client socket 26 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,681[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,681[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,681[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,684[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,684[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,693[0x7fc292c1c8c0] DEBUG server - client socket 28 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,694[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,694[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,694[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,695[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,695[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,707[0x7fc292c1c8c0] DEBUG server - client socket 29 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,708[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,708[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,708[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,709[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,709[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,718[0x7fc292c1c8c0] DEBUG server - client socket 30 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,718[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,719[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,719[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,719[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,719[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,725[0x7fc292c1c8c0] DEBUG server - client socket 31 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,726[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,726[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,726[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,726[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,726[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,732[0x7fc292c1c8c0] DEBUG server - client socket 32 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,732[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,732[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,732[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,733[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,733[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - client socket 33 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,737[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,745[0x7fc292c1c8c0] DEBUG server - client socket 34 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:47,746[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,746[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,746[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,747[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,747[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:47,756[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,756[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,757[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,757[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,757[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,758[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,759[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,759[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:47,766[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:57,908[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:57,908[0x7fc292c1c8c0] DEBUG server - new socket client 43  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:57,908[0x7fc292c1c8c0] DEBUG server - client socket is 43  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - client socket 43 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:57,909[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:57,918[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:58,009[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:58,009[0x7fc292c1c8c0] DEBUG server - new socket client 45  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:58,009[0x7fc292c1c8c0] DEBUG server - client socket is 45  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - client socket 45 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,010[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,022[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:53:58,562[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:53:58,563[0x7fc292c1c8c0] DEBUG server - new socket client 47  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:53:58,563[0x7fc292c1c8c0] DEBUG server - client socket is 47  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:53:58,564[0x7fc292c1c8c0] DEBUG server - client socket 47 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:53:58,565[0x7fc292c1c8c0] DEBUG server - total_read 49   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,565[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,565[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,566[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,566[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:53:58,577[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:00,711[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:00,711[0x7fc292c1c8c0] DEBUG server - new socket client 49  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:00,711[0x7fc292c1c8c0] DEBUG server - client socket is 49  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:00,712[0x7fc292c1c8c0] DEBUG server - client socket 49 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:00,712[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,712[0x7fc292c1c8c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,712[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,713[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,713[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,726[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - new socket client 51  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - client socket is 51  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - client socket 51 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - total_read 46   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - total_read 35   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,914[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,915[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,915[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - new socket client 53  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - client socket is 53  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - client socket 53 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,983[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:00,990[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:00,998[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:03,205[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:03,205[0x7fc292c1c8c0] DEBUG server - new socket client 55  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:03,205[0x7fc292c1c8c0] DEBUG server - client socket is 55  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - client socket 55 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,206[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,216[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:03,216[0x7fc292c1c8c0] DEBUG server - new socket client 56  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - client socket is 56  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - client socket 56 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,217[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,243[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:03,270[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:03,607[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:03,607[0x7fc292c1c8c0] DEBUG server - new socket client 59  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:03,607[0x7fc292c1c8c0] DEBUG server - client socket is 59  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - client socket 59 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - total_read 23   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,608[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - new socket client 61  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - client socket is 61  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - client socket 61 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - total_read 43   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - total_read 32   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,685[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:03,743[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:03,758[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:04,019[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:04,019[0x7fc292c1c8c0] DEBUG server - new socket client 63  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:04,019[0x7fc292c1c8c0] DEBUG server - client socket is 63  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:04,020[0x7fc292c1c8c0] DEBUG server - client socket 63 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:04,020[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,020[0x7fc292c1c8c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,020[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,021[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,021[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,034[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:04,067[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:04,067[0x7fc292c1c8c0] DEBUG server - new socket client 65  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:04,067[0x7fc292c1c8c0] DEBUG server - client socket is 65  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - client socket 65 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - total_read 42   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - total_read 31   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,068[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:04,101[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:05,200[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,200[0x7fc292c1c8c0] DEBUG server - new socket client 67  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,200[0x7fc292c1c8c0] DEBUG server - client socket is 67  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - client socket 67 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - total_read 50   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - total_read 39   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,201[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,228[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:05,748[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,748[0x7fc292c1c8c0] DEBUG server - new socket client 69  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,748[0x7fc292c1c8c0] DEBUG server - client socket is 69  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - client socket 69 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,749[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,759[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:05,807[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,811[0x7fc292c1c8c0] DEBUG server - new socket client 71  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,811[0x7fc292c1c8c0] DEBUG server - client socket is 71  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,812[0x7fc292c1c8c0] DEBUG server - client socket 71 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,812[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,812[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,812[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,813[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,813[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,895[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,895[0x7fc292c1c8c0] DEBUG server - new socket client 72  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,895[0x7fc292c1c8c0] DEBUG server - client socket is 72  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - client socket 72 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,896[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client 74  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - client socket is 74  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client 75  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - client socket is 75  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client 76  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - client socket is 76  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - new socket client 77  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:05,920[0x7fc292c1c8c0] DEBUG server - client socket is 77  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - client socket 74 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,921[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - client socket 75 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,931[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - client socket 76 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:05,980[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,031[0x7fc292c1c8c0] DEBUG server - client socket 77 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:06,032[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,032[0x7fc292c1c8c0] DEBUG server - total_read 25   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,032[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,032[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,032[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,040[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,040[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,040[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,040[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,075[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,187[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:06,187[0x7fc292c1c8c0] DEBUG server - new socket client 79  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:06,187[0x7fc292c1c8c0] DEBUG server - client socket is 79  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - new socket client 80  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - client socket is 80  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - client socket 79 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - total_read 0   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,188[0x7fc292c1c8c0] DEBUG server - client socket 79 has closed  @<handle_request> @@<myproxy.cpp:226>
-2021-12-08 02:54:06,189[0x7fc292c1c8c0] DEBUG server - client socket 80 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:06,189[0x7fc292c1c8c0] DEBUG server - total_read 0   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,189[0x7fc292c1c8c0] DEBUG server - client socket 80 has closed  @<handle_request> @@<myproxy.cpp:226>
-2021-12-08 02:54:06,475[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - new socket client 78  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - client socket is 78  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - client socket 78 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - total_read 33   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,476[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,477[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,477[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,573[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:06,584[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:06,584[0x7fc292c1c8c0] DEBUG server - new socket client 80  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:06,584[0x7fc292c1c8c0] DEBUG server - client socket is 80  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:06,585[0x7fc292c1c8c0] DEBUG server - client socket 80 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:06,586[0x7fc292c1c8c0] DEBUG server - total_read 45   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,586[0x7fc292c1c8c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,586[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,586[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,586[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:06,842[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:07,588[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:07,588[0x7fc292c1c8c0] DEBUG server - new socket client 82  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:07,588[0x7fc292c1c8c0] DEBUG server - client socket is 82  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:07,589[0x7fc292c1c8c0] DEBUG server - client socket 82 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:07,589[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,589[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,589[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,589[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,590[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,676[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:07,803[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:07,803[0x7fc292c1c8c0] DEBUG server - new socket client 84  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:07,803[0x7fc292c1c8c0] DEBUG server - client socket is 84  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:07,804[0x7fc292c1c8c0] DEBUG server - client socket 84 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:07,804[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,804[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,804[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,805[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,805[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,846[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:07,846[0x7fc292c1c8c0] DEBUG server - new socket client 86  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:07,846[0x7fc292c1c8c0] DEBUG server - client socket is 86  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:07,846[0x7fc292c1c8c0] DEBUG server - client socket 86 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:07,846[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,847[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,847[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,847[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,847[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:07,876[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:07,910[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - new socket client 88  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - client socket is 88  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - client socket 88 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,019[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,020[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,020[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,076[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - new socket client 46  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - client socket is 46  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - client socket 46 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,228[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,241[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:08,367[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:08,367[0x7fc292c1c8c0] DEBUG server - new socket client 90  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:08,367[0x7fc292c1c8c0] DEBUG server - client socket is 90  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - client socket 90 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - total_read 35   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - total_read 24   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,369[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:08,427[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:15,383[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:15,383[0x7fc292c1c8c0] DEBUG server - new socket client 92  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:15,383[0x7fc292c1c8c0] DEBUG server - client socket is 92  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:15,384[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:15,384[0x7fc292c1c8c0] DEBUG server - new socket client 93  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:15,384[0x7fc292c1c8c0] DEBUG server - client socket is 93  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:15,384[0x7fc292c1c8c0] DEBUG server - client socket 92 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:15,384[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,385[0x7fc292c1c8c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,385[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,385[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,385[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,444[0x7fc292c1c8c0] DEBUG server - client socket 93 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:15,444[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,445[0x7fc292c1c8c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,445[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,445[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,445[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:15,618[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:15,636[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:16,505[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:16,505[0x7fc292c1c8c0] DEBUG server - new socket client 95  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:16,505[0x7fc292c1c8c0] DEBUG server - client socket is 95  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:16,508[0x7fc292c1c8c0] DEBUG server - client socket 95 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:16,508[0x7fc292c1c8c0] DEBUG server - total_read 47   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,509[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,509[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,509[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,509[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,534[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:16,562[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:16,562[0x7fc292c1c8c0] DEBUG server - new socket client 83  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:16,562[0x7fc292c1c8c0] DEBUG server - client socket is 83  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:16,563[0x7fc292c1c8c0] DEBUG server - client socket 83 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:16,563[0x7fc292c1c8c0] DEBUG server - total_read 38   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,563[0x7fc292c1c8c0] DEBUG server - total_read 27   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,564[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,564[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,564[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,573[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:16,809[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:16,809[0x7fc292c1c8c0] DEBUG server - new socket client 87  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:16,809[0x7fc292c1c8c0] DEBUG server - client socket is 87  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:16,810[0x7fc292c1c8c0] DEBUG server - client socket 87 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:16,810[0x7fc292c1c8c0] DEBUG server - total_read 47   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,810[0x7fc292c1c8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,811[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,811[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,811[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:16,824[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:17,255[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:17,255[0x7fc292c1c8c0] DEBUG server - new socket client 89  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:17,255[0x7fc292c1c8c0] DEBUG server - client socket is 89  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - client socket 89 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - total_read 46   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - total_read 35   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:17,256[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:17,267[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:21,570[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:21,570[0x7fc292c1c8c0] DEBUG server - new socket client 85  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:21,570[0x7fc292c1c8c0] DEBUG server - client socket is 85  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:21,570[0x7fc292c1c8c0] DEBUG server - client socket 85 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:21,570[0x7fc292c1c8c0] DEBUG server - total_read 40   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:21,571[0x7fc292c1c8c0] DEBUG server - total_read 29   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:21,571[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:21,571[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:21,571[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:21,840[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:22,725[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:22,725[0x7fc292c1c8c0] DEBUG server - new socket client 100  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:22,725[0x7fc292c1c8c0] DEBUG server - client socket is 100  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:22,726[0x7fc292c1c8c0] DEBUG server - client socket 100 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:22,727[0x7fc292c1c8c0] DEBUG server - total_read 37   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:22,727[0x7fc292c1c8c0] DEBUG server - total_read 26   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:22,727[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:22,727[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:22,727[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:22,737[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - new socket client 7  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - client socket is 7  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - client socket 7 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,594[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,595[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,595[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - new socket client 103  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - client socket is 103  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - client socket 103 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,679[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,680[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,680[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,687[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:23,693[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:23,745[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:23,746[0x7fc292c1c8c0] DEBUG server - new socket client 101  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:23,746[0x7fc292c1c8c0] DEBUG server - client socket is 101  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:23,746[0x7fc292c1c8c0] DEBUG server - client socket 101 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:23,747[0x7fc292c1c8c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,747[0x7fc292c1c8c0] DEBUG server - total_read 23   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,747[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,747[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,747[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:23,843[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
-2021-12-08 02:54:24,039[0x7fc292c1c8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:191>
-2021-12-08 02:54:24,039[0x7fc292c1c8c0] DEBUG server - new socket client 58  @<handle_request> @@<myproxy.cpp:194>
-2021-12-08 02:54:24,039[0x7fc292c1c8c0] DEBUG server - client socket is 58  @<handle_request> @@<myproxy.cpp:206>
-2021-12-08 02:54:24,040[0x7fc292c1c8c0] DEBUG server - client socket 58 has read event  @<handle_request> @@<myproxy.cpp:216>
-2021-12-08 02:54:24,040[0x7fc292c1c8c0] DEBUG server - total_read 55   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:24,040[0x7fc292c1c8c0] DEBUG server - total_read 44   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:24,040[0x7fc292c1c8c0] DEBUG server - total_read 30   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:24,041[0x7fc292c1c8c0] DEBUG server - total_read 128   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:24,041[0x7fc292c1c8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:223>
-2021-12-08 02:54:24,069[0x7fc292c1c8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:159>
+2021-12-13 05:13:19,105[0x7fea5038e8c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:418>
+2021-12-13 05:13:25,787[0x7fea5038e8c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:207>
+2021-12-13 05:13:25,787[0x7fea5038e8c0] DEBUG server - new socket client 2  @<handle_request> @@<myproxy.cpp:210>
+2021-12-13 05:13:25,787[0x7fea5038e8c0] DEBUG server - client socket is 2  @<handle_request> @@<myproxy.cpp:222>
+2021-12-13 05:13:25,787[0x7fea5038e8c0] DEBUG server - client socket 2 has read event  @<handle_request> @@<myproxy.cpp:232>
+2021-12-13 05:13:25,787[0x7fea5038e8c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 145   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 13   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 24   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 23   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,788[0x7fea5038e8c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:13:25,794[0x7fea5038e8c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:161>
+2021-12-13 05:13:25,796[0x7fea5038e8c0] DEBUG server - establish https connection  @<handle_request> @@<myproxy.cpp:302>
+2021-12-13 05:13:25,796[0x7fea5038e8c0] DEBUG server - SSL_accept  @<handle_request> @@<myproxy.cpp:331>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,797[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,799[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:13:25,800[0x7fea5038e8c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:345>
+2021-12-13 05:13:25,801[0x7fea5038e8c0] DEBUG server - return value is 1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:13:25,801[0x7fea5038e8c0] DEBUG server - buf is GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41
+Accept: */*
+Postman-Token: ea8cb600-e5fc-4983-80ba-492871ba4b3c
+Host: example.com
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+  @<handle_request> @@<myproxy.cpp:357>
+2021-12-13 05:15:29,582[0x7f75017108c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:419>
+2021-12-13 05:15:39,674[0x7f75017108c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:207>
+2021-12-13 05:15:39,674[0x7f75017108c0] DEBUG server - new socket client 2  @<handle_request> @@<myproxy.cpp:210>
+2021-12-13 05:15:39,674[0x7f75017108c0] DEBUG server - client socket is 2  @<handle_request> @@<myproxy.cpp:222>
+2021-12-13 05:15:39,675[0x7f75017108c0] DEBUG server - client socket 2 has read event  @<handle_request> @@<myproxy.cpp:232>
+2021-12-13 05:15:39,675[0x7f75017108c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 145   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 13   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 24   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 23   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,676[0x7f75017108c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:15:39,691[0x7f75017108c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:161>
+2021-12-13 05:15:39,694[0x7f75017108c0] DEBUG server - establish https connection  @<handle_request> @@<myproxy.cpp:302>
+2021-12-13 05:15:39,694[0x7f75017108c0] DEBUG server - SSL_accept  @<handle_request> @@<myproxy.cpp:331>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,696[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,697[0x7f75017108c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:15:39,698[0x7f75017108c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:15:39,698[0x7f75017108c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:15:39,698[0x7f75017108c0] DEBUG server - return value is 1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:15:39,698[0x7f75017108c0] DEBUG server - buf is GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41
+Accept: */*
+Postman-Token: aed2b1c6-0cfc-464a-b040-387f0adddca1
+Host: example.com
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+  @<handle_request> @@<myproxy.cpp:358>
+2021-12-13 05:19:10,180[0x7fd8886e08c0] DEBUG server - start daemon  @<main> @@<myproxy.cpp:419>
+2021-12-13 05:19:20,866[0x7fd8886e08c0] DEBUG server - new socket client  @<handle_request> @@<myproxy.cpp:207>
+2021-12-13 05:19:20,866[0x7fd8886e08c0] DEBUG server - new socket client 2  @<handle_request> @@<myproxy.cpp:210>
+2021-12-13 05:19:20,866[0x7fd8886e08c0] DEBUG server - client socket is 2  @<handle_request> @@<myproxy.cpp:222>
+2021-12-13 05:19:20,867[0x7fd8886e08c0] DEBUG server - client socket 2 has read event  @<handle_request> @@<myproxy.cpp:232>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 34   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 145   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 13   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 36   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 24   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 23   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,868[0x7fd8886e08c0] DEBUG server - total_read 2   @<handle_request> @@<myproxy.cpp:239>
+2021-12-13 05:19:20,882[0x7fd8886e08c0] DEBUG server - server connection create success  @<create_connection> @@<myproxy.cpp:161>
+2021-12-13 05:19:20,885[0x7fd8886e08c0] DEBUG server - establish https connection  @<handle_request> @@<myproxy.cpp:302>
+2021-12-13 05:19:20,885[0x7fd8886e08c0] DEBUG server - SSL_accept  @<handle_request> @@<myproxy.cpp:331>
+2021-12-13 05:19:20,887[0x7fd8886e08c0] DEBUG server - return value is -1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:19:20,887[0x7fd8886e08c0] DEBUG server - SSL_accept failed  @<handle_request> @@<myproxy.cpp:341>
+2021-12-13 05:19:20,887[0x7fd8886e08c0] DEBUG server - err number is 2  @<handle_request> @@<myproxy.cpp:343>
+2021-12-13 05:19:20,887[0x7fd8886e08c0] DEBUG server - SSL_ERROR_WANT_READ  @<handle_request> @@<myproxy.cpp:346>
+2021-12-13 05:19:20,889[0x7fd8886e08c0] DEBUG server - return value is 1  @<handle_request> @@<myproxy.cpp:338>
+2021-12-13 05:19:20,889[0x7fd8886e08c0] DEBUG server - buf is GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41
+Accept: */*
+Postman-Token: 55d65138-eac9-45c5-928c-e301dfdd759a
+Host: example.com
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+  @<handle_request> @@<myproxy.cpp:358>

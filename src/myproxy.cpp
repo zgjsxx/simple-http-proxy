@@ -10,6 +10,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include "openssl/ssl.h"
+#include "openssl/err.h"
 
 #include "st.h"
 #include "ServerLog.h"
@@ -186,6 +188,20 @@ static int forward_header(st_netfd_t &remote_nfd, char *header_buffer, int len)
     return 0; 
 }
 
+
+void wait_socket_readable(int fd)
+{
+    struct pollfd pds[1];
+    pds[0].fd = fd;
+    pds[0].events = POLLIN;
+    if (st_poll(pds, 1, ST_UTIME_NO_TIMEOUT) <= 0) 
+    {
+        print_sys_error("st_poll");
+        return;
+    } 
+    return;
+}
+
 static void *handle_request(void *arg)
 {
     LOG_DEBUG("new socket client");
@@ -244,33 +260,31 @@ static void *handle_request(void *arg)
                     break;
                 }
             }
-            //syslog(LOG_NOTICE,"client socket %d http header: %s",pds[0].fd ,header_buffer);
             break;
         }
     }
     char * p = strstr(header_buffer,"CONNECT"); /* 判断是否是http 隧道请求 */
     if(p) 
     {
-        //syslog(LOG_NOTICE,"receive CONNECT request");
         is_https_connect = true;
     }
     char remote_host[128]; 
     memset(remote_host,0,128);
     int remote_port; 
-    //syslog(LOG_NOTICE,"before: %s",remote_host);
 
     int res = extract_host(header_buffer, remote_host, remote_port);
-    //syslog(LOG_NOTICE,"remote host: %s, remote port: %d",remote_host,remote_port);
     st_netfd_t remote_nfd;
     create_connection(remote_host, remote_port,remote_nfd);
 
     if(!is_https_connect)
     {
+        //HTTP
         forward_header(remote_nfd,header_buffer,strlen(header_buffer));
     }
     else
     {
-        char * resp = "HTTP/1.1 200 Connection Established\r\n\r\n";
+
+        const char * resp = "HTTP/1.1 200 Connection Established\r\n\r\n";
         int len = strlen(resp);
         char buffer[len+1];
         strcpy(buffer,resp);
@@ -278,39 +292,108 @@ static void *handle_request(void *arg)
         {
             //syslog(LOG_NOTICE,"Send http tunnel response  failed\n");
             return nullptr;
+        }    
+
+        SSL_load_error_strings();
+        SSL_library_init();
+   
+        SSL_CTX * ctx;
+        ctx = SSL_CTX_new(TLS_server_method());
+        LOG_DEBUG("establish https connection");
+        if (ctx == NULL) 
+        {
+            LOG_DEBUG("ctx == NULL");
+            ERR_print_errors_fp(stdout);
+            exit(1);
         }       
+            /* Set the key and cert */
+        if (SSL_CTX_use_certificate_file(ctx, "./cert/server-cert.pem", SSL_FILETYPE_PEM) <= 0) {
+            LOG_DEBUG("SSL_CTX_use_certificate_file");
+            ERR_print_errors_fp(stderr);
+            exit(EXIT_FAILURE);
+        }
+
+        if (SSL_CTX_use_PrivateKey_file(ctx, "./cert/server-key.pem", SSL_FILETYPE_PEM) <= 0 ) {
+            LOG_DEBUG("SSL_CTX_use_PrivateKey_file");
+            ERR_print_errors_fp(stderr);
+            exit(EXIT_FAILURE);
+        }
+            /* 检查用户私钥是否正确*/
+        if (!SSL_CTX_check_private_key(ctx)) 
+        {
+            LOG_DEBUG("SSL_CTX_check_private_ke");
+            ERR_print_errors_fp(stdout);
+            exit(1);
+        }
+
+        SSL *ssl = SSL_new(ctx);
+        SSL_set_fd(ssl, st_netfd_fileno(cli_nfd));
+        LOG_DEBUG("SSL_accept");
+
+
+        
+        while(1)
+        {
+            int iret = SSL_accept(ssl);
+            LOG_DEBUG("return value is %d",iret);
+            if (iret <= 0) 
+            {         
+                LOG_DEBUG("SSL_accept failed");
+                int err = SSL_get_error(ssl, iret);
+                LOG_DEBUG("err number is %d",err);
+                if (err == SSL_ERROR_WANT_READ)
+                {
+                    LOG_DEBUG("SSL_ERROR_WANT_READ");
+                    wait_socket_readable(st_netfd_fileno(cli_nfd));
+                }
+            }
+            else if(iret == 1)
+            {
+                break;
+            }
+        }
+        
+        char buf[4096];
+        SSL_read(ssl, buf,4096);
+        LOG_DEBUG("buf is %s",buf);
     }
+
+
+       
+
+
+    
     
     //http
-    struct pollfd pds2[2];
+    // struct pollfd pds2[2];
 
-    pds2[0].fd = st_netfd_fileno(cli_nfd);
-    pds2[0].events = POLLIN;
-    pds2[1].fd = st_netfd_fileno(remote_nfd);
-    pds2[1].events = POLLIN;
-    for( ; ; )
-    {
-        pds2[0].revents = 0;
-        pds2[1].revents = 0;
+    // pds2[0].fd = st_netfd_fileno(cli_nfd);
+    // pds2[0].events = POLLIN;
+    // pds2[1].fd = st_netfd_fileno(remote_nfd);
+    // pds2[1].events = POLLIN;
+    // for( ; ; )
+    // {
+    //     pds2[0].revents = 0;
+    //     pds2[1].revents = 0;
 
-        if (st_poll(pds2, 2, ST_UTIME_NO_TIMEOUT) <= 0) 
-        {
-            print_sys_error("st_poll");
-            break;
-        }
+    //     if (st_poll(pds2, 2, ST_UTIME_NO_TIMEOUT) <= 0) 
+    //     {
+    //         print_sys_error("st_poll");
+    //         break;
+    //     }
 
-        if (pds2[0].revents & POLLIN) {
-            if (!pass(cli_nfd, remote_nfd))
-                break;
-        }
+    //     if (pds2[0].revents & POLLIN) {
+    //         if (!pass(cli_nfd, remote_nfd))
+    //             break;
+    //     }
 
-        if (pds2[1].revents & POLLIN) {
-            if (!pass(remote_nfd, cli_nfd))
-                break;
-        }
-    } 
-    st_netfd_close(remote_nfd);
-    st_netfd_close(remote_nfd);     
+    //     if (pds2[1].revents & POLLIN) {
+    //         if (!pass(remote_nfd, cli_nfd))
+    //             break;
+    //     }
+    // } 
+    // st_netfd_close(remote_nfd);
+    // st_netfd_close(remote_nfd);     
     return nullptr;
 
 }
