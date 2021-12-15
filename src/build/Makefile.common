@@ -1,0 +1,6 @@
+DATE_CMD=date +'%F %T'
+
+
+LDFLAGS_SO = -shared
+CFLAGS_SO = -fPIC
+AR = ar -cr
