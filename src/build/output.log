@@ -1,190 +1,37 @@
-2021-12-15 01:17:33,769[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - new socket client 2 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - host name is optimizationguide-pa.googleapis.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:17:41,549[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:17:42,013[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:42,014[0x7f24ff1648c0] DEBUG server - new socket client 3 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:42,014[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:42,014[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:42,015[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:17:42,015[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:17:42,015[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:17:42,015[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:17:43,099[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - new socket client 5 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:43,100[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:43,110[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:17:43,110[0x7f24ff1648c0] DEBUG server - host name is example.com, port is 80  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:17:43,123[0x7f24ff1648c0] DEBUG server - server->h_addr = ]??"??6  @<createServerConnection> @@<HttpTask.cpp:329>
-2021-12-15 01:17:43,124[0x7f24ff1648c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:336>
-2021-12-15 01:17:43,135[0x7f24ff1648c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:344>
-2021-12-15 01:17:43,135[0x7f24ff1648c0] DEBUG server - totol size = 505  @<handleIOEvent> @@<HttpTask.cpp:108>
-2021-12-15 01:17:43,135[0x7f24ff1648c0] DEBUG server - writtenBytes = 505  @<handleIOEvent> @@<HttpTask.cpp:115>
-2021-12-15 01:17:43,135[0x7f24ff1648c0] DEBUG server - write to server finish  @<handleIOEvent> @@<HttpTask.cpp:119>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - recv size = 1022  @<handleIOEvent> @@<HttpTask.cpp:127>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:134>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - response body size = 1022  @<handleIOEvent> @@<HttpTask.cpp:139>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - ret - m_pRespHeaderBuf = 370  @<handleIOEvent> @@<HttpTask.cpp:140>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - recv contains body  @<handleIOEvent> @@<HttpTask.cpp:141>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - response body size = 648  @<handleIOEvent> @@<HttpTask.cpp:144>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - totol size = 1022  @<handleIOEvent> @@<HttpTask.cpp:156>
-2021-12-15 01:17:43,535[0x7f24ff1648c0] DEBUG server - writtenBytes = 1022  @<handleIOEvent> @@<HttpTask.cpp:163>
-2021-12-15 01:17:43,536[0x7f24ff1648c0] DEBUG server - write to client finish  @<handleIOEvent> @@<HttpTask.cpp:167>
-2021-12-15 01:17:43,536[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:17:43,536[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:17:43,695[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:43,696[0x7f24ff1648c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:43,696[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:43,696[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:43,697[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:17:43,697[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:17:43,697[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:17:43,697[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:17:55,770[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:17:55,770[0x7f24ff1648c0] DEBUG server - new socket client 8 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:17:55,770[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:17:55,770[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:17:55,771[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:17:55,771[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:17:55,771[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:17:55,771[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:04,253[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:04,253[0x7f24ff1648c0] DEBUG server - new socket client 9 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:04,253[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:04,253[0x7f24ff1648c0] DEBUG server - http task is running, address: 236c000  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:04,254[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:04,254[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:04,254[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:04,254[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:05,207[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:05,207[0x7f24ff1648c0] DEBUG server - host name is example.com, port is 80  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:05,214[0x7f24ff1648c0] DEBUG server - server->h_addr = ]??"??6  @<createServerConnection> @@<HttpTask.cpp:329>
-2021-12-15 01:18:05,214[0x7f24ff1648c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:336>
-2021-12-15 01:18:05,221[0x7f24ff1648c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:344>
-2021-12-15 01:18:05,222[0x7f24ff1648c0] DEBUG server - totol size = 505  @<handleIOEvent> @@<HttpTask.cpp:108>
-2021-12-15 01:18:05,222[0x7f24ff1648c0] DEBUG server - writtenBytes = 505  @<handleIOEvent> @@<HttpTask.cpp:115>
-2021-12-15 01:18:05,222[0x7f24ff1648c0] DEBUG server - write to server finish  @<handleIOEvent> @@<HttpTask.cpp:119>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - recv size = 1028  @<handleIOEvent> @@<HttpTask.cpp:127>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:134>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - response body size = 1028  @<handleIOEvent> @@<HttpTask.cpp:139>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - ret - m_pRespHeaderBuf = 376  @<handleIOEvent> @@<HttpTask.cpp:140>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - recv contains body  @<handleIOEvent> @@<HttpTask.cpp:141>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - response body size = 648  @<handleIOEvent> @@<HttpTask.cpp:144>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - totol size = 1028  @<handleIOEvent> @@<HttpTask.cpp:156>
-2021-12-15 01:18:05,624[0x7f24ff1648c0] DEBUG server - writtenBytes = 1028  @<handleIOEvent> @@<HttpTask.cpp:163>
-2021-12-15 01:18:05,625[0x7f24ff1648c0] DEBUG server - write to client finish  @<handleIOEvent> @@<HttpTask.cpp:167>
-2021-12-15 01:18:05,625[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:05,625[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:07,242[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:07,242[0x7f24ff1648c0] DEBUG server - new socket client 11 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:07,242[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:07,243[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:07,243[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:07,243[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:07,243[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:07,243[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - new socket client 12 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:08,271[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:08,314[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:08,314[0x7f24ff1648c0] DEBUG server - new socket client 13 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:08,314[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:08,314[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:08,315[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:08,315[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:08,315[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:08,315[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - new socket client 14 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - host name is chrome-devtools-frontend.appspot.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:10,176[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:18,353[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:18,353[0x7f24ff1648c0] DEBUG server - new socket client 15 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:18,353[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:18,353[0x7f24ff1648c0] DEBUG server - http task is running, address: 2369500  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:18,354[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:18,354[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:18,354[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:18,354[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - new socket client 16 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419360  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:25,792[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:18:26,641[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:18:26,641[0x7f24ff1648c0] DEBUG server - new socket client 17 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:18:26,641[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:18:26,641[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419360  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:18:26,655[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:18:26,655[0x7f24ff1648c0] DEBUG server - host name is example.com, port is 80  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:18:26,659[0x7f24ff1648c0] DEBUG server - server->h_addr = ]??"??6  @<createServerConnection> @@<HttpTask.cpp:329>
-2021-12-15 01:18:26,659[0x7f24ff1648c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:336>
-2021-12-15 01:18:26,672[0x7f24ff1648c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:344>
-2021-12-15 01:18:26,672[0x7f24ff1648c0] DEBUG server - totol size = 505  @<handleIOEvent> @@<HttpTask.cpp:108>
-2021-12-15 01:18:26,672[0x7f24ff1648c0] DEBUG server - writtenBytes = 505  @<handleIOEvent> @@<HttpTask.cpp:115>
-2021-12-15 01:18:26,672[0x7f24ff1648c0] DEBUG server - write to server finish  @<handleIOEvent> @@<HttpTask.cpp:119>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - recv size = 1022  @<handleIOEvent> @@<HttpTask.cpp:127>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:134>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - response body size = 1022  @<handleIOEvent> @@<HttpTask.cpp:139>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - ret - m_pRespHeaderBuf = 370  @<handleIOEvent> @@<HttpTask.cpp:140>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - recv contains body  @<handleIOEvent> @@<HttpTask.cpp:141>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - response body size = 648  @<handleIOEvent> @@<HttpTask.cpp:144>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - totol size = 1022  @<handleIOEvent> @@<HttpTask.cpp:156>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - writtenBytes = 1022  @<handleIOEvent> @@<HttpTask.cpp:163>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - write to client finish  @<handleIOEvent> @@<HttpTask.cpp:167>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:18:27,036[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:20:00,188[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:20:00,188[0x7f24ff1648c0] DEBUG server - new socket client 19 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:20:00,188[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:20:00,188[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419340  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:20:00,189[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:20:00,189[0x7f24ff1648c0] DEBUG server - host name is accounts.google.com??, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:20:00,189[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:20:00,189[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - new socket client 20 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419340  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:20:00,358[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - new socket client 21 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419320  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:20:00,423[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
-2021-12-15 01:20:00,436[0x7f24ff1648c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
-2021-12-15 01:20:00,436[0x7f24ff1648c0] DEBUG server - new socket client 22 is in  @<start> @@<Daemon.cpp:65>
-2021-12-15 01:20:00,436[0x7f24ff1648c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
-2021-12-15 01:20:00,436[0x7f24ff1648c0] DEBUG server - http task is running, address: 2419320  @<taskRun> @@<HttpTask.cpp:50>
-2021-12-15 01:20:00,437[0x7f24ff1648c0] DEBUG server - header recv is finished  @<handleIOEvent> @@<HttpTask.cpp:79>
-2021-12-15 01:20:00,437[0x7f24ff1648c0] DEBUG server - host name is www.google.com, port is 443  @<handleIOEvent> @@<HttpTask.cpp:87>
-2021-12-15 01:20:00,437[0x7f24ff1648c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:60>
-2021-12-15 01:20:00,437[0x7f24ff1648c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
+2021-12-17 05:32:14,117[0x7f11ca30e8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
+2021-12-17 05:32:22,765[0x7f11ca30e8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
+2021-12-17 05:32:22,765[0x7f11ca30e8c0] DEBUG server - new socket client 2 is in  @<start> @@<Daemon.cpp:65>
+2021-12-17 05:32:22,765[0x7f11ca30e8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
+2021-12-17 05:32:22,765[0x7f11ca30e8c0] DEBUG server - http task is running, address: ded000  @<taskRun> @@<HttpTask.cpp:55>
+2021-12-17 05:32:22,772[0x7f11ca30e8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:121>
+2021-12-17 05:32:22,772[0x7f11ca30e8c0] DEBUG server - host name is example.com, port is 80  @<recvReqFromClient> @@<HttpTask.cpp:129>
+2021-12-17 05:32:22,772[0x7f11ca30e8c0] DEBUG server - content length = 100  @<getContentLengthFromHeader> @@<HttpTask.cpp:387>
+2021-12-17 05:32:22,785[0x7f11ca30e8c0] DEBUG server - server->h_addr = ]??"P??  @<createServerConnection> @@<HttpTask.cpp:409>
+2021-12-17 05:32:22,786[0x7f11ca30e8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:416>
+2021-12-17 05:32:22,794[0x7f11ca30e8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:424>
+2021-12-17 05:32:22,794[0x7f11ca30e8c0] DEBUG server - totol size = 347  @<sendReqToServer> @@<HttpTask.cpp:161>
+2021-12-17 05:32:22,794[0x7f11ca30e8c0] DEBUG server - writtenBytes = 347  @<sendReqToServer> @@<HttpTask.cpp:168>
+2021-12-17 05:32:22,794[0x7f11ca30e8c0] DEBUG server - write to server finish  @<sendReqToServer> @@<HttpTask.cpp:172>
+2021-12-17 05:33:03,178[0x7f11ca30e8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:61>
+2021-12-17 05:33:03,178[0x7f11ca30e8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:65>
+2021-12-17 05:33:03,178[0x7f11ca30e8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:53>
+2021-12-17 05:33:03,178[0x7f11ca30e8c0] DEBUG server - http task is running, address: e1e310  @<taskRun> @@<HttpTask.cpp:55>
+2021-12-17 05:33:03,184[0x7f11ca30e8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:121>
+2021-12-17 05:33:03,184[0x7f11ca30e8c0] DEBUG server - host name is example.com, port is 80  @<recvReqFromClient> @@<HttpTask.cpp:129>
+2021-12-17 05:33:03,187[0x7f11ca30e8c0] DEBUG server - server->h_addr = ]??"P??  @<createServerConnection> @@<HttpTask.cpp:409>
+2021-12-17 05:33:03,187[0x7f11ca30e8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:416>
+2021-12-17 05:33:03,190[0x7f11ca30e8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:424>
+2021-12-17 05:33:03,190[0x7f11ca30e8c0] DEBUG server - totol size = 326  @<sendReqToServer> @@<HttpTask.cpp:161>
+2021-12-17 05:33:03,190[0x7f11ca30e8c0] DEBUG server - writtenBytes = 326  @<sendReqToServer> @@<HttpTask.cpp:168>
+2021-12-17 05:33:03,190[0x7f11ca30e8c0] DEBUG server - write to server finish  @<sendReqToServer> @@<HttpTask.cpp:172>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - recv size = 1022  @<recvRespFromServer> @@<HttpTask.cpp:183>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:190>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - response body size = 1022  @<recvRespFromServer> @@<HttpTask.cpp:195>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - ret - m_pRespHeaderBuf = 370  @<recvRespFromServer> @@<HttpTask.cpp:196>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - recv contains body  @<recvRespFromServer> @@<HttpTask.cpp:197>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - response body size = 648  @<recvRespFromServer> @@<HttpTask.cpp:200>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - totol size = 1022  @<sendRespToClient> @@<HttpTask.cpp:216>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - writtenBytes = 1022  @<sendRespToClient> @@<HttpTask.cpp:223>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:227>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:65>
+2021-12-17 05:33:03,557[0x7f11ca30e8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:28>
