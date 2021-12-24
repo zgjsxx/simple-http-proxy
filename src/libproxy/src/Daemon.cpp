@@ -17,6 +17,7 @@
 #include "ServerLog.h"
 #include "SocketHelper.h"
 #include "HttpTask.h"
+#include "HttpsModule.h"
 
 std::vector<HttpTask*> g_httpTaskVec;
 
@@ -33,6 +34,8 @@ void Daemon::start()
     printf("start proxy ...\n");
     daemonize();
     initStateThread();
+    HttpsModule::initOpenssl();
+    HttpsModule::prepareResignCA();
 
     int proxySocket = SocketHelper::createProxySocket(80);
     if(proxySocket < 0)
@@ -62,12 +65,14 @@ void Daemon::start()
         HttpTask *task = new HttpTask();
         g_httpTaskVec.push_back(task);
         task->m_client_nfd = client_nfd;
+        task->m_clientFd= st_netfd_fileno(client_nfd);
         LOG_DEBUG("new socket client %d is in", st_netfd_fileno(client_nfd));
         if (st_thread_create(handleRequest, task, 0, 0) == NULL) 
         {
             LOG_DEBUG("st_thread_create failed");
             continue;
         }
+        LOG_DEBUG("create task suc");
     }
 
     while(1)

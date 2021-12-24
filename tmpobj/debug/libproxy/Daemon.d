@@ -150,4 +150,58 @@
  /usr/include/log4cxx/spi/hierarchyeventlistener.h \
  /usr/include/log4cxx/propertyconfigurator.h \
  /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
- include/SocketHelper.h include/HttpTask.h include/st.h
+ include/SocketHelper.h include/HttpTask.h \
+ ../import/openssl/include/openssl/ssl.h \
+ ../import/openssl/include/openssl/e_os2.h \
+ ../import/openssl/include/openssl/opensslconf.h \
+ ../import/openssl/include/openssl/opensslv.h \
+ ../import/openssl/include/openssl/comp.h \
+ ../import/openssl/include/openssl/crypto.h \
+ ../import/openssl/include/openssl/safestack.h \
+ ../import/openssl/include/openssl/stack.h \
+ ../import/openssl/include/openssl/ossl_typ.h \
+ ../import/openssl/include/openssl/cryptoerr.h \
+ ../import/openssl/include/openssl/symhacks.h \
+ ../import/openssl/include/openssl/comperr.h \
+ ../import/openssl/include/openssl/bio.h \
+ ../import/openssl/include/openssl/bioerr.h \
+ ../import/openssl/include/openssl/x509.h \
+ ../import/openssl/include/openssl/buffer.h \
+ ../import/openssl/include/openssl/buffererr.h \
+ ../import/openssl/include/openssl/evp.h \
+ ../import/openssl/include/openssl/evperr.h \
+ ../import/openssl/include/openssl/objects.h \
+ ../import/openssl/include/openssl/obj_mac.h \
+ ../import/openssl/include/openssl/asn1.h \
+ ../import/openssl/include/openssl/asn1err.h \
+ ../import/openssl/include/openssl/bn.h \
+ ../import/openssl/include/openssl/bnerr.h \
+ ../import/openssl/include/openssl/objectserr.h \
+ ../import/openssl/include/openssl/ec.h \
+ ../import/openssl/include/openssl/ecerr.h \
+ ../import/openssl/include/openssl/rsa.h \
+ ../import/openssl/include/openssl/rsaerr.h \
+ ../import/openssl/include/openssl/dsa.h \
+ ../import/openssl/include/openssl/dh.h \
+ ../import/openssl/include/openssl/dherr.h \
+ ../import/openssl/include/openssl/dsaerr.h \
+ ../import/openssl/include/openssl/sha.h \
+ ../import/openssl/include/openssl/x509err.h \
+ ../import/openssl/include/openssl/x509_vfy.h \
+ ../import/openssl/include/openssl/lhash.h \
+ ../import/openssl/include/openssl/pkcs7.h \
+ ../import/openssl/include/openssl/pkcs7err.h \
+ ../import/openssl/include/openssl/pem.h \
+ ../import/openssl/include/openssl/pemerr.h \
+ ../import/openssl/include/openssl/hmac.h \
+ ../import/openssl/include/openssl/async.h \
+ ../import/openssl/include/openssl/asyncerr.h \
+ ../import/openssl/include/openssl/ct.h \
+ ../import/openssl/include/openssl/cterr.h \
+ ../import/openssl/include/openssl/sslerr.h \
+ ../import/openssl/include/openssl/ssl2.h \
+ ../import/openssl/include/openssl/ssl3.h \
+ ../import/openssl/include/openssl/tls1.h \
+ ../import/openssl/include/openssl/dtls1.h \
+ ../import/openssl/include/openssl/srtp.h include/st.h \
+ include/HttpsModule.h

@@ -1,12 +1,52 @@
 #include "HttpsModule.h"
 #include "ServerLog.h"
 #include "openssl/err.h"
+#include "TaskIOHelper.h"
+
+
+EVP_PKEY* HttpsModule::m_caKey = nullptr;
+
+
+void HttpsModule::sslHandWithServer(SSL *serverSSL, int serverSock)
+{
+	while(1)
+	{	int ret = HttpsModule::handshakeServer(serverSSL);
+
+
+		if(ret == https_success)
+		{
+			LOG_DEBUG("establish TLS connection to server successfully");
+			break;
+		}
+		else if(ret == https_err_want_read)
+		{
+			TaskIOHelper::waitSocketReadable(serverSock,ST_UTIME_NO_TIMEOUT);
+			LOG_DEBUG("m_serverFd %d has read event",serverSock);
+			continue;
+		}
+		else if(ret == https_err_want_write)
+		{
+			TaskIOHelper::waitSocketWriteable(serverSock,ST_UTIME_NO_TIMEOUT);
+			LOG_DEBUG("m_serverFd %d has read event",serverSock);
+			continue;
+		}
+		else
+		{
+			LOG_DEBUG("uknown error");
+			break;
+		}
+
+	}
+}
+
+
 int HttpsModule::handshakeServer(SSL *serverSSL)
 {
     int ret;
     {
         ERR_clear_error();
-        int ret = SSL_connect(serverSSL);   
+        ret = SSL_connect(serverSSL);
+        LOG_DEBUG("handshakeServer ret = %d",ret);
     }
     if(ret == 1)
     {
@@ -66,6 +106,41 @@ int HttpsModule::handshakeServer(SSL *serverSSL)
 
 }
 
+
+void HttpsModule::sslHandWithClient(SSL* clientSSL, int clientFd)
+{
+	while(1)
+	{
+
+		int ret = HttpsModule::handshakeClient(clientSSL);
+
+
+		if(ret == https_success)
+		{
+			LOG_DEBUG("establish TLS connection to client successfully");
+			break;
+		}
+		else if(ret == https_err_want_read)
+		{
+			TaskIOHelper::waitSocketReadable(clientFd,ST_UTIME_NO_TIMEOUT);
+			LOG_DEBUG("m_serverFd %d has read event",clientFd);
+			continue;
+		}
+		else if(ret == https_err_want_write)
+		{
+			TaskIOHelper::waitSocketWriteable(clientFd,ST_UTIME_NO_TIMEOUT);
+			LOG_DEBUG("m_serverFd %d has read event",clientFd);
+			continue;
+		}
+		else
+		{
+			LOG_DEBUG("uknown error");
+			break;
+		}
+
+	}
+}
+
 int HttpsModule::handshakeClient(SSL *clientSSL)
 {
 	int ret = 0;
@@ -103,126 +178,141 @@ void HttpsModule::initOpenssl()
 {
     SSL_load_error_strings();
     SSL_library_init();
-   
-     
+}
 
-    //     SSL_CTX* server_ctx;
-    //     server_ctx = SSL_CTX_new(TLS_client_method());
-    //     SSL *server_ssl;
-    //     server_ssl = SSL_new(server_ctx);
+void HttpsModule::prepareResignCA()
+{
+	m_caKey = EVP_PKEY_new();
+	RSA *rsa = RSA_new();
 
-    //     SSL_set_fd(server_ssl, st_netfd_fileno(remote_nfd));
-    //     while(1)
-    //     {
+	FILE *fp;
+	if ((fp = fopen("cert/ca-key.pem", "r")) == NULL)
+	{
+		LOG_DEBUG("load private.key failed");
+	}
+	PEM_read_RSAPrivateKey(fp, &rsa, NULL, NULL);
 
-    //     }
+	if ((fp = fopen("cert/ca-cert.pem", "r")) == NULL)
+	{
+		LOG_DEBUG("laod public.key failed");
+	}
+	PEM_read_RSAPublicKey(fp, &rsa, NULL, NULL);
+	EVP_PKEY_assign_RSA(m_caKey, rsa);
 
+}
 
-        
-    //     EVP_PKEY* ca_key = create_key();
-    //     X509 *fake_x509 = create_fake_certificate(server_ssl, ca_key);
-    //     int key_length = 2048;
-    // 	RSA *new_cert_rsa = get_new_cert_rsa(key_length);
-	// 	EVP_PKEY* server_key = EVP_PKEY_new();
-    //     EVP_PKEY_set1_RSA(server_key, new_cert_rsa);
+void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_key, SSL* serverSSL)
+{
+	X509 *server_x509 = SSL_get_peer_certificate(serverSSL);
+	{
+		X509_NAME * issuer = X509_get_issuer_name(server_x509);
+		char issuer_name[2048] = { 0 };
+		X509_NAME_oneline(issuer, issuer_name, sizeof(issuer_name) - 1);
+		issuer_name[sizeof(issuer_name) - 1] = 0;
 
+		X509_NAME * subject = X509_get_subject_name(server_x509);
+		char subject_name[2048] = { 0 };
+				X509_NAME_oneline(subject, subject_name, sizeof(subject_name) - 1);
+				subject_name[sizeof(subject_name) - 1] = 0;
+		LOG_DEBUG("server certificate subject: %s ",subject_name);
+		LOG_DEBUG("server certificate issuer : %s",issuer_name);
 
-	// 	RSA_free(new_cert_rsa);
-    //     X509_set_pubkey(fake_x509, server_key);
+	}
 
-    //     const char * resp = "HTTP/1.1 200 Connection Established\r\n\r\n";
-    //     int len = strlen(resp);
-    //     char buffer[len+1];
-    //     strcpy(buffer,resp);
-    //     if(st_write(cli_nfd, buffer, len, ST_UTIME_NO_TIMEOUT) < 0)
-    //     {
-    //         //syslog(LOG_NOTICE,"Send http tunnel response  failed\n");
-    //         return nullptr;
-    //     }   
-
-
-    //     SSL_CTX * client_ctx;
-    //     client_ctx = SSL_CTX_new(TLS_server_method());
-
-    // /* Set the key and cert */
-    // // if (SSL_CTX_use_certificate_file(client_ctx, "./cert/server-cert.pem", SSL_FILETYPE_PEM) <= 0) {
-
-    // // }
-
-    // // if (SSL_CTX_use_PrivateKey_file(client_ctx, "./cert/server-key.pem", SSL_FILETYPE_PEM) <= 0 ) {
-
-    // // }  
-    //     if (fake_x509 && server_key) {
-    //     if (SSL_CTX_use_certificate(client_ctx, fake_x509) != 1)
-    //         LOG_DEBUG("Certificate error");
-    //     if (SSL_CTX_use_PrivateKey(client_ctx, server_key) != 1)
-    //         LOG_DEBUG("key error");
-    //     if (SSL_CTX_check_private_key(client_ctx) != 1)
-    //         LOG_DEBUG("Private key does not match the certificate public key");
-    // }
-} 
-
-// X509* create_fake_certificate(SSL* server_ssl, EVP_PKEY *key) 
-// {
-//     unsigned char buffer[128] = { 0 };
-//     int length = 0, loc;
-//     X509 *server_x509 = SSL_get_peer_certificate(server_ssl);
-//     X509 *fake_x509 = X509_dup(server_x509);
-//     if (server_x509 == NULL)
-//     {
-//         LOG_DEBUG("Fail to get the certificate from server!"); 
-//     }
-
-//     X509_set_version(fake_x509, X509_get_version(server_x509));
-//     ASN1_INTEGER *a = X509_get_serialNumber(fake_x509);
-//     a->data[0] = a->data[0] + 1; 
-//     X509_NAME *issuer = X509_NAME_new(); 
-//     X509_NAME_add_entry_by_txt(issuer, "CN", MBSTRING_ASC,
-//             (const unsigned char*)"TrendXu CA", -1, -1, 0);
-//     X509_NAME_add_entry_by_txt(issuer, "O", MBSTRING_ASC, (const unsigned char*)"Thawte Consulting (Pty) Ltd.", -1, -1, 0);
-//     X509_NAME_add_entry_by_txt(issuer, "OU", MBSTRING_ASC, (const unsigned char*)"Thawte SGC CA", -1,
-//             -1, 0);
-//     X509_set_issuer_name(fake_x509, issuer);  
-//     X509_sign(fake_x509, key, EVP_sha1()); 
-
-//     return fake_x509;
-// }
+	//X509 *fake_x509 = X509_new();
+	X509_set_version(fake_x509, 2);//v3
+	X509_set_serialNumber(fake_x509,X509_get_serialNumber(server_x509));
+	X509_NAME *issuer = X509_NAME_new();
+	X509_NAME_add_entry_by_txt(issuer, "CN", MBSTRING_ASC, (const unsigned char*)"www.xx.com", -1, -1, 0);
+	X509_NAME_add_entry_by_txt(issuer, "O", MBSTRING_ASC, (const unsigned char*)"XX (Pty) Ltd.", -1, -1, 0);
+	X509_NAME_add_entry_by_txt(issuer, "OU", MBSTRING_ASC, (const unsigned char*)"XX CA", -1,-1, 0);
+	X509_NAME_add_entry_by_txt(issuer, "L", MBSTRING_ASC, (const unsigned char*)"Boston", -1,-1, 0);
+	X509_NAME_add_entry_by_txt(issuer, "ST", MBSTRING_ASC, (const unsigned char*)"MA", -1,-1, 0);
+	X509_NAME_add_entry_by_txt(issuer, "C", MBSTRING_ASC, (const unsigned char*)"US", -1,-1, 0);
+	X509_set_issuer_name(fake_x509, issuer);
+	X509_set_subject_name(fake_x509,X509_get_subject_name(server_x509));
 
 
-// // 从文件读取伪造SSL证书时需要的RAS私钥和公钥
-// EVP_PKEY* create_key() 
-// {
-//     EVP_PKEY *key = EVP_PKEY_new();
-//     RSA *rsa = RSA_new();
+	SSL_set_servername(fake_x509, SSL_get_servername(serverSSL, TLSEXT_NAMETYPE_host_name));
 
-//     FILE *fp;
-//     if ((fp = fopen("ca-key.pem", "r")) == NULL)
-//     {
-//         LOG_DEBUG("private.key");
-//     } 
-//     PEM_read_RSAPrivateKey(fp, &rsa, NULL, NULL);
-    
-//     if ((fp = fopen("ca-cert.pem", "r")) == NULL)
-//     {
-//         LOG_DEBUG("public.key");
-//     } 
-//     PEM_read_RSAPublicKey(fp, &rsa, NULL, NULL);
+	ASN1_UTCTIME *s=ASN1_UTCTIME_new();
+	X509_gmtime_adj(s, long(0));
+	int days = 365;
+	X509_set_notBefore(fake_x509, s);
+	X509_gmtime_adj(s, (long)60*60*24*days);
+	X509_set_notAfter(fake_x509, s);
+	ASN1_UTCTIME_free(s);
+	int key_length = 2048;
+	RSA *new_cert_rsa = HttpsModule::get_new_cert_rsa(key_length);
+	//EVP_PKEY* server_key = EVP_PKEY_new();
+	EVP_PKEY_set1_RSA(server_key, new_cert_rsa);
+	X509_set_pubkey(fake_x509, server_key);
 
-//     EVP_PKEY_assign_RSA(key,rsa);
-//     return key;
-// }
+	//get subject alternative name (SAN) extension
+	std::vector<int> ext_id_list = {NID_subject_alt_name};
+	for(auto ext_id: ext_id_list)
+	{
+		X509_EXTENSION *ext_to_add = NULL;
 
-// static RSA *get_new_cert_rsa(int key_length)
-// {
-// 	RSA *rsa = RSA_new();
-// 	BIGNUM *bn = BN_new();
+		int extcount = X509_get_ext_count(server_x509);
+		for (int i = 0; i < extcount; i++)
+		{
+			X509_EXTENSION * ext = X509_get_ext(server_x509, i);
+			if (OBJ_obj2nid(X509_EXTENSION_get_object(ext)) == ext_id)
+			{
+				ext_to_add = ext;
+				break;
+			}
+		}
 
-// 	if (BN_set_word(bn, RSA_F4) <= 0 ||
-// 			RSA_generate_key_ex(rsa, key_length, bn, NULL) <= 0)
-// 	{
-// 		abort();
-// 	}
+		if (ext_to_add != NULL)
+		{
+			X509_add_ext(fake_x509, ext_to_add, -1);
+		}
+	}
+	//end of get san
 
-// 	BN_free(bn);
-// 	return rsa;
-// }
+
+	int nid = NID_sha256WithRSAEncryption;
+	X509_sign(fake_x509, HttpsModule::m_caKey, EVP_get_digestbynid(nid));
+}
+
+RSA* HttpsModule::get_new_cert_rsa(int key_length)
+ {
+ 	RSA *rsa = RSA_new();
+ 	BIGNUM *bn = BN_new();
+
+ 	if (BN_set_word(bn, RSA_F4) <= 0 ||
+ 			RSA_generate_key_ex(rsa, key_length, bn, NULL) <= 0)
+ 	{
+ 		abort();
+ 	}
+
+ 	BN_free(bn);
+ 	return rsa;
+ }
+
+
+int HttpsModule::st_SSL_read(int fd, SSL* ssl, void *buf, size_t nbyte,
+	       st_utime_t timeout)
+{
+	int ret;
+	while(1)
+	{
+		TaskIOHelper::waitSocketReadable(fd, timeout);
+		LOG_DEBUG("socket %d has read event",fd);
+		ret = SSL_read(ssl , buf ,nbyte);
+		if(ret >= 0)break;
+	}
+
+	return ret;
+}
+
+int HttpsModule::st_SSL_write(int fd, SSL* ssl, void *buf, size_t nbyte,
+	       st_utime_t timeout)
+{
+	TaskIOHelper::waitSocketWriteable(fd, timeout);
+	LOG_DEBUG("socket %d can write",fd);
+	int ret = SSL_write(ssl , buf ,nbyte);
+	return ret;
+}

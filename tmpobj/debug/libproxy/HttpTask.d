@@ -33,7 +33,49 @@
  /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/bits/in.h \
  /usr/include/arpa/inet.h /usr/include/netdb.h /usr/include/rpc/netdb.h \
- /usr/include/bits/netdb.h include/HttpTask.h \
+ /usr/include/bits/netdb.h ../import/openssl/include/openssl/x509.h \
+ ../import/openssl/include/openssl/e_os2.h \
+ ../import/openssl/include/openssl/opensslconf.h \
+ ../import/openssl/include/openssl/opensslv.h \
+ ../import/openssl/include/openssl/ossl_typ.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/limits.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+ ../import/openssl/include/openssl/symhacks.h \
+ ../import/openssl/include/openssl/buffer.h \
+ ../import/openssl/include/openssl/crypto.h /usr/include/bits/timex.h \
+ ../import/openssl/include/openssl/safestack.h \
+ ../import/openssl/include/openssl/stack.h \
+ ../import/openssl/include/openssl/cryptoerr.h /usr/include/pthread.h \
+ /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/bits/setjmp.h ../import/openssl/include/openssl/buffererr.h \
+ ../import/openssl/include/openssl/evp.h \
+ ../import/openssl/include/openssl/bio.h \
+ ../import/openssl/include/openssl/bioerr.h \
+ ../import/openssl/include/openssl/evperr.h \
+ ../import/openssl/include/openssl/objects.h \
+ ../import/openssl/include/openssl/obj_mac.h \
+ ../import/openssl/include/openssl/asn1.h \
+ ../import/openssl/include/openssl/asn1err.h \
+ ../import/openssl/include/openssl/bn.h \
+ ../import/openssl/include/openssl/bnerr.h \
+ ../import/openssl/include/openssl/objectserr.h \
+ ../import/openssl/include/openssl/ec.h \
+ ../import/openssl/include/openssl/ecerr.h \
+ ../import/openssl/include/openssl/rsa.h \
+ ../import/openssl/include/openssl/rsaerr.h \
+ ../import/openssl/include/openssl/dsa.h \
+ ../import/openssl/include/openssl/dh.h \
+ ../import/openssl/include/openssl/dherr.h \
+ ../import/openssl/include/openssl/dsaerr.h \
+ ../import/openssl/include/openssl/sha.h \
+ ../import/openssl/include/openssl/x509err.h \
+ ../import/openssl/include/openssl/x509_vfy.h \
+ ../import/openssl/include/openssl/lhash.h \
+ ../import/openssl/include/openssl/pkcs7.h \
+ ../import/openssl/include/openssl/pkcs7err.h include/HttpTask.h \
  /usr/include/c++/4.8.2/string \
  /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/os_defines.h \
@@ -77,8 +119,6 @@
  /usr/include/c++/4.8.2/ext/atomicity.h \
  /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr.h \
  /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
- /usr/include/bits/timex.h /usr/include/bits/setjmp.h \
  /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/atomic_word.h \
  /usr/include/c++/4.8.2/initializer_list \
  /usr/include/c++/4.8.2/ext/string_conversions.h \
@@ -89,7 +129,23 @@
  /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/4.8.2/bits/functional_hash.h \
  /usr/include/c++/4.8.2/bits/hash_bytes.h \
- /usr/include/c++/4.8.2/bits/basic_string.tcc include/st.h \
+ /usr/include/c++/4.8.2/bits/basic_string.tcc \
+ ../import/openssl/include/openssl/ssl.h \
+ ../import/openssl/include/openssl/comp.h \
+ ../import/openssl/include/openssl/comperr.h \
+ ../import/openssl/include/openssl/pem.h \
+ ../import/openssl/include/openssl/pemerr.h \
+ ../import/openssl/include/openssl/hmac.h \
+ ../import/openssl/include/openssl/async.h \
+ ../import/openssl/include/openssl/asyncerr.h \
+ ../import/openssl/include/openssl/ct.h \
+ ../import/openssl/include/openssl/cterr.h \
+ ../import/openssl/include/openssl/sslerr.h \
+ ../import/openssl/include/openssl/ssl2.h \
+ ../import/openssl/include/openssl/ssl3.h \
+ ../import/openssl/include/openssl/tls1.h \
+ ../import/openssl/include/openssl/dtls1.h \
+ ../import/openssl/include/openssl/srtp.h include/st.h \
  /usr/include/poll.h /usr/include/sys/poll.h /usr/include/bits/poll.h \
  include/TaskIOHelper.h include/ServerLog.h /usr/include/log4cxx/logger.h \
  /usr/include/log4cxx/helpers/appenderattachableimpl.h \
@@ -118,11 +174,6 @@
  /usr/include/log4cxx/helpers/objectimpl.h \
  /usr/include/log4cxx/helpers/mutex.h /usr/include/log4cxx/helpers/pool.h \
  /usr/include/log4cxx/level.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/limits.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
  /usr/include/log4cxx/spi/location/locationinfo.h \
  /usr/include/log4cxx/helpers/objectoutputstream.h \
  /usr/include/log4cxx/mdc.h /usr/include/log4cxx/helpers/outputstream.h \
@@ -151,4 +202,4 @@
  /usr/include/log4cxx/spi/hierarchyeventlistener.h \
  /usr/include/log4cxx/propertyconfigurator.h \
  /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
- include/st.h
+ include/st.h include/HttpsModule.h

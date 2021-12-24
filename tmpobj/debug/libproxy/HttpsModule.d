@@ -75,8 +75,19 @@
  ../import/openssl/include/openssl/ssl3.h \
  ../import/openssl/include/openssl/tls1.h \
  ../import/openssl/include/openssl/dtls1.h \
- ../import/openssl/include/openssl/srtp.h include/ServerLog.h \
- /usr/include/log4cxx/logger.h \
+ ../import/openssl/include/openssl/srtp.h include/st.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/environments.h /usr/include/bits/confname.h \
+ /usr/include/getopt.h /usr/include/sys/socket.h /usr/include/sys/uio.h \
+ /usr/include/bits/uio.h /usr/include/bits/socket.h \
+ /usr/include/bits/socket_type.h /usr/include/bits/sockaddr.h \
+ /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/errno.h /usr/include/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/poll.h /usr/include/sys/poll.h /usr/include/bits/poll.h \
+ include/ServerLog.h /usr/include/log4cxx/logger.h \
  /usr/include/log4cxx/helpers/appenderattachableimpl.h \
  /usr/include/log4cxx/spi/appenderattachable.h \
  /usr/include/log4cxx/logstring.h /usr/include/c++/4.8.2/string \
@@ -126,10 +137,7 @@
  /usr/include/c++/4.8.2/initializer_list \
  /usr/include/c++/4.8.2/ext/string_conversions.h \
  /usr/include/c++/4.8.2/cstdlib /usr/include/c++/4.8.2/cstdio \
- /usr/include/c++/4.8.2/cerrno /usr/include/errno.h \
- /usr/include/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h \
+ /usr/include/c++/4.8.2/cerrno \
  /usr/include/c++/4.8.2/bits/functional_hash.h \
  /usr/include/c++/4.8.2/bits/hash_bytes.h \
  /usr/include/c++/4.8.2/bits/basic_string.tcc \
@@ -185,4 +193,4 @@
  /usr/include/log4cxx/spi/hierarchyeventlistener.h \
  /usr/include/log4cxx/propertyconfigurator.h \
  /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
- ../import/openssl/include/openssl/err.h
+ ../import/openssl/include/openssl/err.h include/TaskIOHelper.h
