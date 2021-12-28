@@ -5,9 +5,9 @@
 
 
 EVP_PKEY* HttpsModule::m_caKey = nullptr;
+extern HttpTask* g_currentTask;
 
-
-void HttpsModule::sslHandWithServer(SSL *serverSSL, int serverSock)
+int HttpsModule::sslHandWithServer(SSL *serverSSL, int serverSock)
 {
 	while(1)
 	{	int ret = HttpsModule::handshakeServer(serverSSL);
@@ -16,7 +16,7 @@ void HttpsModule::sslHandWithServer(SSL *serverSSL, int serverSock)
 		if(ret == https_success)
 		{
 			LOG_DEBUG("establish TLS connection to server successfully");
-			break;
+			return 0;
 		}
 		else if(ret == https_err_want_read)
 		{
@@ -33,7 +33,7 @@ void HttpsModule::sslHandWithServer(SSL *serverSSL, int serverSock)
 		else
 		{
 			LOG_DEBUG("uknown error");
-			break;
+			return -1;
 		}
 
 	}
@@ -204,6 +204,7 @@ void HttpsModule::prepareResignCA()
 void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_key, SSL* serverSSL)
 {
 	X509 *server_x509 = SSL_get_peer_certificate(serverSSL);
+	if(server_x509 != nullptr)
 	{
 		X509_NAME * issuer = X509_get_issuer_name(server_x509);
 		char issuer_name[2048] = { 0 };
@@ -217,6 +218,10 @@ void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_
 		LOG_DEBUG("server certificate subject: %s ",subject_name);
 		LOG_DEBUG("server certificate issuer : %s",issuer_name);
 
+	}
+	else
+	{
+		LOG_DEBUG("server_x509 == null");
 	}
 
 	//X509 *fake_x509 = X509_new();
@@ -292,7 +297,7 @@ RSA* HttpsModule::get_new_cert_rsa(int key_length)
 
 
 int HttpsModule::st_SSL_read(int fd, SSL* ssl, void *buf, size_t nbyte,
-	       st_utime_t timeout)
+	       st_utime_t timeout,HttpTask* task)
 {
 	int ret;
 	while(1)
@@ -316,7 +321,9 @@ int HttpsModule::st_SSL_read(int fd, SSL* ssl, void *buf, size_t nbyte,
 			{
 				case SSL_ERROR_WANT_READ:
 					LOG_DEBUG("SSL_read: error want read");
+					g_currentTask = nullptr;
 					TaskIOHelper::waitSocketReadable(fd, timeout);
+					g_currentTask = task;
 					LOG_DEBUG("socket %d has read event",fd);
 					continue;
 				case SSL_ERROR_ZERO_RETURN:
@@ -336,15 +343,43 @@ int HttpsModule::st_SSL_read(int fd, SSL* ssl, void *buf, size_t nbyte,
 }
 
 int HttpsModule::st_SSL_write(int fd, SSL* ssl, void *buf, size_t nbyte,
-	       st_utime_t timeout)
+	       st_utime_t timeout, HttpTask* task)
 {
-	TaskIOHelper::waitSocketWriteable(fd, timeout);
-	LOG_DEBUG("socket %d can write",fd);
-	int ret = SSL_write(ssl , buf ,nbyte);
-	if(ret == -1)
+	int ret = 0;
+	while(1)
 	{
-		int err = SSL_get_error(ssl, ret);
-		LOG_DEBUG("err code is %d",err);
+		ret = SSL_write(ssl , buf ,nbyte);
+		if(ret > 0)
+		{
+			break;
+		}
+		else if(ret == -1)
+		{
+			int err = SSL_get_error(ssl, ret);
+			LOG_DEBUG("err code is %d",err);
+			switch(err)
+			{
+				case SSL_ERROR_WANT_WRITE:
+					LOG_DEBUG("SSL_write: error want read");
+					g_currentTask = nullptr;
+					TaskIOHelper::waitSocketWriteable(fd, timeout);
+					g_currentTask = task;
+					LOG_DEBUG("socket %d can write",fd);
+					continue;
+				case SSL_ERROR_SSL:
+					LOG_DEBUG("SSL_ERROR_SSL");
+					return -1;
+				case SSL_ERROR_SYSCALL:
+					LOG_DEBUG("SSL_ERROR_SYSCALL");
+					return -1;
+			}
+		}
+		else
+		{
+			LOG_DEBUG("unknow error");
+			return -1;
+		}
 	}
+
 	return ret;
 }

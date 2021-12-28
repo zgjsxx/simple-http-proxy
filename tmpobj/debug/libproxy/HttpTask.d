@@ -202,4 +202,5 @@
  /usr/include/log4cxx/spi/hierarchyeventlistener.h \
  /usr/include/log4cxx/propertyconfigurator.h \
  /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
- include/st.h include/HttpsModule.h include/HexCoder.h
+ include/st.h include/HttpsModule.h include/HexCoder.h \
+ include/StringUtil.h

@@ -28,6 +28,7 @@ public:
     int sendReqToServer(bool useHttpsRead);
     int recvRespFromServer(bool useHttpsRead);
     int sendRespToClient(bool useHttpsRead);
+    int checkIPOrDomain(std::string str);
 
 public:
     int m_clientFd;
@@ -61,6 +62,7 @@ public:
     //response
     struct httpResponse{
     	int m_respHeaderBufSize;
+    	int BodyBufSize;
     	int m_headerBufSize;
 		char* m_pRespHeaderBuf;
 		char* m_pRespBodyBuf;
