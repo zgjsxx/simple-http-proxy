@@ -75,7 +75,23 @@
  /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/4.8.2/bits/functional_hash.h \
  /usr/include/c++/4.8.2/bits/hash_bytes.h \
- /usr/include/c++/4.8.2/bits/basic_string.tcc include/ServerLog.h \
+ /usr/include/c++/4.8.2/bits/basic_string.tcc \
+ /usr/include/c++/4.8.2/iostream /usr/include/c++/4.8.2/ostream \
+ /usr/include/c++/4.8.2/ios /usr/include/c++/4.8.2/bits/ios_base.h \
+ /usr/include/c++/4.8.2/bits/locale_classes.h \
+ /usr/include/c++/4.8.2/bits/locale_classes.tcc \
+ /usr/include/c++/4.8.2/streambuf \
+ /usr/include/c++/4.8.2/bits/streambuf.tcc \
+ /usr/include/c++/4.8.2/bits/basic_ios.h \
+ /usr/include/c++/4.8.2/bits/locale_facets.h \
+ /usr/include/c++/4.8.2/cwctype /usr/include/wctype.h \
+ /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_base.h \
+ /usr/include/c++/4.8.2/bits/streambuf_iterator.h \
+ /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_inline.h \
+ /usr/include/c++/4.8.2/bits/locale_facets.tcc \
+ /usr/include/c++/4.8.2/bits/basic_ios.tcc \
+ /usr/include/c++/4.8.2/bits/ostream.tcc /usr/include/c++/4.8.2/istream \
+ /usr/include/c++/4.8.2/bits/istream.tcc include/ServerLog.h \
  /usr/include/log4cxx/logger.h \
  /usr/include/log4cxx/helpers/appenderattachableimpl.h \
  /usr/include/log4cxx/spi/appenderattachable.h \
@@ -114,25 +130,70 @@
  /usr/include/log4cxx/helpers/charsetencoder.h \
  /usr/include/log4cxx/helpers/resourcebundle.h \
  /usr/include/log4cxx/helpers/messagebuffer.h \
- /usr/include/c++/4.8.2/sstream /usr/include/c++/4.8.2/istream \
- /usr/include/c++/4.8.2/ios /usr/include/c++/4.8.2/bits/ios_base.h \
- /usr/include/c++/4.8.2/bits/locale_classes.h \
- /usr/include/c++/4.8.2/bits/locale_classes.tcc \
- /usr/include/c++/4.8.2/streambuf \
- /usr/include/c++/4.8.2/bits/streambuf.tcc \
- /usr/include/c++/4.8.2/bits/basic_ios.h \
- /usr/include/c++/4.8.2/bits/locale_facets.h \
- /usr/include/c++/4.8.2/cwctype /usr/include/wctype.h \
- /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_base.h \
- /usr/include/c++/4.8.2/bits/streambuf_iterator.h \
- /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_inline.h \
- /usr/include/c++/4.8.2/bits/locale_facets.tcc \
- /usr/include/c++/4.8.2/bits/basic_ios.tcc /usr/include/c++/4.8.2/ostream \
- /usr/include/c++/4.8.2/bits/ostream.tcc \
- /usr/include/c++/4.8.2/bits/istream.tcc \
- /usr/include/c++/4.8.2/bits/sstream.tcc \
+ /usr/include/c++/4.8.2/sstream /usr/include/c++/4.8.2/bits/sstream.tcc \
  /usr/include/log4cxx/spi/loggerrepository.h \
  /usr/include/log4cxx/spi/loggerfactory.h \
  /usr/include/log4cxx/spi/hierarchyeventlistener.h \
  /usr/include/log4cxx/propertyconfigurator.h \
- /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h
+ /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
+ include/HttpTask.h ../import/openssl/include/openssl/ssl.h \
+ ../import/openssl/include/openssl/e_os2.h \
+ ../import/openssl/include/openssl/opensslconf.h \
+ ../import/openssl/include/openssl/opensslv.h \
+ ../import/openssl/include/openssl/comp.h \
+ ../import/openssl/include/openssl/crypto.h \
+ ../import/openssl/include/openssl/safestack.h \
+ ../import/openssl/include/openssl/stack.h \
+ ../import/openssl/include/openssl/ossl_typ.h \
+ ../import/openssl/include/openssl/cryptoerr.h \
+ ../import/openssl/include/openssl/symhacks.h \
+ ../import/openssl/include/openssl/comperr.h \
+ ../import/openssl/include/openssl/bio.h \
+ ../import/openssl/include/openssl/bioerr.h \
+ ../import/openssl/include/openssl/x509.h \
+ ../import/openssl/include/openssl/buffer.h \
+ ../import/openssl/include/openssl/buffererr.h \
+ ../import/openssl/include/openssl/evp.h \
+ ../import/openssl/include/openssl/evperr.h \
+ ../import/openssl/include/openssl/objects.h \
+ ../import/openssl/include/openssl/obj_mac.h \
+ ../import/openssl/include/openssl/asn1.h \
+ ../import/openssl/include/openssl/asn1err.h \
+ ../import/openssl/include/openssl/bn.h \
+ ../import/openssl/include/openssl/bnerr.h \
+ ../import/openssl/include/openssl/objectserr.h \
+ ../import/openssl/include/openssl/ec.h \
+ ../import/openssl/include/openssl/ecerr.h \
+ ../import/openssl/include/openssl/rsa.h \
+ ../import/openssl/include/openssl/rsaerr.h \
+ ../import/openssl/include/openssl/dsa.h \
+ ../import/openssl/include/openssl/dh.h \
+ ../import/openssl/include/openssl/dherr.h \
+ ../import/openssl/include/openssl/dsaerr.h \
+ ../import/openssl/include/openssl/sha.h \
+ ../import/openssl/include/openssl/x509err.h \
+ ../import/openssl/include/openssl/x509_vfy.h \
+ ../import/openssl/include/openssl/lhash.h \
+ ../import/openssl/include/openssl/pkcs7.h \
+ ../import/openssl/include/openssl/pkcs7err.h \
+ ../import/openssl/include/openssl/pem.h \
+ ../import/openssl/include/openssl/pemerr.h \
+ ../import/openssl/include/openssl/hmac.h \
+ ../import/openssl/include/openssl/async.h \
+ ../import/openssl/include/openssl/asyncerr.h \
+ ../import/openssl/include/openssl/ct.h \
+ ../import/openssl/include/openssl/cterr.h \
+ ../import/openssl/include/openssl/sslerr.h \
+ ../import/openssl/include/openssl/ssl2.h \
+ ../import/openssl/include/openssl/ssl3.h \
+ ../import/openssl/include/openssl/tls1.h \
+ ../import/openssl/include/openssl/dtls1.h \
+ ../import/openssl/include/openssl/srtp.h include/st.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/environments.h /usr/include/bits/confname.h \
+ /usr/include/getopt.h /usr/include/sys/socket.h /usr/include/sys/uio.h \
+ /usr/include/bits/uio.h /usr/include/bits/socket.h \
+ /usr/include/bits/socket_type.h /usr/include/bits/sockaddr.h \
+ /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/poll.h /usr/include/sys/poll.h /usr/include/bits/poll.h

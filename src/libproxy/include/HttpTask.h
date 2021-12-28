@@ -14,6 +14,7 @@ public:
     int extractHostFromHeader();
     int createServerConnection();
     int getContentLengthFromHeader(bool isRequest);
+    int getTransEncodingChunkedFromHeader();
     int getSocketCareEvent(pollfd* ev);
     int handleIOEvent();
     int read_nbytes(st_netfd_t cli_nfd, char *buf, int len);
@@ -69,6 +70,7 @@ public:
 		int contentLength;
         bool m_headerRecvFinished;
         bool m_bodyRecvFinished;
+        bool isChunked;
     }m_resp;
 
     std::string m_serverHostName;

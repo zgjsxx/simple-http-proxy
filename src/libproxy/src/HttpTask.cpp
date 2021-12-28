@@ -18,6 +18,7 @@
 #include "ServerLog.h"
 #include "st.h"
 #include "HttpsModule.h"
+#include "HexCoder.h"
 
 HttpTask::HttpTask()
 {
@@ -40,6 +41,8 @@ HttpTask::HttpTask()
     m_req.m_reqHeaderBufSize = 8192;
     m_req.m_pReqHeaderBuf = (char *) malloc(m_req.m_reqHeaderBufSize);//8KB
     m_req.m_pReqBodyBuf  =(char *)malloc(m_req.m_reqHeaderBufSize * 10);//80KB
+    memset(m_req.m_pReqHeaderBuf, 0, m_req.m_reqHeaderBufSize);
+    memset(m_req.m_pReqBodyBuf, 0, m_req.m_reqHeaderBufSize * 10);
     m_req.m_reqHeaderBufPos = 0;
     m_req.m_reqBodyBufPos = 0;
     m_req.m_headerRecvFinished = false;
@@ -49,20 +52,32 @@ HttpTask::HttpTask()
     //response
     m_resp.m_respHeaderBufSize = 8192;
     m_resp.m_pRespHeaderBuf = (char *) malloc(m_resp.m_respHeaderBufSize);
-    m_resp.m_pRespBodyBuf = (char *) malloc(m_resp.m_respHeaderBufSize * 10);
+    m_resp.m_pRespBodyBuf = (char *) malloc(m_resp.m_respHeaderBufSize * 100);
+    memset( m_resp.m_pRespHeaderBuf, 0 ,m_resp.m_respHeaderBufSize);
+    memset( m_resp.m_pRespBodyBuf, 0 ,m_resp.m_respHeaderBufSize * 100);
     m_resp.m_respHeaderBufPos = 0;
     m_resp.m_respBodyBufPos = 0;
     m_resp.m_headerRecvFinished = false;
     m_resp.m_bodyRecvFinished = false;
     m_resp.contentLength = 0;
+    m_resp.isChunked = false;
 
     m_isHttps = false;
     m_serverFd = -1;
     m_clientFd = -1;
 
+
+    m_pClientSSL = nullptr;
+    m_pClientCTX = nullptr;
+    m_pServerSSL = nullptr;
+    m_pServerCTX = nullptr;
+    LOG_DEBUG("request header address %x, body address %x",&m_req.m_pReqHeaderBuf[0], &m_req.m_pReqBodyBuf[0]);
+    LOG_DEBUG("response header address %x, body address %x",&m_resp.m_pRespHeaderBuf[0], &m_resp.m_pRespBodyBuf[0]);
 }
 HttpTask::~HttpTask()
 {
+    LOG_DEBUG("request header address %x, body address %x",&m_req.m_pReqHeaderBuf[0], &m_req.m_pReqBodyBuf[0]);
+    LOG_DEBUG("response header address %x, body address %x",&m_resp.m_pRespHeaderBuf[0], &m_resp.m_pRespBodyBuf[0]);
 	free(m_req.m_pReqHeaderBuf);
 	free(m_req.m_pReqBodyBuf);
 
@@ -75,6 +90,17 @@ HttpTask::~HttpTask()
 		st_netfd_close(m_server_nfd);
 	}
 
+	if(m_pClientSSL != nullptr)
+	{
+		SSL_free(m_pClientSSL);
+		SSL_CTX_free(m_pClientCTX);
+	}
+
+	if(m_pServerSSL != nullptr)
+	{
+		SSL_free(m_pServerSSL);
+		SSL_CTX_free(m_pServerCTX);
+	}
 }
 
 void HttpTask::taskRun()
@@ -190,7 +216,7 @@ int HttpTask::recvReqFromClient(bool useHttpsRead)
 					LOG_DEBUG("no content length, recv is finished");
 					m_req.m_bodyRecvFinished = true;
 					m_bisClientReqRecvFinised = true;
-					//LOG_DEBUG("m_req.m_pReqHeaderBuf is %s",m_req.m_pReqHeaderBuf);
+					LOG_DEBUG("m_req.m_pReqHeaderBuf is %s",m_req.m_pReqHeaderBuf);
 				}
 				else
 				{
@@ -314,6 +340,7 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 	while(!m_bisServerRespRecvFinised)
 	{
 		char buf[8192];
+		memset(buf, 0, 8192);
 		int size;
 		if(useHttpsRead)
 		{
@@ -347,11 +374,18 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 					LOG_DEBUG("extract content length from header failed");
 					return -1;
 				}
-				if(m_resp.contentLength == 0)
+				ret = getTransEncodingChunkedFromHeader();
+				if(ret < 0)
+				{
+					LOG_DEBUG("extract Transfer Encoding failed");
+					return -1;
+				}
+				if(!m_resp.isChunked && m_resp.contentLength == 0)
 				{
 					LOG_DEBUG("no content length, recv is finished");
 					m_resp.m_bodyRecvFinished = true;
 					m_bisServerRespRecvFinised = true;
+					LOG_DEBUG("m_resp.m_pRespHeaderBuf is %s",m_resp.m_pRespHeaderBuf);
 				}
 				else
 				{
@@ -363,8 +397,9 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 					memset(m_resp.m_pRespHeaderBuf + headerEndPos, 0 , bodySize);
 					m_resp.m_respBodyBufPos = bodySize;
 					m_resp.m_respHeaderBufPos = headerEndPos;
-					LOG_DEBUG("m_req.m_pReqHeaderBuf is %s",m_resp.m_pRespHeaderBuf);
-					if(m_resp.m_respBodyBufPos == m_resp.contentLength)
+					LOG_DEBUG("m_resp.m_pRespHeaderBuf is %s",m_resp.m_pRespHeaderBuf);
+					if(!m_resp.isChunked &&
+							m_resp.m_respBodyBufPos == m_resp.contentLength)
 					{
 						LOG_DEBUG("first recv , header and body is all recved, do not read more data");
 						LOG_DEBUG("m_req.m_pReqBodyBuf is %s",m_resp.m_pRespBodyBuf);
@@ -394,7 +429,8 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 		}
 		if(!m_resp.m_bodyRecvFinished)
 		{
-			if(m_resp.m_respBodyBufPos == m_resp.contentLength)
+			if(!m_resp.isChunked &&
+					m_resp.m_respBodyBufPos == m_resp.contentLength)
 			{
 				LOG_DEBUG("current recv bytes = %d, content length = %d",m_resp.m_respBodyBufPos,m_resp.contentLength);
 				m_resp.m_bodyRecvFinished = true;
@@ -405,12 +441,34 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 			{
 				memcpy(m_resp.m_pRespBodyBuf + m_resp.m_respBodyBufPos, buf, size);
 				m_resp.m_respBodyBufPos += size;
-				LOG_DEBUG("current recv bytes = %d, content length = %d",m_resp.m_respBodyBufPos,m_resp.contentLength);
-				if(m_resp.m_respBodyBufPos == m_resp.contentLength)
+				//LOG_DEBUG("current recv bytes = %d, content length = %d",m_resp.m_respBodyBufPos,m_resp.contentLength);
+				if(!m_resp.isChunked && m_resp.m_respBodyBufPos == m_resp.contentLength)
 				{
 					m_resp.m_bodyRecvFinished = true;
 					m_bisServerRespRecvFinised = true;
 					LOG_DEBUG("body recv is finished");
+				}
+				else if(m_resp.isChunked)
+				{
+					LOG_DEBUG("chunked body");
+					LOG_DEBUG("response body is %s",HexCoder::encode((const char *)buf + size-64, 64).c_str());
+					if(buf[size -5] == '0'  &&
+							buf[size -4] == '\r' &&
+							buf[size -3] == '\n' &&
+							buf[size -2] == '\r' &&
+							buf[size -1] == '\n')
+					{
+						// 0(0x30)  CR(\r 0x0d)  LF(\n 0x0a)  CR(\r 0x0d)  LF(\n 0x0a)
+						//cannot use strstr to detect end tag of body, because buf is a binary array
+						m_resp.m_bodyRecvFinished = true;
+						m_bisServerRespRecvFinised = true;
+						LOG_DEBUG("end of chunked, body recv is finished");
+						return 0;
+					}
+					else
+					{
+						LOG_DEBUG("Current pos = %d, continue to recv chunked body",m_resp.m_respBodyBufPos);
+					}
 				}
 				else
 				{
@@ -420,13 +478,15 @@ int HttpTask::recvRespFromServer(bool useHttpsRead)
 
 		}
 	}
+
+	return 0;
 }
 
 int HttpTask::sendRespToClient(bool useHttpsRead)
 {
 	while(!m_bisServerRespSendFinised)
 	{
-		LOG_DEBUG("totol size = %d",m_resp.m_respHeaderBufPos);
+		LOG_DEBUG("response header totol size = %d",m_resp.m_respHeaderBufPos);
 		int writtenBytes = 0;
 		int leftBytes = m_resp.m_respHeaderBufPos;
 		char *ptr = m_resp.m_pRespHeaderBuf;
@@ -447,6 +507,7 @@ int HttpTask::sendRespToClient(bool useHttpsRead)
 		}
 		LOG_DEBUG("write to client finish");
 
+		LOG_DEBUG("response body totol size = %d",m_resp.m_respBodyBufPos);
 		leftBytes = m_resp.m_respBodyBufPos;
 		ptr = m_resp.m_pRespBodyBuf;
 		while(leftBytes > 0)
@@ -538,7 +599,9 @@ ssize_t HttpTask::read_line(st_netfd_t cli_nfd, void *buffer, size_t max_size)
 
 int HttpTask::extractHostFromHeader()
 {
+	//LOG_DEBUG("m_req.m_pReqHeaderBuf is %s",m_req.m_pReqHeaderBuf);
     char remote_host[100];
+    memset(remote_host, 0, sizeof(remote_host));
     int remote_port;
     const char * _p = strstr(m_req.m_pReqHeaderBuf, "CONNECT");//CONNECT example.com:443 HTTP/1.1
     const char * _p1 = nullptr;
@@ -650,6 +713,43 @@ int HttpTask::getContentLengthFromHeader(bool isRequest)
     return 0;
 }
 
+int HttpTask::getTransEncodingChunkedFromHeader()
+{
+    char *pos1 = nullptr;
+    char *pos2 = nullptr;
+
+    pos1 = strstr(m_resp.m_pRespHeaderBuf,"Transfer-Encoding");
+
+
+    if(pos1 == nullptr)
+    {
+    	LOG_DEBUG("Response do not contain Transfer-Encoding header");
+    	return 0;
+    }
+    pos2 = strstr(pos1,"\r\n");
+    if(pos2 == nullptr)
+    {
+    	LOG_DEBUG("can not find \r\n");
+    	return -1;
+    }
+
+
+    int len = pos2 - (pos1 + 18);
+    char transferEncoding[100];
+    memset(transferEncoding, 0, 100);
+    memcpy(transferEncoding, pos1 + 18, len);
+
+    LOG_DEBUG("transfer encoding = %s",transferEncoding);
+    if(strstr(transferEncoding, "chunked") != nullptr)
+    {
+    	LOG_DEBUG("response format is chunked");
+    	m_resp.isChunked = true;
+    }
+
+
+    return 0;
+}
+
 int HttpTask::createServerConnection() {
      struct sockaddr_in server_addr;
      struct hostent *server;
@@ -659,9 +759,9 @@ int HttpTask::createServerConnection() {
     	 LOG_DEBUG("socket create failed");
          return -1;
      }
+     LOG_DEBUG("m_serverHostName is %s", m_serverHostName.c_str());
      if ((server = gethostbyname(m_serverHostName.c_str())) == NULL)
      {
-    	 LOG_DEBUG("m_serverHostName is %s", m_serverHostName.c_str());
     	 LOG_DEBUG("gethostbyname failed");
          errno = EFAULT;
          return -2;
@@ -671,7 +771,9 @@ int HttpTask::createServerConnection() {
      memcpy(&server_addr.sin_addr.s_addr, server->h_addr, server->h_length);
      server_addr.sin_port = htons(m_serverPort);
 
-     LOG_DEBUG("server->h_addr = %s",server->h_addr);
+     char ipv4_str[32] = {0};
+     inet_ntop(AF_INET, server->h_addr, ipv4_str, sizeof(ipv4_str));
+     LOG_DEBUG("server ip address = %s",ipv4_str);
 
      if ((m_server_nfd = st_netfd_open_socket(sock)) == NULL)
      {
@@ -703,7 +805,8 @@ int HttpTask::processHttpsTransaction()
 
 	m_pServerCTX = SSL_CTX_new(TLS_client_method());
 	m_pServerSSL = SSL_new(m_pServerCTX);
-	//SSL_set_tlsext_host_name(m_pServerSSL, servername)
+	//add SNI extension
+	SSL_set_tlsext_host_name(m_pServerSSL, m_serverHostName.c_str());
 
 	LOG_DEBUG("serverFd = %d",m_serverFd);
 	SSL_set_fd(m_pServerSSL, m_serverFd);

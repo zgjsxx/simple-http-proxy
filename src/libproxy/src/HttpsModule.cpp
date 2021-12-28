@@ -232,9 +232,6 @@ void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_
 	X509_set_issuer_name(fake_x509, issuer);
 	X509_set_subject_name(fake_x509,X509_get_subject_name(server_x509));
 
-
-	SSL_set_servername(fake_x509, SSL_get_servername(serverSSL, TLSEXT_NAMETYPE_host_name));
-
 	ASN1_UTCTIME *s=ASN1_UTCTIME_new();
 	X509_gmtime_adj(s, long(0));
 	int days = 365;
@@ -273,6 +270,7 @@ void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_
 	//end of get san
 
 
+
 	int nid = NID_sha256WithRSAEncryption;
 	X509_sign(fake_x509, HttpsModule::m_caKey, EVP_get_digestbynid(nid));
 }
@@ -299,10 +297,39 @@ int HttpsModule::st_SSL_read(int fd, SSL* ssl, void *buf, size_t nbyte,
 	int ret;
 	while(1)
 	{
-		TaskIOHelper::waitSocketReadable(fd, timeout);
-		LOG_DEBUG("socket %d has read event",fd);
 		ret = SSL_read(ssl , buf ,nbyte);
-		if(ret >= 0)break;
+		LOG_DEBUG("SSL_read ret = %d", ret);
+		if(ret > 0)
+		{
+			break;
+		}
+		else if(ret == 0)
+		{
+			LOG_DEBUG("server is closed");
+			return 0;
+		}
+		else
+		{
+			int err = SSL_get_error(ssl, ret);
+			LOG_DEBUG("err code is %d",err);
+			switch(err)
+			{
+				case SSL_ERROR_WANT_READ:
+					LOG_DEBUG("SSL_read: error want read");
+					TaskIOHelper::waitSocketReadable(fd, timeout);
+					LOG_DEBUG("socket %d has read event",fd);
+					continue;
+				case SSL_ERROR_ZERO_RETURN:
+					LOG_DEBUG("server close the connection");
+					return 0;
+				case SSL_ERROR_SYSCALL:
+					LOG_DEBUG("SSL_ERROR_SYSCALL");
+					return 0;
+				default:
+					LOG_DEBUG("known ssl error");
+					return 0;
+			}
+		}
 	}
 
 	return ret;
@@ -314,5 +341,10 @@ int HttpsModule::st_SSL_write(int fd, SSL* ssl, void *buf, size_t nbyte,
 	TaskIOHelper::waitSocketWriteable(fd, timeout);
 	LOG_DEBUG("socket %d can write",fd);
 	int ret = SSL_write(ssl , buf ,nbyte);
+	if(ret == -1)
+	{
+		int err = SSL_get_error(ssl, ret);
+		LOG_DEBUG("err code is %d",err);
+	}
 	return ret;
 }

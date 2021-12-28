@@ -20,12 +20,14 @@
 #include "HttpsModule.h"
 
 std::vector<HttpTask*> g_httpTaskVec;
+HttpTask* g_currentTask = nullptr;
 
 static void* handleRequest(void* arg)
 {
     HttpTask* task = static_cast<HttpTask*>(arg);
     task->taskRun();
     delete task;
+    g_currentTask = nullptr;
     LOG_DEBUG("task is over");
 }
 
@@ -63,6 +65,7 @@ void Daemon::start()
         }
         LOG_DEBUG("handleRequest");
         HttpTask *task = new HttpTask();
+        g_currentTask = task;
         g_httpTaskVec.push_back(task);
         task->m_client_nfd = client_nfd;
         task->m_clientFd= st_netfd_fileno(client_nfd);

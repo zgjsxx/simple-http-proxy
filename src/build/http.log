@@ -1,1319 +1,214 @@
-2021-12-24 05:00:57,717[0x7f1ffa9408c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - new socket client 5 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - http task is running, address: 11344d0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:01:11,630[0x7f1ffa9408c0] DEBUG server - http task is running, address: 1133810  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:01:11,631[0x7f1ffa9408c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:01:11,631[0x7f1ffa9408c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:01:11,631[0x7f1ffa9408c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:01:11,631[0x7f1ffa9408c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT example.com:443 HTTP/1.1
-Host: example.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-  @<recvReqFromClient> @@<HttpTask.cpp:193>
-2021-12-24 05:01:11,634[0x7f1ffa9408c0] DEBUG server - server->h_addr = ]??"(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-  @<r@^??  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:01:11,635[0x7f1ffa9408c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:01:11,635[0x7f1ffa9408c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:01:11,635[0x7f1ffa9408c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:01:11,635[0x7f1ffa9408c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:01:11,635[0x7f1ffa9408c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT example.com:443 HTTP/1.1
-Host: example.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-  @<recvReqFromClient> @@<HttpTask.cpp:193>
-2021-12-24 05:01:11,639[0x7f1ffa9408c0] DEBUG server - server->h_addr = ]??"(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-  @<r@^??  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:01:11,639[0x7f1ffa9408c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:01:11,639[0x7f1ffa9408c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:01:11,640[0x7f1ffa9408c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:01:11,640[0x7f1ffa9408c0] DEBUG server - serverFd = 6  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:01:11,640[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:11,640[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:01:11,643[0x7f1ffa9408c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:01:11,643[0x7f1ffa9408c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:01:11,643[0x7f1ffa9408c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:01:11,643[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:11,643[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:01:11,997[0x7f1ffa9408c0] DEBUG server - m_serverFd 6 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:01:11,998[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:11,998[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:01:12,029[0x7f1ffa9408c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:01:12,029[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:12,030[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:01:12,173[0x7f1ffa9408c0] DEBUG server - m_serverFd 6 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:01:12,174[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:12,174[0x7f1ffa9408c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:01:12,174[0x7f1ffa9408c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:01:12,174[0x7f1ffa9408c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:01:12,174[0x7f1ffa9408c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:01:12,255[0x7f1ffa9408c0] DEBUG server - serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:01:12,258[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:01:12,258[0x7f1ffa9408c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:01:12,258[0x7f1ffa9408c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:01:12,258[0x7f1ffa9408c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:01:12,259[0x7f1ffa9408c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:01:12,259[0x7f1ffa9408c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:01:12,259[0x7f1ffa9408c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:01:12,297[0x7f1ffa9408c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:01:12,303[0x7f1ffa9408c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:01:12,303[0x7f1ffa9408c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:01:12,303[0x7f1ffa9408c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:01:12,315[0x7f1ffa9408c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:01:12,315[0x7f1ffa9408c0] DEBUG server - size = 1220  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:01:12,315[0x7f1ffa9408c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:01:12,315[0x7f1ffa9408c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:05:31,972[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:05:42,733[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:05:42,733[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:05:42,733[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:05:42,733[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:05:42,733[0x7f3e898dd8c0] DEBUG server - http task is running, address: 11c54d0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:05:42,734[0x7f3e898dd8c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:05:42,734[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:05:42,734[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:05:42,739[0x7f3e898dd8c0] DEBUG server - server->h_addr = ]??"  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:05:42,739[0x7f3e898dd8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:05:42,744[0x7f3e898dd8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:05:42,744[0x7f3e898dd8c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:05:42,744[0x7f3e898dd8c0] DEBUG server - serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:05:42,745[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:42,745[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:05:43,161[0x7f3e898dd8c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:05:43,163[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:43,163[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:05:43,349[0x7f3e898dd8c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:05:43,350[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:43,350[0x7f3e898dd8c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:05:43,350[0x7f3e898dd8c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:05:43,350[0x7f3e898dd8c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:05:43,350[0x7f3e898dd8c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:05:43,406[0x7f3e898dd8c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:05:43,407[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:05:43,410[0x7f3e898dd8c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:05:43,411[0x7f3e898dd8c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:05:43,682[0x7f3e898dd8c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - size = 1220  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - totol size = 1220  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - socket 5 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - writtenBytes = 1220  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:05:43,683[0x7f3e898dd8c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:05:43,684[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - recv size = 378  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - size = 378  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - response content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - m_resp.m_reqHeaderBufPos = 378  @<recvRespFromServer> @@<HttpTask.cpp:358>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - headerEndPos = 378  @<recvRespFromServer> @@<HttpTask.cpp:360>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is HTTP/1.1 200 OK
-Content-Encoding: gzip
-Accept-Ranges: bytes
-Age: 79008
-Cache-Control: max-age=604800
-Content-Type: text/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:43 GMT
-Etag: "3147526947+gzip"
-Expires: Fri, 31 Dec 2021 10:05:43 GMT
-Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
-Server: ECS (sec/96C8)
-Vary: Accept-Encoding
-X-Cache: HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-2021-12-24 05:05:43,868[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - recv size = 648  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - size = 648  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - current recv bytes = 648, content length = 648  @<recvRespFromServer> @@<HttpTask.cpp:408>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - body recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:413>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - totol size = 378  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - writtenBytes = 378  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - writtenBytes = 648  @<sendRespToClient> @@<HttpTask.cpp:463>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:05:43,869[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:05:43,870[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1221950  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:05:43,903[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:05:43,907[0x7f3e898dd8c0] DEBUG server - server->h_addr = ]??"  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:05:43,907[0x7f3e898dd8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:05:43,910[0x7f3e898dd8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:05:43,910[0x7f3e898dd8c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:05:43,910[0x7f3e898dd8c0] DEBUG server - serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:05:43,910[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:43,910[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:05:44,267[0x7f3e898dd8c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:05:44,267[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:44,267[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:05:44,448[0x7f3e898dd8c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:05:44,451[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:05:44,451[0x7f3e898dd8c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:05:44,451[0x7f3e898dd8c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:05:44,451[0x7f3e898dd8c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:05:44,451[0x7f3e898dd8c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:05:44,617[0x7f3e898dd8c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:05:44,619[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:05:44,621[0x7f3e898dd8c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:05:44,621[0x7f3e898dd8c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - size = 1144  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - totol size = 1144  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - socket 5 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - writtenBytes = 1144  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:05:44,631[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:44,809[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - recv size = 365  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - size = 365  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - response content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - m_resp.m_reqHeaderBufPos = 365  @<recvRespFromServer> @@<HttpTask.cpp:358>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - headerEndPos = 365  @<recvRespFromServer> @@<HttpTask.cpp:360>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is HTTP/1.1 404 Not Found
-Content-Encoding: gzip
-Accept-Ranges: bytes
-Age: 104471
-Cache-Control: max-age=604800
-Content-Type: text/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:44 GMT
-Expires: Fri, 31 Dec 2021 10:05:44 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - recv size = 648  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - size = 648  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - current recv bytes = 648, content length = 648  @<recvRespFromServer> @@<HttpTask.cpp:408>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - body recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:413>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - totol size = 365  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - writtenBytes = 365  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - writtenBytes = 648  @<sendRespToClient> @@<HttpTask.cpp:463>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:05:44,810[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:02,543[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:02,543[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:02,543[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12414f0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - headerEndPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT accounts.google.com:443 HTTP/1.1
-Host: accounts.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-xt/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:44 GMT
-Expires: Fri, 31 Dec 2021 10:05:44 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:02,544[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is ho??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:03,230[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:03,230[0x7f3e898dd8c0] DEBUG server - new socket client 5 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:03,230[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:03,230[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:03,230[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1241280  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - headerEndPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.google.com:443 HTTP/1.1
-Host: www.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
- (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-xt/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:44 GMT
-Expires: Fri, 31 Dec 2021 10:05:44 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:03,231[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is   @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - new socket client 6 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1216b30  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - headerEndPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.google.com:443 HTTP/1.1
-Host: www.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
- (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-xt/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:44 GMT
-Expires: Fri, 31 Dec 2021 10:05:44 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:03,589[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is   @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12271e0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:03,606[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:03,610[0x7f3e898dd8c0] DEBUG server - server->h_addr = ??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:06:03,610[0x7f3e898dd8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:06:03,614[0x7f3e898dd8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:06:03,614[0x7f3e898dd8c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:06:03,614[0x7f3e898dd8c0] DEBUG server - serverFd = 8  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:06:03,615[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:03,615[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:03,765[0x7f3e898dd8c0] DEBUG server - m_serverFd 8 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:03,766[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:03,766[0x7f3e898dd8c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:06:03,767[0x7f3e898dd8c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:06:03,767[0x7f3e898dd8c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:06:03,767[0x7f3e898dd8c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:06:03,924[0x7f3e898dd8c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:06:03,926[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - socket 7 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:03,927[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:06:03,928[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:03,928[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:03,928[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:06:03,928[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:03,928[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:05,844[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12e1450  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - size = 238  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:05,845[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:05,846[0x7f3e898dd8c0] DEBUG server - m_serverHostName is update.googleapis.com  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:06:05,846[0x7f3e898dd8c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:06:05,846[0x7f3e898dd8c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:06:05,846[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:05,846[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:14,730[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:14,730[0x7f3e898dd8c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:14,730[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:14,730[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:14,730[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12c6730  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:14,732[0x7f3e898dd8c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:14,732[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:14,732[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:14,736[0x7f3e898dd8c0] DEBUG server - server->h_addr = ]??"??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:06:14,736[0x7f3e898dd8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:06:14,740[0x7f3e898dd8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:06:14,740[0x7f3e898dd8c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:06:14,740[0x7f3e898dd8c0] DEBUG server - serverFd = 9  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:06:14,741[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:14,741[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:15,134[0x7f3e898dd8c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:15,134[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:15,134[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:15,332[0x7f3e898dd8c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:15,333[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:15,333[0x7f3e898dd8c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:06:15,333[0x7f3e898dd8c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:06:15,333[0x7f3e898dd8c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:06:15,333[0x7f3e898dd8c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:06:15,373[0x7f3e898dd8c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:06:15,375[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:06:15,377[0x7f3e898dd8c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:06:15,377[0x7f3e898dd8c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - socket 7 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - size = 1201  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - totol size = 1201  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - socket 9 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - writtenBytes = 1201  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:06:15,388[0x7f3e898dd8c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:06:15,529[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - recv size = 374  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - size = 374  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - response content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - m_resp.m_reqHeaderBufPos = 374  @<recvRespFromServer> @@<HttpTask.cpp:358>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - headerEndPos = 374  @<recvRespFromServer> @@<HttpTask.cpp:360>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is HTTP/1.1 200 OK
-Content-Encoding: gzip
-Accept-Ranges: bytes
-Age: 111946
-Cache-Control: max-age=604800
-Content-Type: text/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:06:15 GMT
-Etag: "3147526947"
-Expires: Fri, 31 Dec 2021 10:06:15 GMT
-Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
-Server: ECS (sab/56A9)
-Vary: Accept-Encoding
-X-Cache: HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - recv size = 648  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - size = 648  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - current recv bytes = 648, content length = 648  @<recvRespFromServer> @@<HttpTask.cpp:408>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - body recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:413>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - totol size = 374  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - socket 7 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - writtenBytes = 374  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - socket 7 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - writtenBytes = 648  @<sendRespToClient> @@<HttpTask.cpp:463>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:06:15,689[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:15,690[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:15,767[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:15,767[0x7f3e898dd8c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:15,767[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:15,767[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:15,767[0x7f3e898dd8c0] DEBUG server - http task is running, address: 130bd40  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:15,768[0x7f3e898dd8c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:15,768[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:15,768[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:15,771[0x7f3e898dd8c0] DEBUG server - server->h_addr = ]??"??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:06:15,771[0x7f3e898dd8c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:06:15,774[0x7f3e898dd8c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:06:15,774[0x7f3e898dd8c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:06:15,774[0x7f3e898dd8c0] DEBUG server - serverFd = 9  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:06:15,774[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:15,775[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:16,130[0x7f3e898dd8c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:16,130[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:16,130[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:16,307[0x7f3e898dd8c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:16,308[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:16,308[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:06:16,308[0x7f3e898dd8c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:06:16,309[0x7f3e898dd8c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:06:16,309[0x7f3e898dd8c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:06:16,309[0x7f3e898dd8c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:06:16,309[0x7f3e898dd8c0] DEBUG server - server certificate subject: /C=US/ST=California/L=Los Angeles/O=Verizon Digital Media Services, Inc./CN=www.example.org   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:06:16,309[0x7f3e898dd8c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/CN=DigiCert TLS RSA SHA256 2020 CA1  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:06:16,519[0x7f3e898dd8c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:06:16,521[0x7f3e898dd8c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:06:16,522[0x7f3e898dd8c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:06:16,523[0x7f3e898dd8c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - socket 7 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - size = 1125  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - totol size = 1125  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - socket 9 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - writtenBytes = 1125  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:06:16,532[0x7f3e898dd8c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:06:16,533[0x7f3e898dd8c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:06:16,533[0x7f3e898dd8c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:06:16,533[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - recv size = 365  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - size = 365  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - response content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - m_resp.m_reqHeaderBufPos = 365  @<recvRespFromServer> @@<HttpTask.cpp:358>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - headerEndPos = 365  @<recvRespFromServer> @@<HttpTask.cpp:360>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is HTTP/1.1 404 Not Found
-Content-Encoding: gzip
-Accept-Ranges: bytes
-Age: 104503
-Cache-Control: max-age=604800
-Content-Type: text/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:06:16 GMT
-Expires: Fri, 31 Dec 2021 10:06:16 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - recv size = 648  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - size = 648  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - current recv bytes = 648, content length = 648  @<recvRespFromServer> @@<HttpTask.cpp:408>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - body recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:413>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - totol size = 365  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - socket 7 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - writtenBytes = 365  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - socket 7 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - writtenBytes = 648  @<sendRespToClient> @@<HttpTask.cpp:463>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:16,709[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:32,544[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:32,544[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:32,544[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:06:32,544[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:32,544[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:33,232[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:33,232[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:33,232[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:06:33,232[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:33,232[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12414c0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:33,352[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:33,590[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:33,590[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:33,590[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:06:33,590[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:33,590[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - http task is running, address: 132acc0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:35,871[0x7f3e898dd8c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - headerEndPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT accounts.google.com:443 HTTP/1.1
-Host: accounts.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-xt/html; charset=UTF-8
-Date: Fri, 24 Dec 2021 10:05:44 GMT
-Expires: Fri, 31 Dec 2021 10:05:44 GMT
-Last-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvRespFromServer> @@<HttpTask.cpp:366>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:35,872[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is ho??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:36,807[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:36,807[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:06:36,807[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:06:36,807[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:06:36,807[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - http task is running, address: 132acc0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:43,175[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:43,176[0x7f3e898dd8c0] DEBUG server - headerEndPos = 234  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:43,176[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT accounts.google.com:443 HTTP/1.1
-Host: accounts.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:43,176[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is ho??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:43,548[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:43,548[0x7f3e898dd8c0] DEBUG server - new socket client 6 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:43,548[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:43,548[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:43,548[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1216b30  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - headerEndPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.google.com:443 HTTP/1.1
-Host: www.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-la/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:43,549[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is xo??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:43,905[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12414c0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - headerEndPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.google.com:443 HTTP/1.1
-Host: www.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-la/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:43,906[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is xo??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - new socket client 9 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - http task is running, address: 132b8c0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - headerEndPos = 224  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:43,924[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.google.com:443 HTTP/1.1
-Host: www.google.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-la/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:43,925[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is ho??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - new socket client 10 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1310b80  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - size = 238  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 238  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - headerEndPos = 238  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT update.googleapis.com:443 HTTP/1.1
-Host: update.googleapis.com:443
-Proxy-Connection: keep-alive
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-ike Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-la/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:06:47,126[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is   @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:07:02,142[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:07:02,143[0x7f3e898dd8c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:07:45,689[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:07:45,689[0x7f3e898dd8c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:07:45,689[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:07:45,689[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:07:45,689[0x7f3e898dd8c0] DEBUG server - http task is running, address: 12414c0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - size = 287  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 287  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - headerEndPos = 287  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.facebook.com:443 HTTP/1.1
+2021-12-27 21:22:11,919[0x7f4a0acc38c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:58>
+2021-12-27 21:22:13,771[0x7f4a0acc38c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:66>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - request header address 1a4c680, body address 1a4e690  @<HttpTask> @@<HttpTask.cpp:74>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - response header address 1a626a0, body address abf9010  @<HttpTask> @@<HttpTask.cpp:75>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>new socket client 4 is in  @<start> @@<Daemon.cpp:72>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>create task suc  @<start> @@<Daemon.cpp:78>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>st_accept  @<start> @@<Daemon.cpp:58>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>http task is running, address: 1a484b0  @<taskRun> @@<HttpTask.cpp:108>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>size = 287  @<recvReqFromClient> @@<HttpTask.cpp:192>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:207>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:216>
+2021-12-27 21:22:13,772[0x7f4a0acc38c0] DEBUG server - <4:-1>m_req.m_pReqHeaderBuf is CONNECT www.facebook.com:443 HTTP/1.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41
 Accept: */*
 Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 host: www.facebook.com:443
 
- like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
-Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
-
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:07:45,690[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is ho??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:07:53,531[0x7f3e898dd8c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:07:53,531[0x7f3e898dd8c0] DEBUG server - new socket client 6 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:07:53,531[0x7f3e898dd8c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:07:53,531[0x7f3e898dd8c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - http task is running, address: 1216b30  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - size = 285  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - request content length = 648  @<getContentLengthFromHeader> @@<HttpTask.cpp:642>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - m_req.m_reqHeaderBufPos = 285  @<recvReqFromClient> @@<HttpTask.cpp:197>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - headerEndPos = 285  @<recvReqFromClient> @@<HttpTask.cpp:199>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqHeaderBuf is CONNECT www.youtube.com:443 HTTP/1.1
+  @<recvReqFromClient> @@<HttpTask.cpp:219>
+2021-12-27 21:22:13,773[0x7f4a0acc38c0] DEBUG server - <4:-1>m_serverHostName is www.facebook.com  @<createServerConnection> @@<HttpTask.cpp:762>
+2021-12-27 21:22:13,801[0x7f4a0acc38c0] DEBUG server - <4:-1>server ip address = 157.240.199.35  @<createServerConnection> @@<HttpTask.cpp:776>
+2021-12-27 21:22:13,801[0x7f4a0acc38c0] DEBUG server - <4:-1>connect to server  @<createServerConnection> @@<HttpTask.cpp:783>
+2021-12-27 21:22:13,806[0x7f4a0acc38c0] DEBUG server - <4:5>server connection create success  @<createServerConnection> @@<HttpTask.cpp:792>
+2021-12-27 21:22:13,806[0x7f4a0acc38c0] DEBUG server - <4:5>send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:893>
+2021-12-27 21:22:13,807[0x7f4a0acc38c0] DEBUG server - <4:5>serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:811>
+2021-12-27 21:22:13,807[0x7f4a0acc38c0] DEBUG server - <4:5>handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
+2021-12-27 21:22:13,808[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
+2021-12-27 21:22:13,902[0x7f4a0acc38c0] DEBUG server - <4:5>m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
+2021-12-27 21:22:13,903[0x7f4a0acc38c0] DEBUG server - <4:5>handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
+2021-12-27 21:22:13,903[0x7f4a0acc38c0] DEBUG server - <4:5>Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
+2021-12-27 21:22:13,903[0x7f4a0acc38c0] DEBUG server - <4:5>establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
+2021-12-27 21:22:13,903[0x7f4a0acc38c0] DEBUG server - <4:5>server certificate subject: /C=US/ST=California/L=Menlo Park/O=Facebook, Inc./CN=*.facebook.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
+2021-12-27 21:22:13,903[0x7f4a0acc38c0] DEBUG server - <4:5>server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 High Assurance Server CA  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
+2021-12-27 21:22:13,948[0x7f4a0acc38c0] DEBUG server - <4:5>serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:840>
+2021-12-27 21:22:13,950[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
+2021-12-27 21:22:13,951[0x7f4a0acc38c0] DEBUG server - <4:5>m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
+2021-12-27 21:22:13,951[0x7f4a0acc38c0] DEBUG server - <4:5>establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 313  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>size = 313  @<recvReqFromClient> @@<HttpTask.cpp:192>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:207>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:216>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>m_req.m_pReqHeaderBuf is GET / HTTP/1.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41
 Accept: */*
+Postman-Token: dd2944fb-b73d-4098-a558-5c00cf915821
+Host: www.facebook.com
 Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
-host: www.youtube.com:443
 
-nection: keep-alive
-host: www.facebook.com:443
-
- like Gecko) Chrome/96.0.4664.110 Safari/537.36
-
-t-Modified: Thu, 23 Dec 2021 05:04:33 GMT
-Server: ECS (sec/97A6)
+  @<recvReqFromClient> @@<HttpTask.cpp:219>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>totol size = 313  @<sendReqToServer> @@<HttpTask.cpp:293>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 can write  @<st_SSL_write> @@<HttpsModule.cpp:342>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>writtenBytes = 313  @<sendReqToServer> @@<HttpTask.cpp:308>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:312>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:332>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:339>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:13,952[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,185[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,185[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,185[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,185[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1665  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1665  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1665  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1990  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1990  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1990  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:370>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>transfer encoding =  chunked  @<getTransEncodingChunkedFromHeader> @@<HttpTask.cpp:742>
+2021-12-27 21:22:14,189[0x7f4a0acc38c0] DEBUG server - <4:5>response format is chunked  @<getTransEncodingChunkedFromHeader> @@<HttpTask.cpp:745>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>m_resp.m_reqHeaderBufPos = 3655  @<recvRespFromServer> @@<HttpTask.cpp:392>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>headerEndPos = 3655  @<recvRespFromServer> @@<HttpTask.cpp:394>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>m_resp.m_pRespHeaderBuf is HTTP/1.1 200 OK
+Content-Encoding: br
+Pragma: no-cache
+Cache-Control: private, no-cache, no-store, must-revalidate
+Expires: Sat, 01 Jan 2000 00:00:00 GMT
+content-security-policy-report-only: default-src data: blob: 'self' https://*.fbsbx.com 'unsafe-inline' *.facebook.com *.fbcdn.net;script-src *.facebook.com *.fbcdn.net *.facebook.net *.google-analytics.com *.google.com 127.0.0.1:* 'unsafe-inline' blob: data: 'self' connect.facebook.net;style-src fonts.googleapis.com *.fbcdn.net data: *.facebook.com 'unsafe-inline';connect-src *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* wss://*.whatsapp.com:* attachment.fbsbx.com ws://localhost:* blob: *.cdninstagram.com 'self' wss://gateway.facebook.com wss://edge-chat.facebook.com wss://snaptu-d.facebook.com wss://kaios-d-test.facebook.com/ wss://kaios-d.facebook.com/ v.whatsapp.net *.fbsbx.com *.fb.com;font-src data: *.gstatic.com *.facebook.com *.fbcdn.net *.fbsbx.com;img-src *.fbcdn.net *.facebook.com data: https://*.fbsbx.com *.tenor.co media.tenor.com facebook.com *.cdninstagram.com fbsbx.com fbcdn.net *.giphy.com connect.facebook.net *.carriersignal.info blob: android-webview-video-poster: googleads.g.doubleclick.net www.googleadservices.com *.whatsapp.net *.fb.com *.oculuscdn.com;media-src *.cdninstagram.com blob: *.fbcdn.net *.fbsbx.com www.facebook.com *.facebook.com https://*.giphy.com data:;frame-src *.doubleclick.net *.google.com *.facebook.com www.googleadservices.com *.fbsbx.com fbsbx.com data: www.instagram.com *.fbcdn.net https://paywithmybank.com;worker-src blob: *.facebook.com data:;report-uri https://www.facebook.com/csp/reporting/?minimize=0;
+content-security-policy: default-src data: blob: 'self' https://*.fbsbx.com 'unsafe-inline' *.facebook.com 'unsafe-eval' *.fbcdn.net;script-src *.facebook.com *.fbcdn.net *.facebook.net *.google-analytics.com *.google.com 127.0.0.1:* 'unsafe-inline' 'unsafe-eval' blob: data: 'self' connect.facebook.net;style-src fonts.googleapis.com *.fbcdn.net data: *.facebook.com 'unsafe-inline';connect-src *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* wss://*.whatsapp.com:* attachment.fbsbx.com ws://localhost:* blob: *.cdninstagram.com 'self' wss://gateway.facebook.com wss://edge-chat.facebook.com wss://snaptu-d.facebook.com wss://kaios-d-test.facebook.com/ wss://kaios-d.facebook.com/ v.whatsapp.net *.fbsbx.com *.fb.com;font-src data: *.gstatic.com *.facebook.com *.fbcdn.net *.fbsbx.com;img-src *.fbcdn.net *.facebook.com data: https://*.fbsbx.com *.tenor.co media.tenor.com facebook.com *.cdninstagram.com fbsbx.com fbcdn.net *.giphy.com connect.facebook.net *.carriersignal.info blob: android-webview-video-poster: googleads.g.doubleclick.net www.googleadservices.com *.whatsapp.net *.fb.com *.oculuscdn.com;media-src *.cdninstagram.com blob: *.fbcdn.net *.fbsbx.com www.facebook.com *.facebook.com https://*.giphy.com data:;frame-src *.doubleclick.net *.google.com *.facebook.com www.googleadservices.com *.fbsbx.com fbsbx.com data: www.instagram.com *.fbcdn.net https://paywithmybank.com;worker-src blob: *.facebook.com data:;block-all-mixed-content;upgrade-insecure-requests;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Vary: Sec-Fetch-Site, Sec-Fetch-Mode
 Vary: Accept-Encoding
-X-Cache: 404-HIT
-Content-Length: 648
+Strict-Transport-Security: max-age=15552000; preload
+Content-Type: text/html; charset="utf-8"
+X-FB-Debug: tCmLxalU9OmwmM1PVdn2WASLqDlqCYLAHvLCeqB+Hx4oQ/qkGO0hGhYdvw692pO7OaOL3bqZXrvBKz8WlAST7Q==
+Date: Tue, 28 Dec 2021 02:22:14 GMT
+Alt-Svc: h3=":443"; ma=3600, h3-29=":443"; ma=3600
+Transfer-Encoding: chunked
+Connection: keep-alive
 
-  @<recvReqFromClient> @@<HttpTask.cpp:205>
-  @<recvReqFromClient> @@<HttpTask.cpp:205>  @<recvReqFromClient> @@<HttpTask.cpp:205>
-2021-12-24 05:07:53,532[0x7f3e898dd8c0] DEBUG server - m_req.m_pReqBodyBuf is xo??>  @<recvReqFromClient> @@<HttpTask.cpp:206>
-2021-12-24 05:08:08,512[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:08:14,301[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:08:14,301[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:08:14,301[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:08:14,301[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:08:14,301[0x7f6d183d68c0] DEBUG server - http task is running, address: c024d0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:08:14,302[0x7f6d183d68c0] DEBUG server - size = 285  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:08:14,302[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:08:14,302[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:08:14,420[0x7f6d183d68c0] DEBUG server - server->h_addr = ??yout??yout??Nyout????yout??.yout???Nyout???.yout???Nyout???nyout????yout??yout??B.yout??BNyout??Bnyout??B?yout???Nui.l.google.com  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:08:14,420[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:08:14,425[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:08:14,425[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:08:14,426[0x7f6d183d68c0] DEBUG server - serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:08:14,427[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:08:14,427[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:08:14,666[0x7f6d183d68c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:08:14,666[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:08:14,667[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:08:14,667[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:08:14,667[0x7f6d183d68c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:08:14,667[0x7f6d183d68c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:08:14,703[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:08:14,704[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:08:14,705[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:08:14,705[0x7f6d183d68c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - size = 312  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - totol size = 312  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - socket 5 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - writtenBytes = 312  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:08:14,706[0x7f6d183d68c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:08:14,707[0x7f6d183d68c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - recv size = 1462  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - size = 1462  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:352>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - totol size = 1462  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - writtenBytes = 1462  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:08:14,833[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:08:14,834[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - http task is running, address: c5b730  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - size = 277  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:03,545[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:03,551[0x7f6d183d68c0] DEBUG server - server->h_addr = ?a?|z163?a?}z163?a?zpv6.v.bsgslb.cn  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:03,551[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:03,554[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:03,554[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:03,554[0x7f6d183d68c0] DEBUG server - serverFd = 5  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:03,554[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:03,554[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:03,621[0x7f6d183d68c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:03,621[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:03,621[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:03,622[0x7f6d183d68c0] DEBUG server - m_serverFd 5 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:03,622[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:03,622[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:03,622[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:03,622[0x7f6d183d68c0] DEBUG server - server certificate subject: /C=CN/ST=Guizhou/O=\xE8\xB4\xB5\xE5\xB7\x9E\xE7\x99\xBD\xE5\xB1\xB1\xE4\xBA\x91\xE7\xA7\x91\xE6\x8A\x80\xE8\x82\xA1\xE4\xBB\xBD\xE6\x9C\x89\xE9\x99\x90\xE5\x85\xAC\xE5\x8F\xB8/CN=www.baishancloud.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:03,623[0x7f6d183d68c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=GeoTrust RSA CA 2018  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:03,634[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:03,636[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:03,637[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:03,637[0x7f6d183d68c0] DEBUG server - establish TLS connection to client successfully  @<sslHandWithClient> @@<HttpsModule.cpp:120>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - size = 308  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - totol size = 308  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - socket 5 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - writtenBytes = 308  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:09:03,638[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,650[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,651[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,653[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - recv size = 8192  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - size = 8192  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:352>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - totol size = 8192  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:311>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - writtenBytes = 8192  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:09:03,654[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:03,655[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - http task is running, address: c7c820  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:07,383[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:07,384[0x7f6d183d68c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:07,384[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:07,384[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:07,384[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:07,384[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - http task is running, address: c51390  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:07,779[0x7f6d183d68c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:07,780[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:07,780[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:07,784[0x7f6d183d68c0] DEBUG server - server->h_addr = ??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:07,784[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:07,787[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:07,787[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:07,788[0x7f6d183d68c0] DEBUG server - serverFd = 6  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:07,788[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:07,788[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:07,988[0x7f6d183d68c0] DEBUG server - m_serverFd 6 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:07,989[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:07,989[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:07,989[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:07,989[0x7f6d183d68c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:07,989[0x7f6d183d68c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:08,128[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:08,130[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:08,131[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:08,131[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:08,131[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:08,132[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:08,132[0x7f6d183d68c0] DEBUG server - new socket client 7 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:08,132[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:08,132[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:08,132[0x7f6d183d68c0] DEBUG server - http task is running, address: c9c400  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:08,133[0x7f6d183d68c0] DEBUG server - http task is running, address: c72670  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:08,134[0x7f6d183d68c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,134[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:08,134[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:08,141[0x7f6d183d68c0] DEBUG server - server->h_addr = ??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:08,141[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:08,141[0x7f6d183d68c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,141[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:08,141[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:08,145[0x7f6d183d68c0] DEBUG server - server->h_addr = ??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:08,145[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:08,145[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:08,145[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:08,146[0x7f6d183d68c0] DEBUG server - serverFd = 6  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:08,147[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:08,147[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:08,149[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:08,149[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:08,152[0x7f6d183d68c0] DEBUG server - serverFd = 8  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:08,152[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:08,153[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:08,323[0x7f6d183d68c0] DEBUG server - m_serverFd 6 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:08,324[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:08,324[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:08,324[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:08,324[0x7f6d183d68c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:08,324[0x7f6d183d68c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:08,351[0x7f6d183d68c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:08,353[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:08,353[0x7f6d183d68c0] DEBUG server - m_serverFd 8 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:08,354[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:08,354[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:08,354[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:08,354[0x7f6d183d68c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:08,354[0x7f6d183d68c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:08,410[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:08,412[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:08,412[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - new socket client 9 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - http task is running, address: d0df90  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - socket 7 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:08,413[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:08,417[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:08,418[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:08,418[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:08,418[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:08,418[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - http task is running, address: d0df40  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - size = 238  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - m_serverHostName is update.googleapis.com  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:09,965[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:10,764[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:10,764[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - http task is running, address: d0d340  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - size = 224  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:10,765[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:10,770[0x7f6d183d68c0] DEBUG server - server->h_addr = ??Bd  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:10,770[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:10,777[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:10,777[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:10,777[0x7f6d183d68c0] DEBUG server - serverFd = 7  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:10,777[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:10,777[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:10,942[0x7f6d183d68c0] DEBUG server - m_serverFd 7 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:10,943[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:10,943[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:10,943[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:10,943[0x7f6d183d68c0] DEBUG server - server certificate subject: /OU=No SNI provided; please fix your client./CN=invalid2.invalid   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:10,943[0x7f6d183d68c0] DEBUG server - server certificate issuer : /OU=No SNI provided; please fix your client./CN=invalid2.invalid  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:11,010[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:11,012[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:11,013[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - http task is running, address: ca34e0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:11,377[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - http task is running, address: cbe5e0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:19,588[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:19,589[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - new socket client 9 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - http task is running, address: cbe5e0  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:27,082[0x7f6d183d68c0] DEBUG server - http task is running, address: ca3530  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:27,083[0x7f6d183d68c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,083[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:27,083[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:27,087[0x7f6d183d68c0] DEBUG server - server->h_addr = ?a?}z163?a?zz163?a?|pv6.v.bsgslb.cn  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:27,087[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:27,088[0x7f6d183d68c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,088[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:27,088[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:27,091[0x7f6d183d68c0] DEBUG server - server->h_addr = ?a?zz163?a?|z163?a?}pv6.v.bsgslb.cn  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:27,091[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:27,092[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:27,092[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:27,093[0x7f6d183d68c0] DEBUG server - serverFd = 11  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:27,093[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:27,093[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:27,095[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:27,095[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:27,095[0x7f6d183d68c0] DEBUG server - serverFd = 12  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:27,096[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:27,096[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:27,157[0x7f6d183d68c0] DEBUG server - m_serverFd 11 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:27,157[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:27,157[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:27,158[0x7f6d183d68c0] DEBUG server - m_serverFd 11 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:27,159[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:27,159[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:27,159[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:27,159[0x7f6d183d68c0] DEBUG server - server certificate subject: /C=CN/ST=Guizhou/O=\xE8\xB4\xB5\xE5\xB7\x9E\xE7\x99\xBD\xE5\xB1\xB1\xE4\xBA\x91\xE7\xA7\x91\xE6\x8A\x80\xE8\x82\xA1\xE4\xBB\xBD\xE6\x9C\x89\xE9\x99\x90\xE5\x85\xAC\xE5\x8F\xB8/CN=www.baishancloud.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:27,159[0x7f6d183d68c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=GeoTrust RSA CA 2018  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:27,279[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - m_serverFd 12 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - server certificate subject: /C=CN/ST=Guizhou/O=\xE8\xB4\xB5\xE5\xB7\x9E\xE7\x99\xBD\xE5\xB1\xB1\xE4\xBA\x91\xE7\xA7\x91\xE6\x8A\x80\xE8\x82\xA1\xE4\xBB\xBD\xE6\x9C\x89\xE9\x99\x90\xE5\x85\xAC\xE5\x8F\xB8/CN=www.baishancloud.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:27,281[0x7f6d183d68c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=GeoTrust RSA CA 2018  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:27,479[0x7f6d183d68c0] DEBUG server - serverFd = 9  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - new socket client 13 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:27,481[0x7f6d183d68c0] DEBUG server - http task is running, address: d82780  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:27,482[0x7f6d183d68c0] DEBUG server - size = 351  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,482[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:27,482[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - server->h_addr = ????www.163.com  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:27,526[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - totol size = 351  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - writtenBytes = 351  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:09:27,528[0x7f6d183d68c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - recv size = 83  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - size = 83  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - response content length = 0  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:352>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - totol size = 83  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - writtenBytes = 83  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:27,628[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - new socket client 9 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:30,743[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:30,744[0x7f6d183d68c0] DEBUG server - http task is running, address: d81b90  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:30,744[0x7f6d183d68c0] DEBUG server - http task is running, address: ca3530  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:30,744[0x7f6d183d68c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:30,744[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:30,744[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:30,749[0x7f6d183d68c0] DEBUG server - server->h_addr = ?a?|z163?a?}z163?a?zpv6.v.bsgslb.cn  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:30,749[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:30,749[0x7f6d183d68c0] DEBUG server - size = 218  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:30,749[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:30,749[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:30,753[0x7f6d183d68c0] DEBUG server - server->h_addr = ?a?}z163?a?zz163?a?|pv6.v.bsgslb.cn  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:30,753[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:30,753[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:30,753[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:30,753[0x7f6d183d68c0] DEBUG server - serverFd = 11  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:30,754[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:30,754[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:30,757[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:30,757[0x7f6d183d68c0] DEBUG server - send 200 to client ok  @<send200ConnectSucToClient> @@<HttpTask.cpp:789>
-2021-12-24 05:09:30,758[0x7f6d183d68c0] DEBUG server - serverFd = 12  @<processHttpsTransaction> @@<HttpTask.cpp:707>
-2021-12-24 05:09:30,759[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:30,759[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:30,772[0x7f6d183d68c0] DEBUG server - m_serverFd 11 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:30,772[0x7f6d183d68c0] DEBUG server - handshakeServer ret = -1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:30,772[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeServer> @@<HttpsModule.cpp:61>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - m_serverFd 11 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - server certificate subject: /C=CN/ST=Guizhou/O=\xE8\xB4\xB5\xE5\xB7\x9E\xE7\x99\xBD\xE5\xB1\xB1\xE4\xBA\x91\xE7\xA7\x91\xE6\x8A\x80\xE8\x82\xA1\xE4\xBB\xBD\xE6\x9C\x89\xE9\x99\x90\xE5\x85\xAC\xE5\x8F\xB8/CN=www.baishancloud.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:30,774[0x7f6d183d68c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=GeoTrust RSA CA 2018  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:31,054[0x7f6d183d68c0] DEBUG server - serverFd = 4  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:31,056[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - m_serverFd 12 has read event  @<sslHandWithServer> @@<HttpsModule.cpp:24>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - handshakeServer ret = 1  @<handshakeServer> @@<HttpsModule.cpp:49>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - Handshake with server is sucessful  @<handshakeServer> @@<HttpsModule.cpp:53>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - establish TLS connection to server successfully  @<sslHandWithServer> @@<HttpsModule.cpp:18>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - server certificate subject: /C=CN/ST=Guizhou/O=\xE8\xB4\xB5\xE5\xB7\x9E\xE7\x99\xBD\xE5\xB1\xB1\xE4\xBA\x91\xE7\xA7\x91\xE6\x8A\x80\xE8\x82\xA1\xE4\xBB\xBD\xE6\x9C\x89\xE9\x99\x90\xE5\x85\xAC\xE5\x8F\xB8/CN=www.baishancloud.com   @<prepareResignedEndpointCert> @@<HttpsModule.cpp:217>
-2021-12-24 05:09:31,057[0x7f6d183d68c0] DEBUG server - server certificate issuer : /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=GeoTrust RSA CA 2018  @<prepareResignedEndpointCert> @@<HttpsModule.cpp:218>
-2021-12-24 05:09:31,081[0x7f6d183d68c0] DEBUG server - serverFd = 9  @<processHttpsTransaction> @@<HttpTask.cpp:736>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - SSL_connect error: error want read  @<handshakeClient> @@<HttpsModule.cpp:161>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - new socket client 13 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - m_serverFd 4 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - http task is running, address: dd2c70  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - size = 351  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:31,083[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:31,088[0x7f6d183d68c0] DEBUG server - server->h_addr = ????www.163.com  @<createServerConnection> @@<HttpTask.cpp:674>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - connect to server  @<createServerConnection> @@<HttpTask.cpp:681>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - m_serverFd 9 has read event  @<sslHandWithClient> @@<HttpsModule.cpp:126>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - SSL_connect error: error ssl  @<handshakeClient> @@<HttpsModule.cpp:171>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - uknown error  @<sslHandWithClient> @@<HttpsModule.cpp:137>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - socket 4 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - socket 9 has read event  @<st_SSL_read> @@<HttpsModule.cpp:299>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - recv from client failed  @<processHttpsTransaction> @@<HttpTask.cpp:752>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - size = 0  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - client is closed  @<recvReqFromClient> @@<HttpTask.cpp:169>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - recv from client failed  @<handleIOEvent> @@<HttpTask.cpp:109>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:31,089[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - server connection create success  @<createServerConnection> @@<HttpTask.cpp:690>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - totol size = 351  @<sendReqToServer> @@<HttpTask.cpp:267>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - writtenBytes = 351  @<sendReqToServer> @@<HttpTask.cpp:282>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - write header to server finish  @<sendReqToServer> @@<HttpTask.cpp:286>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - write body to server finish  @<sendReqToServer> @@<HttpTask.cpp:306>
-2021-12-24 05:09:31,092[0x7f6d183d68c0] DEBUG server - recvRespFromServer  @<recvRespFromServer> @@<HttpTask.cpp:313>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - recv size = 83  @<recvRespFromServer> @@<HttpTask.cpp:327>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - size = 83  @<recvRespFromServer> @@<HttpTask.cpp:328>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:343>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - response content length = 0  @<getContentLengthFromHeader> @@<HttpTask.cpp:647>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:352>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - totol size = 83  @<sendRespToClient> @@<HttpTask.cpp:429>
-2021-12-24 05:09:31,186[0x7f6d183d68c0] DEBUG server - writtenBytes = 83  @<sendRespToClient> @@<HttpTask.cpp:444>
-2021-12-24 05:09:31,187[0x7f6d183d68c0] DEBUG server - write to client finish  @<sendRespToClient> @@<HttpTask.cpp:448>
-2021-12-24 05:09:31,187[0x7f6d183d68c0] DEBUG server - write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:467>
-2021-12-24 05:09:31,187[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:31,187[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
-2021-12-24 05:09:46,291[0x7f6d183d68c0] DEBUG server - handleRequest  @<start> @@<Daemon.cpp:64>
-2021-12-24 05:09:46,291[0x7f6d183d68c0] DEBUG server - new socket client 4 is in  @<start> @@<Daemon.cpp:69>
-2021-12-24 05:09:46,291[0x7f6d183d68c0] DEBUG server - create task suc  @<start> @@<Daemon.cpp:75>
-2021-12-24 05:09:46,291[0x7f6d183d68c0] DEBUG server - st_accept  @<start> @@<Daemon.cpp:56>
-2021-12-24 05:09:46,291[0x7f6d183d68c0] DEBUG server - http task is running, address: dd2c70  @<taskRun> @@<HttpTask.cpp:82>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - size = 234  @<recvReqFromClient> @@<HttpTask.cpp:166>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - header recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:181>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - no content length, recv is finished  @<recvReqFromClient> @@<HttpTask.cpp:190>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - m_serverHostName is accounts.google.com??  @<createServerConnection> @@<HttpTask.cpp:664>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - gethostbyname failed  @<createServerConnection> @@<HttpTask.cpp:665>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - create server connection failed  @<handleIOEvent> @@<HttpTask.cpp:116>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - http task is finish  @<taskRun> @@<HttpTask.cpp:92>
-2021-12-24 05:09:46,292[0x7f6d183d68c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:29>
+  @<recvRespFromServer> @@<HttpTask.cpp:400>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,190[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1500  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 14b98991220fb0f5b4499282f077385e9a221247700ab3c32105982a1cae7b74294a21bd544151b74a62ce1e91be40839337b118d6d4c1d74c0b2172be5f41e8  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 1500, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,198[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,200[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,201[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,201[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,201[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,232[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,232[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,232[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,232[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,234[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,234[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,234[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,234[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 8192  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 8192  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>size = 8192  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>response body is ec9a7ea161d794e3654702c7f64c889664d4a9c4a5dd6119463d8ad7310a226b5e37754f57a201d2b011a12148b705608b9ab00105249a95027ce65a62bdf7d8  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 9692, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 6700  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 6700  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>size = 6700  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 35deabbe2fb58714918dd5f8a7edc434e34b58004f0d9dd9dc059bb2616b634d9e08a742dd76a0fb3a209cc52d2dedbe2db9bcac86acad8cf1831e4d411f0d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 16392, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,240[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1498  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1498  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1498  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>response body is c1a83e37650b2ae186392717a688daa4c88ae3f1388c638736ae9a75c1f7419322af48916242e194a2171f9c3651bbcbc3af2f1c50fc34cf46243ab909240d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 17890, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1500  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 01cb7aacc77a47a4c9f115ca6bd0feafc90ae5f5115789fba821419382e4884c8dee1294c1fc04a62400b5d4aa93724a979dd88d2f814f5c100a869fdfc0f332  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 19390, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,241[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1500  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 5b974f304b71e9adf34c5ce49b7c89ba92b501a28e0794742c76fbd8eaf2763deb5c975394a278508850e3f44c4fc3339f039c3d842bef7e348afb712d1a59bc  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 20890, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 705  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,244[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 705  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>size = 705  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 3d1fcfe7ef3703d3b42a5c8c605cf7b7646168abd693e18db808c662c0749c6370009897b81c23eac1f6209c4453c80f32efc3fe7cfbe2c5e56c64b331000d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 21595, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = -1  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>err code is 2  @<st_SSL_read> @@<HttpsModule.cpp:314>
+2021-12-27 21:22:14,245[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read: error want read  @<st_SSL_read> @@<HttpsModule.cpp:318>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>socket 5 has read event  @<st_SSL_read> @@<HttpsModule.cpp:320>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1498  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1498  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1498  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 84a59ec689bf1deac3c008f4d79915237749ebe8a1e9935b4bae2ec565beda3fd6d6fd327d58c773da5ddf378f8bf9d0f6a9b113931d5a4c82ed7e3da57a0d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 23093, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 1500  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>size = 1500  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 55de20c2b84f8330912bac6f45eaf6ccaa62f3a1ac48722ba7270c88af3d61794fc78b8233673a025a28fccf7ab24e8944a9e9083b6ee2963c91161769cb50ed  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 24593, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 143  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 143  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>size = 143  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>response body is f0052af4a8c9a1d0d510d0f8174e1dbd3b5563dfc2979f1497a27e800942c8e616c99d565f00fe92fc6e7e7bfea69f64fecef7439b3f7f57d2aac8ff34000d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,247[0x7f4a0acc38c0] DEBUG server - <4:5>Current pos = 24736, continue to recv chunked body  @<recvRespFromServer> @@<HttpTask.cpp:470>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>SSL_read ret = 11  @<st_SSL_read> @@<HttpsModule.cpp:301>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>recv size = 11  @<recvRespFromServer> @@<HttpTask.cpp:354>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>size = 11  @<recvRespFromServer> @@<HttpTask.cpp:355>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>chunked body  @<recvRespFromServer> @@<HttpTask.cpp:453>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>response body is 0000000000f079bf0a4a7f00000ba0b4094a7f0000777269746520626f647920746f207365727665720166696eb084a40100000000310d0a030d0a300d0a0d0a  @<recvRespFromServer> @@<HttpTask.cpp:454>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>end of chunked, body recv is finished  @<recvRespFromServer> @@<HttpTask.cpp:465>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>response header totol size = 3655  @<sendRespToClient> @@<HttpTask.cpp:489>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:342>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>writtenBytes = 3655  @<sendRespToClient> @@<HttpTask.cpp:504>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>write to client finish  @<sendRespToClient> @@<HttpTask.cpp:508>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>response body totol size = 24747  @<sendRespToClient> @@<HttpTask.cpp:510>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>socket 4 can write  @<st_SSL_write> @@<HttpsModule.cpp:342>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>writtenBytes = 24747  @<sendRespToClient> @@<HttpTask.cpp:524>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>write body to client finish  @<sendRespToClient> @@<HttpTask.cpp:528>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>http task is finish  @<taskRun> @@<HttpTask.cpp:118>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>request header address 1a4c680, body address 1a4e690  @<~HttpTask> @@<HttpTask.cpp:79>
+2021-12-27 21:22:14,248[0x7f4a0acc38c0] DEBUG server - <4:5>response header address 1a626a0, body address abf9010  @<~HttpTask> @@<HttpTask.cpp:80>
+2021-12-27 21:22:14,250[0x7f4a0acc38c0] DEBUG server - task is over  @<handleRequest> @@<Daemon.cpp:31>
