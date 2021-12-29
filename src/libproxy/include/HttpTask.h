@@ -49,6 +49,7 @@ public:
     struct httpRequest{
     	int m_reqHeaderBufSize;
         char* m_pReqHeaderBuf;
+        int bodyBufSize;
         char* m_pReqBodyBuf;
         int m_reqHeaderBufPos;
         int m_reqBodyBufPos;

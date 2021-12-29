@@ -40,11 +40,11 @@ HttpTask::HttpTask()
 
     //request
     m_req.m_reqHeaderBufSize = 8192;
-
+    m_req.bodyBufSize = 8192 * 10;
     m_req.m_pReqHeaderBuf = (char *) malloc(m_req.m_reqHeaderBufSize);//8KB
-    m_req.m_pReqBodyBuf  =(char *)malloc(m_req.m_reqHeaderBufSize * 10);//80KB
+    m_req.m_pReqBodyBuf  =(char *)malloc(m_req.bodyBufSize);//80KB
     memset(m_req.m_pReqHeaderBuf, 0, m_req.m_reqHeaderBufSize);
-    memset(m_req.m_pReqBodyBuf, 0, m_req.m_reqHeaderBufSize * 10);
+    memset(m_req.m_pReqBodyBuf, 0, m_req.bodyBufSize);
     m_req.m_reqHeaderBufPos = 0;
     m_req.m_reqBodyBufPos = 0;
     m_req.m_headerRecvFinished = false;
@@ -278,10 +278,28 @@ int HttpTask::recvReqFromClient(bool useHttpsRead)
 			}
 			else
 			{
+				if(m_req.m_reqBodyBufPos + size > m_req.bodyBufSize)
+				{
+					LOG_DEBUG("request body exceeds the max body size, reallocate");
+					int beforeBodySize = m_req.bodyBufSize;
+					m_req.bodyBufSize += 8192;
+					m_req.m_pReqBodyBuf = (char *) realloc(m_req.m_pReqBodyBuf, m_req.bodyBufSize);
+					memset(m_req.m_pReqBodyBuf + beforeBodySize, 0, 8192);
+				}
 				memcpy(m_req.m_pReqBodyBuf + m_req.m_reqBodyBufPos, buf, size);
 				m_req.m_reqBodyBufPos += size;
 				LOG_DEBUG("current recv bytes = %d, content length = %d",m_req.m_reqBodyBufPos,m_req.contentLength);
-				continue;
+				if(m_req.m_reqBodyBufPos == m_req.contentLength)
+				{
+					m_req.m_bodyRecvFinished = true;
+					m_bisClientReqRecvFinised = true;
+					LOG_DEBUG("body recv is finished");
+				}
+				else
+				{
+					continue;
+				}
+
 			}
 
 		}
@@ -871,7 +889,7 @@ int HttpTask::processHttpsTransaction()
 		return ret;
 	}
 
-	m_pServerCTX = SSL_CTX_new(TLS_client_method());
+	m_pServerCTX = SSL_CTX_new(TLSv1_2_client_method());
 	m_pServerSSL = SSL_new(m_pServerCTX);
 	//add SNI extension
 	SSL_set_tlsext_host_name(m_pServerSSL, m_serverHostName.c_str());

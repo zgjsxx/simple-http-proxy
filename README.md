@@ -19,3 +19,4 @@ simple_proxy_st is a http/https proxy, it used the coroutine with opensource lib
 3.301 redirect body process  
 4.access log  
 5.change openssl to release version  
+6.prevent JA3 blocked
