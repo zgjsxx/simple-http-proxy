@@ -29,6 +29,8 @@ public:
     int recvRespFromServer(bool useHttpsRead);
     int sendRespToClient(bool useHttpsRead);
     int checkIPOrDomain(std::string str);
+    bool checkNeedsToTunnel();
+    int processHttpsTunnel();
 
 public:
     int m_clientFd;

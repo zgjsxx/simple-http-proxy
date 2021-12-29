@@ -153,7 +153,17 @@ int HttpTask::handleIOEvent()
 	}
 	if(m_isHttps)
 	{
-		int ret = processHttpsTransaction();
+		int ret;
+		bool res = checkNeedsToTunnel();
+		if(res)
+		{
+			ret = processHttpsTunnel();
+		}
+		else
+		{
+			ret = processHttpsTransaction();
+		}
+
 		return ret;
 	}
 	else
@@ -889,7 +899,7 @@ int HttpTask::processHttpsTransaction()
 		return ret;
 	}
 
-	m_pServerCTX = SSL_CTX_new(TLSv1_2_client_method());
+	m_pServerCTX = SSL_CTX_new(TLS_client_method());
 	m_pServerSSL = SSL_new(m_pServerCTX);
 	//add SNI extension
 	SSL_set_tlsext_host_name(m_pServerSSL, m_serverHostName.c_str());
@@ -1011,4 +1021,83 @@ int HttpTask::checkIPOrDomain(std::string str)
 		LOG_DEBUG("ip address format");
 		return true;
 	}
+}
+
+
+bool HttpTask::checkNeedsToTunnel()
+{
+	std::string::size_type idx = m_serverHostName.find("whatismyipaddress.com");
+	if(idx != std::string::npos )
+	{
+		LOG_DEBUG("tunnul it");
+		return true;
+	}
+	else
+	{
+		LOG_DEBUG("do not tunnul it");
+		return false;
+	}
+}
+
+#define IOBUFSIZE (16*1024)
+
+static int pass(st_netfd_t in, st_netfd_t out)
+{
+	char buf[IOBUFSIZE];
+	int nw, nr;
+
+	nr = (int) st_read(in, buf, IOBUFSIZE, ST_UTIME_NO_TIMEOUT);
+	if (nr <= 0)
+		return 0;
+
+	nw = st_write(out, buf, nr, ST_UTIME_NO_TIMEOUT);
+	if (nw != nr)
+		return 0;
+
+	return 1;
+}
+
+int HttpTask::processHttpsTunnel()
+{
+	LOG_DEBUG("process https tunnel");
+	int ret = send200ConnectSucToClient();
+	if(ret < 0)
+	{
+		LOG_DEBUG("send 200 to client failed");
+		return ret;
+	}
+
+	struct pollfd pds[2];
+
+	pds[0].fd = m_clientFd;
+	pds[0].events = POLLIN;
+
+	pds[1].fd = m_serverFd;
+	pds[1].events = POLLIN;
+	LOG_DEBUG("client fd: %d, server fd: %d", m_clientFd, m_serverFd);
+	for ( ; ; )
+	{
+		pds[0].revents = 0;
+		pds[1].revents = 0;
+
+		if (st_poll(pds, 2, ST_UTIME_NO_TIMEOUT) <= 0)
+		{
+			LOG_DEBUG("st_poll error");
+			break;
+		}
+
+		if (pds[0].revents & POLLIN)
+		{
+			if (!pass(m_client_nfd, m_server_nfd))
+				break;
+		}
+
+		if (pds[1].revents & POLLIN)
+		{
+			if (!pass(m_server_nfd, m_client_nfd))
+				break;
+		}
+	}
+	m_bTaskOver = true;
+	return 0;
 }
