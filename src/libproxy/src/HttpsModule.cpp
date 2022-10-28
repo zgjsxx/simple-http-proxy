@@ -238,10 +238,11 @@ void HttpsModule::prepareResignedEndpointCert(X509 *fake_x509, EVP_PKEY* server_
 	X509_set_subject_name(fake_x509,X509_get_subject_name(server_x509));
 
 	ASN1_UTCTIME *s=ASN1_UTCTIME_new();
-	X509_gmtime_adj(s, long(0));
 	int days = 365;
+	X509_gmtime_adj(s, (long)60*60*24*days*(-1));
+
 	X509_set_notBefore(fake_x509, s);
-	X509_gmtime_adj(s, (long)60*60*24*days);
+	X509_gmtime_adj(s, (long)60*60*24*days*2);
 	X509_set_notAfter(fake_x509, s);
 	ASN1_UTCTIME_free(s);
 	int key_length = 2048;
