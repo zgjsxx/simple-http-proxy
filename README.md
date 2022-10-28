@@ -1,4 +1,4 @@
-# simple_http_proxy
+# simple http proxy
 [![c++](https://img.shields.io/static/v1?label=build&message=passing&color=green)](https://www.python.org/)
 [![qt](https://img.shields.io/static/v1?label=statethread&message=1.9&color=blue)](https://www.python.org/)
 [![qt](https://img.shields.io/static/v1?label=openssl&message=1.1.1l&color=blue)](https://www.python.org/)
