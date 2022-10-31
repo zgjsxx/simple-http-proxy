@@ -1,3 +1,0 @@
-gcc server.c error.o -o server -I./ -L./ -lst -Wl,-rpath=./
-gcc proxy.c error.o -o proxy -I./ -L./ -lst -Wl,-rpath=./
-g++ myproxy.cpp error.o -o myproxy -I./ -L./ -lst -Wl,-rpath=./
