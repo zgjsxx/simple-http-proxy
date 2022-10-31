@@ -1,0 +1,14 @@
+#!/bin/bash
+CURR_DIR=$(pwd)
+echo $CURR_DIR
+
+# compile openssl
+OPENSSL_DEST_DIR=$CURR_DIR/output/openssl
+mkdir output
+mkdir output/openssl
+
+OPENSSL_OPTIONS="-no-shared -no-threads"
+
+cd 3rdparty/openssl
+./config --prefix=$OPENSSL_DEST_DIR $OPENSSL_OPTIONS -DOPENSSL_NO_HEARTBEATS
+make && make install

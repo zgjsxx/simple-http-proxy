@@ -15,6 +15,8 @@ BINARY_TYPE = a
 SOURCE_PATH +=	src	
 
 
+STATIC_LIBRARY += $(PROXY_PATH)/output/openssl/lib/libssl.a \
+				  $(PROXY_PATH)/output/openssl/lib/libcrypto.a
 
 CFLAGS +=	-I./include \
 			-I../../3rdparty/openssl/include \

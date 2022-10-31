@@ -22,11 +22,14 @@ CFLAGS +=	-I./ \
 CFLAGS += -std=c++11		
 CFLAGS += -fPIC
 
-STATIC_LIBRARY += $(PROXY_PATH)/output/debug/bin/lib/libproxy.a
+STATIC_LIBRARY += $(PROXY_PATH)/output/libproxy.a
+
+STATIC_LIBRARY += $(PROXY_PATH)/output/openssl/lib/libssl.a \
+				  $(PROXY_PATH)/output/openssl/lib/libcrypto.a
 
 LDFLAGS +=  -L$(PROXY_PATH)/3rdparty/statethread \
 			-L$(PROXY_PATH)/3rdparty/openssl/lib \
-			-lst -llog4cxx -lssl -lcrypto -lproxy \
+			-lst -llog4cxx  -pthread -ldl\
 			-Wl,-rpath=$(PROXY_PATH)/3rdparty/statethread \
 			-Wl,-rpath=$(PROXY_PATH)/3rdparty/openssl/lib	
 #

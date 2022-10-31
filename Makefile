@@ -9,7 +9,7 @@ main:
 	$(MAKE) -C $(PROJ_PATH)/src/main
 
 clean:
-	rm -rf $(PROJ_PATH)/output
+	rm -rf $(PROJ_PATH)/output/myproxy
 
 full_clean:
 	rm -rf $(PROJ_PATH)/output
