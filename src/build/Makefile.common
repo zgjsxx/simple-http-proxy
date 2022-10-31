@@ -1,8 +1,0 @@
-DATE_CMD=date +'%F %T'
-
-
-CFLAGS += -ggdb3
-
-LDFLAGS_SO = -shared
-CFLAGS_SO = -fPIC
-AR = ar -cr

@@ -1,0 +1,12 @@
+export BUILD=debug
+
+export OUTPUT_PATH      := $(PROXY_PATH)/output
+export TMPOBJ_PATH      := $(PROXY_PATH)/tmpobj
+
+
+export OUTPUT_BUILD_PATH      := $(OUTPUT_PATH)/$(BUILD)
+export TMPOBJ_BUILD_PATH      := $(TMPOBJ_PATH)/$(BUILD)
+
+
+export OUTPUT_BIN_PATH      := $(OUTPUT_BUILD_PATH)/bin
+export OUTPUT_LIB_PATH      := $(OUTPUT_BIN_PATH)/lib
