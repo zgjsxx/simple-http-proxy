@@ -1,13 +1,6 @@
 PROJ_PATH=$(shell pwd)
-CXX=g++
-include_dir +=$(PROJ_PATH)/src/libproxy/include \
-				-I$(PROJ_PATH)/src/import/openssl/include
 
-lib_dir=$(PROJ_PATH)/output/debug/bin/lib \
-		-L$(PROJ_PATH)/src/import/openssl/lib \
-		-L$(PROJ_PATH)/src/import/statethread
-
-all:proxy main
+all:base proxy main
 proxy:
 	$(MAKE) -C $(PROJ_PATH)/src/proxy
 base:
