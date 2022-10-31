@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include <string.h>
-
+#define SRS_DEFAULT_CONFIG "conf/srs.conf"
 class SrsConfig;
 
 namespace srs_internal

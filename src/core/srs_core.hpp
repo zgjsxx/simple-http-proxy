@@ -3,7 +3,7 @@
 
 // The version config.
 #include <srs_core_version.hpp>
-#include <srs_auto_headers.hpp>
+// #include <srs_auto_headers.hpp>
 #define SRS_INTERNAL_STR(v) #v
 #define SRS_XSTR(v) SRS_INTERNAL_STR(v)
 

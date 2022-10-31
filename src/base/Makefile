@@ -17,7 +17,7 @@ SOURCE_PATH +=	./
 
 
 CFLAGS +=	-I./ \
-			-I../../3rdparty/statethread/include \
+			-I../../3rdparty/st \
 			-std=c++11
 
 #

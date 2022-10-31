@@ -14,9 +14,13 @@ BINARY_TYPE = a
 
 SOURCE_PATH +=	./
 
-
+STATIC_LIBRARY += $(PROXY_PATH)/output/libcore.a
+STATIC_LIBRARY += $(PROXY_PATH)/output/libprotocol.a
+STATIC_LIBRARY += $(PROXY_PATH)/output/libkernel.a
+STATIC_LIBRARY += $(PROXY_PATH)/output/libapp.a
 
 CFLAGS +=	-I./ \
+			-I../core \
 			-I../../3rdparty/statethread/include \
 			-std=c++11
 
