@@ -246,7 +246,7 @@ SrsHttpxConn::SrsHttpxConn(bool https, ISrsResourceManager* cm, ISrsProtocolRead
         ssl = new SrsSslConnection(io_);
         conn = new SrsHttpConn(this, ssl, m, cip, port);
     } else {
-        // ssl = NULL;
+        ssl = NULL;
         conn = new SrsHttpConn(this, io_, m, cip, port);
     }
 

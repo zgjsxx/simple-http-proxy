@@ -53,12 +53,11 @@ srs_error_t SrsTcpListener::listen()
 srs_error_t SrsTcpListener::cycle()
 {
     srs_error_t err = srs_success;
-    srs_trace("cycle");
     while (true) {
         if ((err = trd->pull()) != srs_success) {
             return srs_error_wrap(err, "tcp listener");
         }
-        srs_trace("srs_accept");
+
         srs_netfd_t fd = srs_accept(lfd, NULL, NULL, SRS_UTIME_NO_TIMEOUT);
         if(fd == NULL){
             return srs_error_new(ERROR_SOCKET_ACCEPT, "accept at fd=%d", srs_netfd_fileno(lfd));
