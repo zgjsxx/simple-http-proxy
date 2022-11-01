@@ -22,7 +22,7 @@ STATIC_LIBRARY += $(PROXY_PATH)/output/libapp.a
 CFLAGS +=	-I./ \
 			-I../core \
 			-I../kernel \
-			-I../../3rdparty/st \
+			-I../../3rdparty/st-srs \
 			-std=c++11
 
 #

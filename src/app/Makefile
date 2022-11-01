@@ -23,7 +23,7 @@ CFLAGS +=	-I./ \
 			-I../core \
 			-I../kernel \
 			-I../protocol \
-			-I../../3rdparty/st/include \
+			-I../../3rdparty/st-srs/include \
 			-I../../3rdparty/openssl/include \
 			-std=c++11
 

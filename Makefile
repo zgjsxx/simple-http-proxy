@@ -9,7 +9,7 @@ kernel:
 	$(MAKE) -C $(PROJ_PATH)/src/kernel
 protocol:
 	$(MAKE) -C $(PROJ_PATH)/src/protocol
-main:
+main:app core kernel protocol
 	$(MAKE) -C $(PROJ_PATH)/src/main
 clean:
 	rm -rf $(PROJ_PATH)/output/myproxy

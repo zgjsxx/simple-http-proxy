@@ -15,7 +15,7 @@ make && make install
 
 # compile st
 cd $CURR_DIR
-cd 3rdparty/st
+cd 3rdparty/st-srs
 make linux-debug
 
 OS="LINUX"
@@ -23,7 +23,7 @@ BUILD="DBG"
 VERSION=`uname -r`
 
 TARGETDIR="${OS}_${VERSION}_$BUILD"
-st_path=$CURR_DIR/3rdparty/st/$TARGETDIR
+st_path=$CURR_DIR/3rdparty/st-srs/$TARGETDIR
 
 echo $st_path
 cp $st_path/libst.a ../../output/
