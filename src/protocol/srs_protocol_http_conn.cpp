@@ -186,7 +186,7 @@ int SrsHttpParser::on_headers_complete(http_parser* parser)
     // When we got the body start event, we will update it to much precious position.
     obj->p_body_start = obj->buffer->bytes() + obj->buffer->size();
 
-    srs_info("***HEADERS COMPLETE***");
+    srs_trace("***HEADERS COMPLETE***");
     
     // see http_parser.c:1570, return 1 to skip body.
     return 0;
@@ -220,7 +220,7 @@ int SrsHttpParser::on_url(http_parser* parser, const char* at, size_t length)
     // @see https://github.com/ossrs/srs/issues/1508
     obj->p_header_tail = at;
     
-    srs_info("Method: %d, Url: %.*s", parser->method, (int)length, at);
+    srs_trace("Method: %d, Url: %.*s", parser->method, (int)length, at);
     
     return 0;
 }

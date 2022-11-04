@@ -36,7 +36,6 @@ int SrsTcpListener::fd()
 srs_error_t SrsTcpListener::listen()
 {
     srs_error_t err = srs_success;
-    srs_trace("srs_tcp_listen");
     if ((err = srs_tcp_listen(ip, port, &lfd)) != srs_success) {
         return srs_error_wrap(err, "listen at %s:%d", ip.c_str(), port);
     }
@@ -66,7 +65,7 @@ srs_error_t SrsTcpListener::cycle()
         if ((err = srs_fd_closeexec(srs_netfd_fileno(fd))) != srs_success) {
             return srs_error_wrap(err, "set closeexec");
         }
-        srs_trace("handler->on_tcp_client(fd)");
+
         if ((err = handler->on_tcp_client(fd)) != srs_success) {
             return srs_error_wrap(err, "handle fd=%d", srs_netfd_fileno(fd));
         }

@@ -132,6 +132,35 @@ public:
 //     ISrsKbpsDelta* delta();
 };
 
+class SrsHttpxProxyConn :  public ISrsCoroutineHandler, public ISrsConnection, public ISrsStartable//public ISrsConnection , public ISrsHttpConnOwner, public ISrsReloadHandler,
+{
+private:
+    //client socket reader/writer
+    ISrsProtocolReadWriter* skt;
+    //http protocol parser
+    SrsHttpParser* parser;
+    //coroutine 
+    SrsCoroutine* trd;
+    // The ip and port of client.
+    std::string ip;
+    int port;
+public:
+    SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMux* m, std::string cip, int port);
+    virtual ~SrsHttpxProxyConn();
+public:
+    virtual srs_error_t start();
+// Interface ISrsOneCycleThreadHandler
+public:
+    virtual srs_error_t cycle();
+private:
+    virtual srs_error_t do_cycle();
+    virtual srs_error_t process_requests();
+public:
+    virtual const SrsContextId& get_id();
+    virtual std::string desc();
+    virtual std::string remote_ip();
+};
+
 // The http server, use http stream or static server to serve requests.
 class SrsHttpServer : public ISrsHttpServeMux
 {

@@ -473,6 +473,10 @@ srs_error_t SrsServer::listen()
         return srs_error_wrap(err, "https api listen");
     }
 
+    if((err = listen_http_proxy()) != srs_success) {
+        return srs_error_wrap(err, "http proxy listen");
+    }
+
     if ((err = conn_manager->start()) != srs_success) {
         return srs_error_wrap(err, "connection manager");
     }
@@ -676,6 +680,33 @@ srs_error_t SrsServer::listen_https_api()
 
     return err;
 }
+srs_error_t SrsServer::listen_http_proxy()
+{
+    srs_error_t err = srs_success;
+
+    close_listeners(SrsListenerHttpProxy);
+
+    // Ignore if not enabled.
+    if (!_srs_config->get_http_proxy_enabled()) {
+        return err;
+    }
+
+    // Listen at a dedicated HTTPS API endpoint.
+    SrsListener* listener = new SrsBufferListener(this, SrsListenerHttpProxy);
+    listeners.push_back(listener);
+
+    std::string ep = _srs_config->get_http_proxy_listen();
+
+    std::string ip;
+    int port;
+    srs_parse_endpoint(ep, ip, port);
+
+    if ((err = listener->listen(ip, port)) != srs_success) {
+        return srs_error_wrap(err, "http proxy api listen %s:%d", ip.c_str(), port);
+    }
+
+    return err; 
+}
 
 srs_error_t SrsServer::accept_client(SrsListenerType type, srs_netfd_t stfd)
 {
@@ -749,7 +780,12 @@ srs_error_t SrsServer::fd_to_resource(SrsListenerType type, srs_netfd_t& stfd, I
     SrsContextRestore(_srs_context->get_id());    
     if (type == SrsListenerHttpApi || type == SrsListenerHttpsApi) {
         *pr = new SrsHttpxConn(type == SrsListenerHttpsApi, this, new SrsTcpConnection(fd2), http_api_mux, ip, port);
-    } else {
+    } 
+    else if(type == SrsListenerHttpProxy){
+        srs_trace("http proxy connection is come in");
+        *pr = new SrsHttpxProxyConn(new SrsTcpConnection(fd2), http_api_mux, ip, port);
+    } 
+    else {
         srs_warn("close for no service handler. fd=%d, ip=%s:%d", fd, ip.c_str(), port);
         srs_close_stfd(fd2);
         return err;

@@ -236,6 +236,10 @@ public:
     virtual std::string get_https_stream_ssl_cert();
 public:
     virtual std::string get_https_api_listen();
+public:
+    //proxy related conf  
+    virtual bool get_http_proxy_enabled();
+    virtual std::string get_http_proxy_listen();
 private:
     SrsConfDirective* get_https_api();
 public:

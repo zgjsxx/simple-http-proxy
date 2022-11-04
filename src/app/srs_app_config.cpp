@@ -1384,3 +1384,46 @@ bool SrsConfig::get_https_api_enabled()
 
     return SRS_CONF_PERFER_FALSE(conf->arg0());
 }
+
+bool SrsConfig::get_http_proxy_enabled()
+{
+    SRS_OVERWRITE_BY_ENV_BOOL("SRS_HTTP_PROXY_ENABLED");
+
+    static bool DEFAULT = true;
+
+    SrsConfDirective* conf = root->get("http_proxy");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("enabled");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return SRS_CONF_PERFER_FALSE(conf->arg0());
+}
+
+string SrsConfig::get_http_proxy_listen()
+{
+    SRS_OVERWRITE_BY_ENV_STRING("SRS_HTTP_PROXY_LISTEN");
+
+#ifdef SRS_UTEST
+    // We should not use static default, because we need to reset for different testcase.
+    string DEFAULT = "";
+#else
+    static string DEFAULT = "80";
+#endif
+
+    SrsConfDirective* conf = root->get("http_proxy");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("listen");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return conf->arg0();
+}

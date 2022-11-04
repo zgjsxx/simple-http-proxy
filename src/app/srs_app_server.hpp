@@ -33,6 +33,8 @@ enum SrsListenerType
     SrsListenerHttpsStream = 9,
     // WebRTC over TCP,
     SrsListenerTcp = 10,
+    //srs proxy connection
+    SrsListenerHttpProxy = 11
 };
 
 class SrsListener
@@ -185,6 +187,8 @@ private:
     // virtual srs_error_t listen_rtmp();
     virtual srs_error_t listen_http_api();
     virtual srs_error_t listen_https_api();
+    // listen http/https proxy connection
+    virtual srs_error_t listen_http_proxy();
     // Close the listeners for specified type,
     // Remove the listen object from manager.
     virtual void close_listeners(SrsListenerType type);    

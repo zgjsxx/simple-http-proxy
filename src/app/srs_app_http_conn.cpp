@@ -362,6 +362,125 @@ srs_error_t SrsHttpxConn::start()
     return conn->start();
 }
 
+SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMux* m, std::string cip, int port)
+{
+    parser = new SrsHttpParser();
+    ip = cip;
+    port = port;
+    skt = io;
+    trd = new SrsSTCoroutine("httpProxy", this, _srs_context->get_id());
+}
+
+SrsHttpxProxyConn::~SrsHttpxProxyConn()
+{
+    trd->interrupt();
+    srs_freep(trd);
+    srs_freep(parser);
+}
+
+srs_error_t SrsHttpxProxyConn::start()
+{
+    srs_error_t err = srs_success;
+
+    if ((err = trd->start()) != srs_success) {
+        return srs_error_wrap(err, "coroutine");
+    }
+
+    return err;
+}
+
+srs_error_t SrsHttpxProxyConn::cycle()
+{
+    srs_error_t err = do_cycle();
+    return err;
+}
+
+srs_error_t SrsHttpxProxyConn::do_cycle()
+{
+    srs_error_t err = srs_success;
+    
+    // // set the recv timeout, for some clients never disconnect the connection.
+    // // @see https://github.com/ossrs/srs/issues/398
+    // skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
+
+    // initialize parser
+    if ((err = parser->initialize(HTTP_REQUEST)) != srs_success) {
+        return srs_error_wrap(err, "init parser for %s", ip.c_str());
+    }
+
+    // process all http messages.
+    err = process_requests();
+    
+    // srs_error_t r0 = srs_success;
+    // if ((r0 = on_disconnect()) != srs_success) {
+    //     err = srs_error_wrap(err, "on disconnect %s", srs_error_desc(r0).c_str());
+    //     srs_freep(r0);
+    // } 
+}
+
+srs_error_t SrsHttpxProxyConn::process_requests()
+{
+    srs_error_t err = srs_success;
+    for (int req_id = 0; ; req_id++) {
+        if ((err = trd->pull()) != srs_success) {
+            return srs_error_wrap(err, "pull");
+        }
+
+        // get a http message
+        // current, we are sure to get http header, body is not sure
+        ISrsHttpMessage* req = NULL;
+        if ((err = parser->parse_message(skt, &req)) != srs_success) {
+            return srs_error_wrap(err, "parse message");
+        }
+        srs_trace("http url is %s", req->url().c_str());
+    //     // if SUCCESS, always NOT-NULL.
+    //     // always free it in this scope.
+    //     srs_assert(req);
+    //     SrsAutoFree(ISrsHttpMessage, req);
+
+    //     // Attach owner connection to message.
+    //     SrsHttpMessage* hreq = (SrsHttpMessage*)req;
+    //     hreq->set_connection(this);
+
+    //     // may should discard the body.
+    //     SrsHttpResponseWriter writer(skt);
+    //     if ((err = handler_->on_http_message(req, &writer)) != srs_success) {
+    //         return srs_error_wrap(err, "on http message");
+    //     }
+
+    //     // ok, handle http request.
+    //     if ((err = process_request(&writer, req, req_id)) != srs_success) {
+    //         return srs_error_wrap(err, "process request=%d", req_id);
+    //     }
+
+    //     // After the request is processed.
+    //     if ((err = handler_->on_message_done(req, &writer)) != srs_success) {
+    //         return srs_error_wrap(err, "on message done");
+    //     }
+
+    //     // donot keep alive, disconnect it.
+    //     // @see https://github.com/ossrs/srs/issues/399
+    //     if (!req->is_keep_alive()) {
+    //         break;
+    //     }
+    }
+}
+
+string SrsHttpxProxyConn::remote_ip()
+{
+    return ip;
+}
+
+const SrsContextId& SrsHttpxProxyConn::get_id()
+{
+    return trd->cid();
+}
+
+std::string SrsHttpxProxyConn::desc()
+{
+    return "HttpProxy";
+}
+
 srs_error_t SrsHttpServer::initialize()
 {
     srs_error_t err = srs_success;
