@@ -164,11 +164,14 @@ private:
     BIO* bio_in;
     BIO* bio_out;
     EVP_PKEY *ca_key;
+    string sni_;//server_host_name
 public:
     SrsSslClient(SrsTcpClient* tcp);
     virtual ~SrsSslClient();
 public:
     virtual srs_error_t handshake();
+public:
+    virtual srs_error_t set_SNI(std::string sni);
 public:
     virtual srs_error_t read(void* buf, size_t size, ssize_t* nread);
     virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);

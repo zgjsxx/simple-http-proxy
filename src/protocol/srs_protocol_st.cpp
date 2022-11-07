@@ -589,7 +589,8 @@ srs_error_t SrsTcpClient::connect()
     stfd_ = stfd;
 
     srs_assert(stfd_);
-    
+    if(err == srs_success)
+        srs_trace("return srs_success");
     return err;
 }
 

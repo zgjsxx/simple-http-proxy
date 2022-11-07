@@ -860,6 +860,9 @@ srs_error_t SrsSslClient::handshake()
     if ((ssl = SSL_new(ssl_ctx)) == NULL) {
         return srs_error_new(ERROR_HTTPS_HANDSHAKE, "SSL_new ssl");
     }
+	//add SNI extension
+	SSL_set_tlsext_host_name(ssl, sni_.c_str());
+
 
     if ((bio_in = BIO_new(BIO_s_mem())) == NULL) {
         return srs_error_new(ERROR_HTTPS_HANDSHAKE, "BIO_new in");
@@ -1063,7 +1066,15 @@ srs_error_t SrsSslClient::prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* ser
 
 	//X509 *fake_x509 = X509_new();
 	X509_set_version(fake_x509, 2);//v3
-	X509_set_serialNumber(fake_x509, X509_get_serialNumber(server_x509));
+    if(X509_get_serialNumber(server_x509) != NULL)
+    {
+        X509_set_serialNumber(fake_x509, X509_get_serialNumber(server_x509));
+    }
+    else
+    {
+        srs_trace("serial is null");
+    }
+	
 	X509_NAME *issuer = X509_NAME_new();
 	X509_NAME_add_entry_by_txt(issuer, "CN", MBSTRING_ASC, (const unsigned char*)"www.xx.com", -1, -1, 0);
 	X509_NAME_add_entry_by_txt(issuer, "O", MBSTRING_ASC, (const unsigned char*)"XX (Pty) Ltd.", -1, -1, 0);
@@ -1148,4 +1159,9 @@ void SrsSslClient::prepareResignCA()
 	}
 	PEM_read_RSAPublicKey(fp, &rsa, NULL, NULL);
 	EVP_PKEY_assign_RSA(ca_key, rsa);
+}
+
+srs_error_t SrsSslClient::set_SNI(std::string sni)
+{
+    sni_ = sni;
 }

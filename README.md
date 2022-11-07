@@ -26,7 +26,9 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 
 ## 3.current support features:
 - support http request
-- support http content and chunked data
+- support http connect method
+- support https descryption
+- support http chunked data
 
 ## 4.TO DO:
 - move http body to file, curret is in memory  
@@ -35,7 +37,12 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - access log  
 - change openssl to release version  
 - prevent JA3 blocked
-- https descryption  
 - log socket label      
 - support url with ip address
 - support special website to do https tunnel
+- to check connection manage, current it has a lot of CLOSE_WAIT
+
+## other 
+
+**http chunked data test sample**
+http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
