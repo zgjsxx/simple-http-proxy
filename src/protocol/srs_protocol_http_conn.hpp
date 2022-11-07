@@ -89,6 +89,11 @@ private:
     bool _keep_alive;
     // Whether the body is chunked.
     bool chunked;
+    //The raw header string
+    string raw_header;
+    //Host
+    string host_no_port;
+    int dest_port;
 private:
     std::string schema_;
     // The parsed url.
@@ -107,6 +112,9 @@ private:
 public:
     SrsHttpMessage(ISrsReader* reader = NULL, SrsFastStream* buffer = NULL);
     virtual ~SrsHttpMessage();
+public:
+    virtual string get_dest_domain();
+    virtual int get_dest_port();
 public:
     // Set the basic information for HTTP request.
     // @remark User must call set_basic before set_header, because the content_length will be overwrite by header.
@@ -157,6 +165,9 @@ public:
     virtual SrsHttpHeader* header();
 public:
     virtual bool is_jsonp();
+public:
+    virtual void restore_http_header();
+    virtual void get_host_port();
 };
 
 // Response writer use st socket

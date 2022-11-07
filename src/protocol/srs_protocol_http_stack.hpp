@@ -155,7 +155,8 @@ public:
     virtual void set_content_type(std::string ct);
 public:
     // write all headers to string stream.
-    virtual void write(std::stringstream& ss);    
+    virtual void write(std::stringstream& ss);
+    virtual void print();
 };
 
 // A Request represents an HTTP request received by a server
@@ -221,6 +222,9 @@ public:
     virtual std::string query_get(std::string key) = 0;
     // Get the headers.
     virtual SrsHttpHeader* header() = 0;
+public:
+    virtual void restore_http_header() = 0;
+    virtual void get_host_port() = 0;
 public:
     // Whether the current request is JSONP,
     // which has a "callback=xxx" in QueryString.

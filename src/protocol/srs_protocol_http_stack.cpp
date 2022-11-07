@@ -762,6 +762,15 @@ void SrsHttpHeader::write(stringstream& ss)
     }
 }
 
+void SrsHttpHeader::print()
+{
+    srs_trace("Http headers: ");
+    map<string, string>::iterator it;
+    for(it = headers.begin(); it != headers.end(); ++it) {
+        srs_trace("%s: %s", it->first.c_str(), it->second.c_str());
+    }
+}
+
 ISrsHttpResponseReader::ISrsHttpResponseReader()
 {
 }

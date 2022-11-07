@@ -135,8 +135,14 @@ public:
 class SrsHttpxProxyConn :  public ISrsCoroutineHandler, public ISrsConnection, public ISrsStartable//public ISrsConnection , public ISrsHttpConnOwner, public ISrsReloadHandler,
 {
 private:
+/*
+    client ----------->proxy ----------->server
+    client <-----------proxy <-----------server
+*/
     //client socket reader/writer
     ISrsProtocolReadWriter* skt;
+    //client socket reader/writer
+    ISrsProtocolReadWriter* svr_skt;
     //http protocol parser
     SrsHttpParser* parser;
     //coroutine 

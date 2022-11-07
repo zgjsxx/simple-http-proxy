@@ -4,6 +4,7 @@
 #include <sys/uio.h>
 #include <srs_core.hpp>
 #include <srs_core_time.hpp>
+#include <srs_protocol_io.hpp>
 
 // Wrap for coroutine.
 typedef void* srs_netfd_t;
@@ -11,6 +12,8 @@ typedef void* srs_thread_t;
 typedef void* srs_cond_t;
 typedef void* srs_mutex_t;
 
+
+using std::string;
 // Initialize st, requires epoll.
 extern srs_error_t srs_st_init();
 
@@ -24,6 +27,11 @@ extern _ST_THREAD_CREATE_PFN _pfn_st_thread_create;
 
 extern int srs_thread_join(srs_thread_t thread, void **retvalp);
 extern void srs_thread_interrupt(srs_thread_t thread);
+
+// For client, to open socket and connect to server.
+// @param tm The timeout in srs_utime_t.
+extern srs_error_t srs_tcp_connect(std::string server, int port, srs_utime_t tm, srs_netfd_t* pstfd);
+
 // Close the netfd, and close the underlayer fd.
 // @remark when close, user must ensure io completed.
 extern void srs_close_stfd(srs_netfd_t& stfd);
@@ -120,5 +128,47 @@ public:
     virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
 };
 
+// The client to connect to server over TCP.
+// User must never reuse the client when close it.
+// Usage:
+//      SrsTcpClient client("127.0.0.1", 1935, 9 * SRS_UTIME_SECONDS);
+//      client.connect();
+//      client.write("Hello world!", 12, NULL);
+//      client.read(buf, 4096, NULL);
+// @remark User can directly free the object, which will close the fd.
+class SrsTcpClient : public ISrsProtocolReadWriter
+{
+private:
+    srs_netfd_t stfd_;
+    SrsStSocket* io;
+private:
+    std::string host;
+    int port;
+    // The timeout in srs_utime_t.
+    srs_utime_t timeout;
+public:
+    // Constructor.
+    // @param h the ip or hostname of server.
+    // @param p the port to connect to.
+    // @param tm the timeout in srs_utime_t.
+    SrsTcpClient(std::string h, int p, srs_utime_t tm);
+    virtual ~SrsTcpClient();
+public:
+    // Connect to server over TCP.
+    // @remark We will close the exists connection before do connect.
+    virtual srs_error_t connect();
+// Interface ISrsProtocolReadWriter
+public:
+    virtual void set_recv_timeout(srs_utime_t tm);
+    virtual srs_utime_t get_recv_timeout();
+    virtual void set_send_timeout(srs_utime_t tm);
+    virtual srs_utime_t get_send_timeout();
+    virtual int64_t get_recv_bytes();
+    virtual int64_t get_send_bytes();
+    virtual srs_error_t read(void* buf, size_t size, ssize_t* nread);
+    virtual srs_error_t read_fully(void* buf, size_t size, ssize_t* nread);
+    virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
+    virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
+};
 
 #endif

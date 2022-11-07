@@ -127,6 +127,52 @@ void srs_thread_interrupt(srs_thread_t thread)
     st_thread_interrupt((st_thread_t)thread);
 }
 
+srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t* pstfd)
+{
+    st_utime_t timeout = ST_UTIME_NO_TIMEOUT;
+    if (tm != SRS_UTIME_NO_TIMEOUT) {
+        timeout = tm;
+    }
+    
+    *pstfd = NULL;
+    srs_netfd_t stfd = NULL;
+
+    char sport[8];
+    int r0 = snprintf(sport, sizeof(sport), "%d", port);
+    srs_assert(r0 > 0 && r0 < (int)sizeof(sport));
+    
+    addrinfo hints;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    
+    addrinfo* r  = NULL;
+    SrsAutoFreeH(addrinfo, r, freeaddrinfo);
+    if(getaddrinfo(server.c_str(), sport, (const addrinfo*)&hints, &r)) {
+        return srs_error_new(ERROR_SYSTEM_IP_INVALID, "get address info");
+    }
+    
+    int sock = socket(r->ai_family, r->ai_socktype, r->ai_protocol);
+    if(sock == -1){
+        return srs_error_new(ERROR_SOCKET_CREATE, "create socket");
+    }
+    
+    srs_assert(!stfd);
+    stfd = st_netfd_open_socket(sock);
+    if(stfd == NULL){
+        ::close(sock);
+        return srs_error_new(ERROR_ST_OPEN_SOCKET, "open socket");
+    }
+    
+    if (st_connect((st_netfd_t)stfd, r->ai_addr, r->ai_addrlen, timeout) == -1){
+        srs_close_stfd(stfd);
+        return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);
+    }
+    
+    *pstfd = stfd;
+    return srs_success;
+}
+
 srs_netfd_t srs_netfd_open_socket(int osfd)
 {
     return (srs_netfd_t)st_netfd_open_socket(osfd);
@@ -488,4 +534,89 @@ int srs_mutex_lock(srs_mutex_t mutex)
 int srs_mutex_unlock(srs_mutex_t mutex)
 {
     return st_mutex_unlock((st_mutex_t)mutex);
+}
+
+SrsTcpClient::SrsTcpClient(string h, int p, srs_utime_t tm)
+{
+    stfd_ = NULL;
+    io = new SrsStSocket();
+    
+    host = h;
+    port = p;
+    timeout = tm;
+}
+
+SrsTcpClient::~SrsTcpClient()
+{
+    srs_freep(io);
+    srs_close_stfd(stfd_);
+}
+
+srs_error_t SrsTcpClient::connect()
+{
+    srs_error_t err = srs_success;
+    
+    srs_netfd_t stfd = NULL;
+    if ((err = srs_tcp_connect(host, port, timeout, &stfd)) != srs_success) {
+        return srs_error_wrap(err, "tcp: connect %s:%d to=%dms", host.c_str(), port, srsu2msi(timeout));
+    }
+
+    // TODO: FIMXE: The timeout set on io need to be set to new object.
+    srs_freep(io);
+    io = new SrsStSocket(stfd);
+
+    srs_close_stfd(stfd_);
+    stfd_ = stfd;
+    
+    return err;
+}
+
+void SrsTcpClient::set_recv_timeout(srs_utime_t tm)
+{
+    io->set_recv_timeout(tm);
+}
+
+srs_utime_t SrsTcpClient::get_recv_timeout()
+{
+    return io->get_recv_timeout();
+}
+
+void SrsTcpClient::set_send_timeout(srs_utime_t tm)
+{
+    io->set_send_timeout(tm);
+}
+
+srs_utime_t SrsTcpClient::get_send_timeout()
+{
+    return io->get_send_timeout();
+}
+
+int64_t SrsTcpClient::get_recv_bytes()
+{
+    return io->get_recv_bytes();
+}
+
+int64_t SrsTcpClient::get_send_bytes()
+{
+    return io->get_send_bytes();
+}
+
+srs_error_t SrsTcpClient::read(void* buf, size_t size, ssize_t* nread)
+{
+    return io->read(buf, size, nread);
+}
+
+srs_error_t SrsTcpClient::read_fully(void* buf, size_t size, ssize_t* nread)
+{
+    return io->read_fully(buf, size, nread);
+}
+
+srs_error_t SrsTcpClient::write(void* buf, size_t size, ssize_t* nwrite)
+{
+    return io->write(buf, size, nwrite);
+}
+
+srs_error_t SrsTcpClient::writev(const iovec *iov, int iov_size, ssize_t* nwrite)
+{
+    return io->writev(iov, iov_size, nwrite);
 }

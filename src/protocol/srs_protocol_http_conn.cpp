@@ -1,5 +1,5 @@
 #include <string.h>
-
+#include <vector>
 #include <srs_protocol_http_conn.hpp>
 #include <srs_protocol_utility.hpp>
 #include <srs_kernel_utility.hpp>
@@ -7,6 +7,7 @@
 #include <srs_kernel_log.hpp>
 #include <srs_kernel_consts.hpp>
 
+using std::vector;
 
 SrsHttpParser::SrsHttpParser()
 {
@@ -99,7 +100,11 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
         srs_freep(msg);
         return srs_error_wrap(err, "set url=%s, jsonp=%d", url.c_str(), jsonp);
     }
-    
+    //get host value and port from the header
+    msg->get_host_port();
+    //raw http header used to forward to server
+    msg->restore_http_header();
+
     // parse ok, return the msg.
     *ppmsg = msg;
     
@@ -159,7 +164,6 @@ srs_error_t SrsHttpParser::parse_message_imp(ISrsReader* reader)
     
     return err;
 }
-
 
 int SrsHttpParser::on_message_begin(http_parser* parser)
 {
@@ -751,6 +755,75 @@ string SrsHttpMessage::uri()
     uri += path();
     
     return uri;
+}
+
+void SrsHttpMessage::restore_http_header()
+{
+    stringstream ss;
+    //TODO support more method
+    if(_method == SRS_CONSTS_HTTP_GET)
+    {
+        ss << "GET";
+    }
+    else if(_method == SRS_CONSTS_HTTP_POST)
+    {
+        ss << "POST";
+    }
+    else if(_method == SRS_CONSTS_HTTP_PUT)
+    {
+        ss << "PUT";
+    }
+    else if(_method == SRS_CONSTS_HTTP_DELETE)
+    {
+        ss << "DELETE";
+    }
+
+    ss << " ";
+
+    ss << _url;
+
+    ss << " ";
+
+    ss << "HTTP/1.1 " << SRS_HTTP_CRLF;
+
+    header()->write(ss);
+
+    raw_header = ss.str();
+
+    srs_trace("Http Header: %s", raw_header.c_str());
+}
+
+void SrsHttpMessage::get_host_port()
+{
+    SrsHttpHeader* header = this->header();
+    string host_tmp = "";
+    vector<string> res;
+    if((host_tmp = header->get("Host")) != "")
+    {
+        res = srs_string_split(host_tmp, ":");
+        if(res.size() == 1)
+        {
+            //Host: example.com
+            host_no_port = res[0];
+            dest_port = 80;
+        }
+        else
+        {
+            //Host: example.com:8080
+            host_no_port = res[0];
+            dest_port = atoi(res[1].c_str());
+        }
+    }
+}
+
+string SrsHttpMessage::get_dest_domain()
+{
+    return host_no_port;
+}
+
+int SrsHttpMessage::get_dest_port()
+{
+    return dest_port;
 }
 
 SrsHttpHeader* SrsHttpMessage::header()

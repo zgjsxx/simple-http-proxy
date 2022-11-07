@@ -432,15 +432,22 @@ srs_error_t SrsHttpxProxyConn::process_requests()
         if ((err = parser->parse_message(skt, &req)) != srs_success) {
             return srs_error_wrap(err, "parse message");
         }
-        srs_trace("http url is %s", req->url().c_str());
-    //     // if SUCCESS, always NOT-NULL.
-    //     // always free it in this scope.
-    //     srs_assert(req);
-    //     SrsAutoFree(ISrsHttpMessage, req);
 
-    //     // Attach owner connection to message.
-    //     SrsHttpMessage* hreq = (SrsHttpMessage*)req;
-    //     hreq->set_connection(this);
+        // if SUCCESS, always NOT-NULL.
+        // always free it in this scope.
+        srs_assert(req);
+        SrsAutoFree(ISrsHttpMessage, req);
+
+        // Attach owner connection to message.
+        SrsHttpMessage* hreq = (SrsHttpMessage*)req;
+        hreq->set_connection(this);
+
+
+        svr_skt = new SrsTcpClient(hreq->get_dest_domain(), hreq->get_dest_port(), 5000);
+
+
+        SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+        server_skt->connect();
 
     //     // may should discard the body.
     //     SrsHttpResponseWriter writer(skt);

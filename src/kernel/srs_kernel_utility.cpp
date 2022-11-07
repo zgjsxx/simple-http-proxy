@@ -195,6 +195,26 @@ vector<string> srs_string_split(string str, vector<string> seperators)
     return arr;
 }
 
+vector<string> srs_string_split(string s, string seperator)
+{
+    vector<string> result;
+    if(seperator.empty()){
+        result.push_back(s);
+        return result;
+    }
+    
+    size_t posBegin = 0;
+    size_t posSeperator = s.find(seperator);
+    while (posSeperator != string::npos) {
+        result.push_back(s.substr(posBegin, posSeperator - posBegin));
+        posBegin = posSeperator + seperator.length(); // next byte of seperator
+        posSeperator = s.find(seperator, posBegin);
+    }
+    // push the last element
+    result.push_back(s.substr(posBegin));
+    return result;
+}
+
 bool srs_path_exists(std::string path)
 {
     struct stat st;
