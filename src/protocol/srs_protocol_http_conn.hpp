@@ -168,6 +168,7 @@ public:
 public:
     virtual void restore_http_header();
     virtual void get_host_port();
+    virtual string get_raw_header();
 };
 
 // Response writer use st socket

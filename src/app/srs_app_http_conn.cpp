@@ -365,6 +365,7 @@ srs_error_t SrsHttpxConn::start()
 SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMux* m, std::string cip, int port)
 {
     parser = new SrsHttpParser();
+    server_parser = new SrsHttpParser();
     ip = cip;
     port = port;
     skt = io;
@@ -376,6 +377,7 @@ SrsHttpxProxyConn::~SrsHttpxProxyConn()
     trd->interrupt();
     srs_freep(trd);
     srs_freep(parser);
+    srs_freep(server_parser);
 }
 
 srs_error_t SrsHttpxProxyConn::start()
@@ -441,13 +443,36 @@ srs_error_t SrsHttpxProxyConn::process_requests()
         // Attach owner connection to message.
         SrsHttpMessage* hreq = (SrsHttpMessage*)req;
         hreq->set_connection(this);
+        string req_body = "";
+        hreq->body_read_all(req_body);
 
-
-        svr_skt = new SrsTcpClient(hreq->get_dest_domain(), hreq->get_dest_port(), 5000);
-
+        srs_trace("dest_domain is %s, dest_port is %d", hreq->get_dest_domain().c_str(), hreq->get_dest_port());
+        svr_skt = new SrsTcpClient(hreq->get_dest_domain(), hreq->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
 
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
         server_skt->connect();
+        server_skt->write(const_cast<char*>(hreq->get_raw_header().c_str()), hreq->get_raw_header().size(), NULL);
+        server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+
+        // get a http response
+        // current, we are sure to get http header, body is not sure
+        if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
+            return srs_error_wrap(err, "init parser for %s", ip.c_str());
+        }
+
+        ISrsHttpMessage* server_resp = NULL;
+        if ((err = server_parser->parse_message(svr_skt, &server_resp)) != srs_success) {
+            return srs_error_wrap(err, "parse message");
+        }
+
+        // Attach owner connection to message.
+        SrsHttpMessage* hresp = (SrsHttpMessage*)server_resp;
+        skt->write(const_cast<char*>(hresp->get_raw_header().c_str()), hresp->get_raw_header().size(), NULL);
+        
+        string resp_body = "";
+        hresp->body_read_all(resp_body);
+        skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+
 
     //     // may should discard the body.
     //     SrsHttpResponseWriter writer(skt);

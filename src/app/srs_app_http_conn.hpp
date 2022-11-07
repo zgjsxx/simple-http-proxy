@@ -145,6 +145,8 @@ private:
     ISrsProtocolReadWriter* svr_skt;
     //http protocol parser
     SrsHttpParser* parser;
+    //http server response protocol parser
+    SrsHttpParser* server_parser;
     //coroutine 
     SrsCoroutine* trd;
     // The ip and port of client.

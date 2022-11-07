@@ -3,7 +3,7 @@
 #include <netdb.h>
 #include <st.h>
 #include <string.h>
-
+#include <arpa/inet.h>
 #include <srs_protocol_st.hpp>
 #include <srs_kernel_error.hpp>
 #include <srs_kernel_log.hpp>
@@ -163,12 +163,26 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
         ::close(sock);
         return srs_error_new(ERROR_ST_OPEN_SOCKET, "open socket");
     }
+    srs_trace("connect to %s:%d", server.c_str(), port);
     
+    char ipv4_str[32] = {0};
+    struct sockaddr_in* addr = (struct sockaddr_in *)r->ai_addr;
+    inet_ntop(AF_INET, &addr->sin_addr, ipv4_str, sizeof(ipv4_str));
+    srs_trace("server ip address = %s",ipv4_str);
+
     if (st_connect((st_netfd_t)stfd, r->ai_addr, r->ai_addrlen, timeout) == -1){
+        srs_trace("connect failed");
         srs_close_stfd(stfd);
         return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);
     }
-    
+    srs_trace("connect suc");
+
+    if(stfd == NULL){
+        srs_trace("stfd == NULL");
+    }
+    else{
+        srs_trace("stfd != NULL");
+    }
     *pstfd = stfd;
     return srs_success;
 }
@@ -563,10 +577,18 @@ srs_error_t SrsTcpClient::connect()
 
     // TODO: FIMXE: The timeout set on io need to be set to new object.
     srs_freep(io);
+    srs_assert(stfd);
+
+    if(stfd == NULL)
+    {
+        srs_trace("stfd == NULL");
+    }
     io = new SrsStSocket(stfd);
 
     srs_close_stfd(stfd_);
     stfd_ = stfd;
+
+    srs_assert(stfd_);
     
     return err;
 }

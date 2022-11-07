@@ -93,6 +93,8 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
     SrsHttpMessage* msg = new SrsHttpMessage(reader, buffer);
 
     // Initialize the basic information.
+    srs_trace("status code = %u", hp_header.status_code);
+
     msg->set_basic(hp_header.type, hp_header.method, hp_header.status_code, hp_header.content_length);
     msg->set_header(header, http_should_keep_alive(&hp_header));
     // For HTTP response, no url.
@@ -101,7 +103,9 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
         return srs_error_wrap(err, "set url=%s, jsonp=%d", url.c_str(), jsonp);
     }
     //get host value and port from the header
-    msg->get_host_port();
+    if(type_ == HTTP_REQUEST) {
+        msg->get_host_port();
+    }
     //raw http header used to forward to server
     msg->restore_http_header();
 
@@ -705,6 +709,7 @@ string SrsHttpMessage::method_str()
 
 srs_error_t SrsHttpMessage::body_read_all(string& body)
 {
+    //process Transfer-Encoding: Trunked
     return srs_ioutil_read_all(_body, body);
 }
 
@@ -760,34 +765,46 @@ string SrsHttpMessage::uri()
 void SrsHttpMessage::restore_http_header()
 {
     stringstream ss;
-    //TODO support more method
-    if(_method == SRS_CONSTS_HTTP_GET)
+    if(type_ == HTTP_REQUEST)
     {
-        ss << "GET";
-    }
-    else if(_method == SRS_CONSTS_HTTP_POST)
-    {
-        ss << "POST";
-    }
-    else if(_method == SRS_CONSTS_HTTP_PUT)
-    {
-        ss << "PUT";
-    }
-    else if(_method == SRS_CONSTS_HTTP_DELETE)
-    {
-        ss << "DELETE";
+        //TODO support more method
+        if(_method == SRS_CONSTS_HTTP_GET)
+        {
+            ss << "GET";
+        }
+        else if(_method == SRS_CONSTS_HTTP_POST)
+        {
+            ss << "POST";
+        }
+        else if(_method == SRS_CONSTS_HTTP_PUT)
+        {
+            ss << "PUT";
+        }
+        else if(_method == SRS_CONSTS_HTTP_DELETE)
+        {
+            ss << "DELETE";
+        }
+
+        ss << " ";
+
+        ss << _uri->get_path();
+
+        ss << " ";
+
+        ss << "HTTP/1.1" << SRS_HTTP_CRLF;
     }
 
-    ss << " ";
-
-    ss << _url;
-
-    ss << " ";
-
-    ss << "HTTP/1.1 " << SRS_HTTP_CRLF;
+    if(type_ == HTTP_RESPONSE)
+    {
+        ss << "HTTP/1.1 ";
+        ss << _status << " ";
+        ss << srs_generate_http_status_text(_status) << SRS_HTTP_CRLF;
+    }
 
     header()->write(ss);
 
+    ss << SRS_HTTP_CRLF;
+    
     raw_header = ss.str();
 
     srs_trace("Http Header: %s", raw_header.c_str());
@@ -824,6 +841,12 @@ string SrsHttpMessage::get_dest_domain()
 int SrsHttpMessage::get_dest_port()
 {
     return dest_port;
+}
+
+
+string SrsHttpMessage::get_raw_header()
+{
+    return raw_header;
 }
 
 SrsHttpHeader* SrsHttpMessage::header()
