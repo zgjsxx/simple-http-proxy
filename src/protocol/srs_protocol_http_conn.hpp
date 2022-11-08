@@ -140,6 +140,7 @@ public:
     virtual bool is_http_post();
     virtual bool is_http_delete();
     virtual bool is_http_options();
+    virtual bool is_http_connect();
     virtual bool is_chunked();
     // Whether should keep the connection alive.
     virtual bool is_keep_alive();

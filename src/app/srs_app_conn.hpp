@@ -139,6 +139,7 @@ public:
     virtual ~SrsSslConnection();
 public:
     virtual srs_error_t handshake(std::string key_file, std::string crt_file);
+    virtual srs_error_t handshake(X509* cert, EVP_PKEY* key);
 // Interface ISrsProtocolReadWriter
 public:
     virtual void set_recv_timeout(srs_utime_t tm);
@@ -153,6 +154,27 @@ public:
     virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
 };
 
-
+class SrsSslClient : public ISrsReader, public ISrsStreamWriter
+{
+private:
+    SrsTcpClient* transport;
+private:
+    SSL_CTX* ssl_ctx;
+    SSL* ssl;
+    BIO* bio_in;
+    BIO* bio_out;
+    EVP_PKEY *ca_key;
+public:
+    SrsSslClient(SrsTcpClient* tcp);
+    virtual ~SrsSslClient();
+public:
+    virtual srs_error_t handshake();
+public:
+    virtual srs_error_t read(void* buf, size_t size, ssize_t* nread);
+    virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
+    virtual srs_error_t prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* server_key);
+    virtual RSA* get_new_cert_rsa(int key_length);
+    virtual void prepareResignCA();
+};
 
 #endif

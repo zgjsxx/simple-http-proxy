@@ -140,9 +140,19 @@ private:
     client <-----------proxy <-----------server
 */
     //client socket reader/writer
-    ISrsProtocolReadWriter* skt;
+    ISrsProtocolReadWriter* clt_skt; //clt = client
     //client socket reader/writer
     ISrsProtocolReadWriter* svr_skt;
+    //client ssl 
+    SrsSslConnection* clt_ssl;
+    //server ssl
+    SrsSslClient* svr_ssl;
+    //client http message
+    SrsHttpMessage* client_http_req;
+    //server http message
+    SrsHttpMessage* server_http_resp;
+    string req_body;
+    string resp_body;
     //http protocol parser
     SrsHttpParser* parser;
     //http server response protocol parser
@@ -167,6 +177,9 @@ public:
     virtual const SrsContextId& get_id();
     virtual std::string desc();
     virtual std::string remote_ip();
+public:
+    virtual srs_error_t process_http_connection();
+    virtual srs_error_t process_https_connection();
 };
 
 // The http server, use http stream or static server to serve requests.

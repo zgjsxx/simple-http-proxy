@@ -99,6 +99,7 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
     msg->set_header(header, http_should_keep_alive(&hp_header));
     // For HTTP response, no url.
     if (type_ != HTTP_RESPONSE && (err = msg->set_url(url, jsonp)) != srs_success) {
+        srs_trace("not suc");
         srs_freep(msg);
         return srs_error_wrap(err, "set url=%s, jsonp=%d", url.c_str(), jsonp);
     }
@@ -357,6 +358,7 @@ srs_error_t SrsHttpResponseReader::read(void* data, size_t nb_data, ssize_t* nb_
 
 srs_error_t SrsHttpResponseReader::read_chunked(void* data, size_t nb_data, ssize_t* nb_read)
 {
+    srs_trace("get trunked data");
     srs_error_t err = srs_success;
     
     // when no bytes left in chunk,
@@ -558,6 +560,11 @@ srs_error_t SrsHttpMessage::set_url(string url, bool allow_jsonp)
     
     _url = url;
 
+    if(is_http_connect())
+    {
+        return err;
+    }
+
     // parse uri from schema/server:port/path?query
     std::string uri = _url;
 
@@ -743,6 +750,11 @@ bool SrsHttpMessage::is_http_options()
     return _method == SRS_CONSTS_HTTP_OPTIONS;
 }
 
+bool SrsHttpMessage::is_http_connect()
+{
+    return _method == SRS_CONSTS_HTTP_CONNECT;
+}
+
 bool SrsHttpMessage::is_keep_alive()
 {
     return _keep_alive;
@@ -784,10 +796,15 @@ void SrsHttpMessage::restore_http_header()
         {
             ss << "DELETE";
         }
+        else if(_method == SRS_CONSTS_HTTP_CONNECT)
+        {
+            ss << "CONNECT";
+        }
 
         ss << " ";
 
-        ss << _uri->get_path();
+
+        ss << _url;
 
         ss << " ";
 
@@ -815,14 +832,36 @@ void SrsHttpMessage::get_host_port()
     SrsHttpHeader* header = this->header();
     string host_tmp = "";
     vector<string> res;
-    if((host_tmp = header->get("Host")) != "")
+    srs_trace("is https connect = %d", is_http_connect());
+    if(!is_http_connect())
     {
-        res = srs_string_split(host_tmp, ":");
+        if((host_tmp = header->get("Host")) != "")
+        {
+            res = srs_string_split(host_tmp, ":");
+            if(res.size() == 1)
+            {
+                //Host: example.com
+                host_no_port = res[0];
+                dest_port = 80;
+            }
+            else
+            {
+                //Host: example.com:8080
+                host_no_port = res[0];
+                dest_port = atoi(res[1].c_str());
+            }
+        }
+    }
+    else
+    {
+        //CONNECT example.com:443 HTTP/1.1
+        srs_trace("url is %s", _url.c_str());
+        res = srs_string_split(_url, ":");
         if(res.size() == 1)
         {
             //Host: example.com
             host_no_port = res[0];
-            dest_port = 80;
+            dest_port = 443;
         }
         else
         {
@@ -831,6 +870,7 @@ void SrsHttpMessage::get_host_port()
             dest_port = atoi(res[1].c_str());
         }
     }
+
 }
 
 string SrsHttpMessage::get_dest_domain()

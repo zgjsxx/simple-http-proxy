@@ -368,7 +368,7 @@ SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMu
     server_parser = new SrsHttpParser();
     ip = cip;
     port = port;
-    skt = io;
+    clt_skt = io;
     trd = new SrsSTCoroutine("httpProxy", this, _srs_context->get_id());
 }
 
@@ -403,7 +403,7 @@ srs_error_t SrsHttpxProxyConn::do_cycle()
     
     // // set the recv timeout, for some clients never disconnect the connection.
     // // @see https://github.com/ossrs/srs/issues/398
-    // skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
+    // clt_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
 
     // initialize parser
     if ((err = parser->initialize(HTTP_REQUEST)) != srs_success) {
@@ -428,10 +428,10 @@ srs_error_t SrsHttpxProxyConn::process_requests()
             return srs_error_wrap(err, "pull");
         }
 
-        // get a http message
+        // get a http message from client
         // current, we are sure to get http header, body is not sure
         ISrsHttpMessage* req = NULL;
-        if ((err = parser->parse_message(skt, &req)) != srs_success) {
+        if ((err = parser->parse_message(clt_skt, &req)) != srs_success) {
             return srs_error_wrap(err, "parse message");
         }
 
@@ -441,41 +441,25 @@ srs_error_t SrsHttpxProxyConn::process_requests()
         SrsAutoFree(ISrsHttpMessage, req);
 
         // Attach owner connection to message.
-        SrsHttpMessage* hreq = (SrsHttpMessage*)req;
-        hreq->set_connection(this);
-        string req_body = "";
-        hreq->body_read_all(req_body);
-
-        srs_trace("dest_domain is %s, dest_port is %d", hreq->get_dest_domain().c_str(), hreq->get_dest_port());
-        svr_skt = new SrsTcpClient(hreq->get_dest_domain(), hreq->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
-
-        SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
-        server_skt->connect();
-        server_skt->write(const_cast<char*>(hreq->get_raw_header().c_str()), hreq->get_raw_header().size(), NULL);
-        server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
-
-        // get a http response
-        // current, we are sure to get http header, body is not sure
-        if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
-            return srs_error_wrap(err, "init parser for %s", ip.c_str());
+        client_http_req = (SrsHttpMessage*)req;
+        client_http_req->set_connection(this);
+        client_http_req->body_read_all(req_body);
+        srs_trace("dest_domain is %s, dest_port is %d", client_http_req->get_dest_domain().c_str(), client_http_req->get_dest_port());
+        if(client_http_req->is_http_connect())
+        {
+            srs_trace("https connection is comming");
+            process_https_connection();
+            srs_trace("https connection is done");
+            return err;
         }
-
-        ISrsHttpMessage* server_resp = NULL;
-        if ((err = server_parser->parse_message(svr_skt, &server_resp)) != srs_success) {
-            return srs_error_wrap(err, "parse message");
+        else
+        {
+            srs_trace("http connection is comming");
+            process_http_connection();
         }
-
-        // Attach owner connection to message.
-        SrsHttpMessage* hresp = (SrsHttpMessage*)server_resp;
-        skt->write(const_cast<char*>(hresp->get_raw_header().c_str()), hresp->get_raw_header().size(), NULL);
-        
-        string resp_body = "";
-        hresp->body_read_all(resp_body);
-        skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-
 
     //     // may should discard the body.
-    //     SrsHttpResponseWriter writer(skt);
+    //     SrsHttpResponseWriter writer(clt_skt);
     //     if ((err = handler_->on_http_message(req, &writer)) != srs_success) {
     //         return srs_error_wrap(err, "on http message");
     //     }
@@ -495,6 +479,166 @@ srs_error_t SrsHttpxProxyConn::process_requests()
     //     if (!req->is_keep_alive()) {
     //         break;
     //     }
+    }
+}
+
+srs_error_t SrsHttpxProxyConn::process_http_connection()
+{
+    srs_error_t err = srs_success;
+    //send request to server
+    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
+    SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+    server_skt->connect();
+    server_skt->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
+    client_http_req->body_read_all(req_body);
+
+    if(client_http_req->is_chunked())
+    {
+        string chunk_size_str = std::to_string(req_body.size());
+        srs_trace("chunk size is %s", chunk_size_str.c_str());
+        server_skt->write(const_cast<char*>(chunk_size_str.c_str()), chunk_size_str.size(), NULL);
+        server_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+        server_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        server_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+    }
+    else
+    {
+        srs_trace("req_body is %d", req_body.size());
+        server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+    }
+
+    // get response from server
+    // current, we are sure to get http header, body is not sure
+    if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
+        srs_trace("server_parser->initialize");
+        return srs_error_wrap(err, "init parser for %s", ip.c_str());
+    }
+
+    ISrsHttpMessage* server_resp = NULL;
+    if ((err = server_parser->parse_message(svr_skt, &server_resp)) != srs_success) {
+        srs_trace("parse message");
+        return srs_error_wrap(err, "parse message");
+    }
+
+    // send response to client
+    server_http_resp = (SrsHttpMessage*)server_resp;
+    clt_skt->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
+    
+    server_http_resp->body_read_all(resp_body);
+    if(server_http_resp->is_chunked())
+    {
+        string chunk_size_str = std::to_string(resp_body.size());
+        srs_trace("chunk size is %s", chunk_size_str.c_str());
+        clt_skt->write(const_cast<char*>(chunk_size_str.c_str()), chunk_size_str.size(), NULL);
+        clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+    }
+    else
+    {
+        srs_trace("resp_body is %d", resp_body.size());
+        clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+    }
+    resp_body = "";
+    req_body = "";
+    return err;
+}
+
+srs_error_t SrsHttpxProxyConn::process_https_connection()
+{
+    srs_error_t err = srs_success;
+
+    //prepare 200 to client
+    string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
+    clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
+
+
+    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
+    SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+    server_skt->connect();
+
+    svr_ssl = new SrsSslClient(server_skt);
+    svr_ssl->handshake();
+
+	X509 *fake_x509 = X509_new();
+	EVP_PKEY* server_key = EVP_PKEY_new();
+    svr_ssl->prepareResignCA();
+	svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
+
+
+    clt_ssl = new SrsSslConnection(clt_skt);
+    clt_ssl->handshake(fake_x509, server_key);
+
+
+    for (int req_id = 0; ; req_id++) {
+        // get a http message from client
+        // current, we are sure to get http header, body is not sure
+        ISrsHttpMessage* req = NULL;
+        if ((err = parser->parse_message(clt_ssl, &req)) != srs_success) {
+            srs_trace("parse message");
+            return srs_error_wrap(err, "parse message");
+        }
+        SrsAutoFree(ISrsHttpMessage, req);
+
+        client_http_req = (SrsHttpMessage*)req;
+        client_http_req->set_connection(this);
+        client_http_req->body_read_all(req_body);
+
+        //send request to server
+        svr_ssl->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
+
+        if(client_http_req->is_chunked())
+        {
+            string chunk_size_str = std::to_string(req_body.size());
+            srs_trace("chunk size is %s", chunk_size_str.c_str());
+            clt_ssl->write(const_cast<char*>(chunk_size_str.c_str()), chunk_size_str.size(), NULL);
+            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            clt_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+        }
+        else
+        {
+            srs_trace("req_body is %d", req_body.size());
+            clt_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+        }
+
+        // get response from server
+        // current, we are sure to get http header, body is not sure
+        if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
+            return srs_error_wrap(err, "init parser for %s", ip.c_str());
+        }
+
+        ISrsHttpMessage* server_resp = NULL;
+        if ((err = server_parser->parse_message(svr_ssl, &server_resp)) != srs_success) {
+            return srs_error_wrap(err, "parse message");
+        }
+        SrsAutoFree(ISrsHttpMessage, server_resp);
+        // send response to client
+        server_http_resp = (SrsHttpMessage*)server_resp;
+        clt_ssl->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
+        
+        server_http_resp->body_read_all(resp_body);
+        if(server_http_resp->is_chunked())
+        {
+            string chunk_size_str = std::to_string(resp_body.size());
+            srs_trace("chunk size is %s", chunk_size_str.c_str());
+            clt_ssl->write(const_cast<char*>(chunk_size_str.c_str()), chunk_size_str.size(), NULL);
+            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+        }
+        else
+        {
+            srs_trace("resp_body is %d", resp_body.size());
+            clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        }
+        req_body = "";
+        resp_body = "";
+
     }
 }
 
