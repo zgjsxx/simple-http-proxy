@@ -10,6 +10,7 @@
 #include <srs_app_config.hpp>
 #include <srs_app_hybrid.hpp>
 #include <srs_app_server.hpp>
+#include <srs_app_policy.hpp>
 
 #ifdef SRS_GPERF_CP
 #include <gperftools/profiler.h>
@@ -21,6 +22,8 @@ ISrsLog* _srs_log = NULL;
 ISrsContext* _srs_context = NULL;
 // @global config object for app module.
 SrsConfig* _srs_config = NULL;
+// @global policy object for app module
+SrsPolicy* _srs_policy;
 
 #include <iostream>
 using namespace std;

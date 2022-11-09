@@ -11,6 +11,8 @@ protocol:
 	$(MAKE) -C $(PROJ_PATH)/src/protocol
 main:app core kernel protocol
 	$(MAKE) -C $(PROJ_PATH)/src/main
+utest:app core kernel protocol
+	$(MAKE) -C $(PROJ_PATH)/src/utest
 clean:
 	rm -rf $(PROJ_PATH)/output/myproxy
 	rm -rf $(PROJ_PATH)/output/libapp.a

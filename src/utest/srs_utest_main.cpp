@@ -1,7 +1,7 @@
 #include <srs_kernel_log.hpp>
 #include <srs_kernel_error.hpp>
 #include <srs_app_config.hpp>
-#include <srs_utest.hpp>
+#include <srs_utest_main.hpp>
 
 ISrsLog* _srs_log = NULL;
 ISrsContext* _srs_context = NULL;

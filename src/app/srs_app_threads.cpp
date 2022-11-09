@@ -11,10 +11,10 @@
 #include <srs_app_config.hpp>
 #include <srs_protocol_log.hpp>
 #include <srs_app_hybrid.hpp>
-
+#include <srs_app_policy.hpp>
 using namespace std;
 
-
+extern SrsPolicy* _srs_policy;
 extern ISrsLog* _srs_log;
 extern SrsConfig* _srs_config;
 extern ISrsContext* _srs_context;
@@ -81,6 +81,7 @@ srs_error_t srs_global_initialize()
     _srs_config = new SrsConfig();
     // The global objects which depends on ST.
     _srs_hybrid = new SrsHybridServer();
+    _srs_policy = new SrsPolicy();
     return err;
 }
 

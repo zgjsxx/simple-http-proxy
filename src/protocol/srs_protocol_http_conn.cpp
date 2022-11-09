@@ -798,6 +798,10 @@ void SrsHttpMessage::restore_http_header()
         {
             ss << "DELETE";
         }
+        else if(_method == SRS_CONSTS_HTTP_OPTIONS)
+        {
+            ss << "OPTIONS";
+        }
         else if(_method == SRS_CONSTS_HTTP_CONNECT)
         {
             ss << "CONNECT";

@@ -10,9 +10,12 @@
 #include <srs_core_auto_free.hpp>
 #include <srs_app_config.hpp>
 #include <srs_kernel_consts.hpp>
+#include <srs_app_policy.hpp>
 
 extern ISrsContext* _srs_context;
 extern SrsConfig* _srs_config;
+extern SrsPolicy* _srs_policy;
+
 ISrsHttpConnOwner::ISrsHttpConnOwner()
 {
 }
@@ -371,6 +374,11 @@ SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsResourceMan
     clt_skt = io;
     manager = cm;
     trd = new SrsSTCoroutine("httpProxy", this, _srs_context->get_id());
+    
+    svr_skt = NULL;
+    clt_ssl = NULL;
+    svr_ssl = NULL;
+
 }
 
 SrsHttpxProxyConn::~SrsHttpxProxyConn()
@@ -380,9 +388,20 @@ SrsHttpxProxyConn::~SrsHttpxProxyConn()
     srs_freep(parser);
     srs_freep(server_parser);
     srs_freep(clt_skt);
-    srs_freep(svr_skt);
-    srs_freep(clt_ssl);
-    srs_freep(svr_ssl);
+
+    if(svr_skt)
+    {
+        srs_freep(svr_skt);
+    }
+    if(clt_ssl)
+    {
+        srs_freep(clt_ssl);
+    }
+    if(svr_ssl)
+    {
+        srs_freep(svr_ssl);
+    }
+
 }
 
 srs_error_t SrsHttpxProxyConn::start()
@@ -402,10 +421,6 @@ srs_error_t SrsHttpxProxyConn::cycle()
     // Notify handler to handle it.
     // @remark The error may be transformed by handler.
 
-    if(err != srs_success)
-    {
-        srs_trace("do_cycle error %s.", srs_error_desc(err).c_str());
-    }
     err = on_conn_done(err);
    // success.
     if (err == srs_success) {
@@ -414,11 +429,16 @@ srs_error_t SrsHttpxProxyConn::cycle()
     }
 
     // It maybe success with message.
-    // if (srs_error_code(err) == ERROR_SUCCESS) {
-    //     srs_trace("client finished%s.", srs_error_summary(err).c_str());
-    //     srs_freep(err);
-    //     return err;
-    // }
+    if (srs_error_code(err) == ERROR_SUCCESS) {
+        srs_trace("client finished%s.", srs_error_summary(err).c_str());
+        srs_freep(err);
+        return err;
+    }
+
+    if(err != srs_success)
+    {
+        srs_error("do_cycle error %s.", srs_error_desc(err).c_str());
+    }
 
     srs_freep(err);
     return srs_success;
@@ -436,6 +456,8 @@ srs_error_t SrsHttpxProxyConn::on_conn_done(srs_error_t r0)
         srs_freep(r0);
         return srs_success;
     }
+    
+    return r0;
 }
 
 srs_error_t SrsHttpxProxyConn::do_cycle()
@@ -456,7 +478,6 @@ srs_error_t SrsHttpxProxyConn::do_cycle()
     
     if(err != srs_success)
     {
-        srs_trace("return err");
         return err;
     }
 
@@ -665,24 +686,25 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             snprintf(temp, sizeof(temp), "%x", req_body.size());
             srs_trace("chunk size is %s", temp);
 
-            clt_ssl->write(temp, strlen(temp), NULL);
-            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
-            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+            svr_ssl->write(temp, strlen(temp), NULL);
+            svr_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            svr_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+            svr_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+            svr_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
         else
         {
             srs_trace("req_body is %d", req_body.size());
-            clt_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
+            svr_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
         }
 
+        srs_trace("next is to get response from server");
         // get response from server
         // current, we are sure to get http header, body is not sure
         if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
             return srs_error_wrap(err, "init parser for %s", ip.c_str());
         }
-
+        srs_trace("parse msg from server");
         ISrsHttpMessage* server_resp = NULL;
         if ((err = server_parser->parse_message(svr_ssl, &server_resp)) != srs_success) {
             return srs_error_wrap(err, "parse message");
@@ -712,7 +734,6 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         }
         req_body = "";
         resp_body = "";
-
     }
 }
 

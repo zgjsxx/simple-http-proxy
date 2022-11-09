@@ -31,18 +31,25 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support http chunked data
 
 ## 4.TO DO:
-- move http body to file, curret is in memory  
+- support url with ip address
+- support block list
+- support special website to do https tunnel
+- support access log  
 - http keepalive  
 - 301 redirect body process  
-- access log  
-- change openssl to release version  
 - prevent JA3 blocked
 - log socket label      
-- support url with ip address
-- support special website to do https tunnel
-- to check connection manage, current it has a lot of CLOSE_WAIT
 
-## other 
+## 5.test samples 
 
 **http chunked data test sample**
 http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+
+
+## 6. face issues
+1. http chunked data parse
+2. tls need add SNI
+3. close wait issue
+4. srs framework error code
+5. need to support HTTP options method
+6. http/https write flow

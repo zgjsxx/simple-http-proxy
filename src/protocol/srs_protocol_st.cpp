@@ -369,7 +369,7 @@ srs_error_t SrsStSocket::read(void* buf, size_t size, ssize_t* nread)
             errno = ECONNRESET;
         }
         
-        return srs_error_new(ERROR_SOCKET_READ, "read");
+        return srs_error_new(ERROR_SOCKET_READ, "read error: %s", strerror(errno));
     }
     
     rbytes += nb_read;
