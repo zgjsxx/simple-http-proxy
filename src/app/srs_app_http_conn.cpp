@@ -362,13 +362,14 @@ srs_error_t SrsHttpxConn::start()
     return conn->start();
 }
 
-SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMux* m, std::string cip, int port)
+SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsResourceManager* cm, ISrsHttpServeMux* m, std::string cip, int port)
 {
     parser = new SrsHttpParser();
     server_parser = new SrsHttpParser();
     ip = cip;
     port = port;
     clt_skt = io;
+    manager = cm;
     trd = new SrsSTCoroutine("httpProxy", this, _srs_context->get_id());
 }
 
@@ -378,6 +379,10 @@ SrsHttpxProxyConn::~SrsHttpxProxyConn()
     srs_freep(trd);
     srs_freep(parser);
     srs_freep(server_parser);
+    srs_freep(clt_skt);
+    srs_freep(svr_skt);
+    srs_freep(clt_ssl);
+    srs_freep(svr_ssl);
 }
 
 srs_error_t SrsHttpxProxyConn::start()
@@ -394,7 +399,43 @@ srs_error_t SrsHttpxProxyConn::start()
 srs_error_t SrsHttpxProxyConn::cycle()
 {
     srs_error_t err = do_cycle();
-    return err;
+    // Notify handler to handle it.
+    // @remark The error may be transformed by handler.
+
+    if(err != srs_success)
+    {
+        srs_trace("do_cycle error %s.", srs_error_desc(err).c_str());
+    }
+    err = on_conn_done(err);
+   // success.
+    if (err == srs_success) {
+        srs_trace("client finished.");
+        return err;
+    }
+
+    // It maybe success with message.
+    // if (srs_error_code(err) == ERROR_SUCCESS) {
+    //     srs_trace("client finished%s.", srs_error_summary(err).c_str());
+    //     srs_freep(err);
+    //     return err;
+    // }
+
+    srs_freep(err);
+    return srs_success;
+}
+
+srs_error_t SrsHttpxProxyConn::on_conn_done(srs_error_t r0)
+{
+    // Because we use manager to manage this object,
+    // not the http connection object, so we must remove it here.
+    manager->remove(this);
+
+    // For HTTP-API timeout, we think it's done successfully,
+    // because there may be no request or response for HTTP-API.
+    if (srs_error_code(r0) == ERROR_SOCKET_TIMEOUT) {
+        srs_freep(r0);
+        return srs_success;
+    }
 }
 
 srs_error_t SrsHttpxProxyConn::do_cycle()
@@ -403,7 +444,7 @@ srs_error_t SrsHttpxProxyConn::do_cycle()
     
     // // set the recv timeout, for some clients never disconnect the connection.
     // // @see https://github.com/ossrs/srs/issues/398
-    // clt_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
+    clt_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
 
     // initialize parser
     if ((err = parser->initialize(HTTP_REQUEST)) != srs_success) {
@@ -413,11 +454,17 @@ srs_error_t SrsHttpxProxyConn::do_cycle()
     // process all http messages.
     err = process_requests();
     
-    // srs_error_t r0 = srs_success;
-    // if ((r0 = on_disconnect()) != srs_success) {
-    //     err = srs_error_wrap(err, "on disconnect %s", srs_error_desc(r0).c_str());
-    //     srs_freep(r0);
-    // } 
+    if(err != srs_success)
+    {
+        srs_trace("return err");
+        return err;
+    }
+
+    srs_error_t r0 = srs_success;
+    if ((r0 = on_disconnect()) != srs_success) {
+        err = srs_error_wrap(err, "on disconnect %s", srs_error_desc(r0).c_str());
+        srs_freep(r0);
+    } 
 }
 
 srs_error_t SrsHttpxProxyConn::process_requests()
@@ -446,26 +493,16 @@ srs_error_t SrsHttpxProxyConn::process_requests()
         if(client_http_req->is_http_connect())
         {
             srs_trace("https connection is comming");
-            process_https_connection();
+            err = process_https_connection();
             srs_trace("https connection is done");
             return err;
         }
         else
         {
             srs_trace("http connection is comming");
-            process_http_connection();
+            err = process_http_connection();
+            return err;
         }
-
-    //     // may should discard the body.
-    //     SrsHttpResponseWriter writer(clt_skt);
-    //     if ((err = handler_->on_http_message(req, &writer)) != srs_success) {
-    //         return srs_error_wrap(err, "on http message");
-    //     }
-
-    //     // ok, handle http request.
-    //     if ((err = process_request(&writer, req, req_id)) != srs_success) {
-    //         return srs_error_wrap(err, "process request=%d", req_id);
-    //     }
 
     //     // After the request is processed.
     //     if ((err = handler_->on_message_done(req, &writer)) != srs_success) {
@@ -496,6 +533,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         //send request to server
         svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+        server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
         if((err = server_skt->connect()) != srs_success)
         {
             srs_trace("err = %d" , err == srs_success);
@@ -579,6 +617,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
 
     svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
     SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+    server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
     if((err = server_skt->connect()) != srs_success)
     {
         srs_trace("err = %d" , err == srs_success);
@@ -608,7 +647,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         // current, we are sure to get http header, body is not sure
         ISrsHttpMessage* req = NULL;
         if ((err = parser->parse_message(clt_ssl, &req)) != srs_success) {
-            srs_trace("parse message");
+            srs_trace("parse message failed");
             return srs_error_wrap(err, "parse message");
         }
         SrsAutoFree(ISrsHttpMessage, req);
@@ -675,6 +714,12 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         resp_body = "";
 
     }
+}
+
+srs_error_t SrsHttpxProxyConn::on_disconnect()
+{
+    // TODO: FIXME: Implements it.
+    return srs_success;
 }
 
 string SrsHttpxProxyConn::remote_ip()

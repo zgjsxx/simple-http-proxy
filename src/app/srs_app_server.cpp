@@ -783,7 +783,7 @@ srs_error_t SrsServer::fd_to_resource(SrsListenerType type, srs_netfd_t& stfd, I
     } 
     else if(type == SrsListenerHttpProxy){
         srs_trace("http proxy connection is come in");
-        *pr = new SrsHttpxProxyConn(new SrsTcpConnection(fd2), http_api_mux, ip, port);
+        *pr = new SrsHttpxProxyConn(new SrsTcpConnection(fd2), this, http_api_mux, ip, port);
     } 
     else {
         srs_warn("close for no service handler. fd=%d, ip=%s:%d", fd, ip.c_str(), port);

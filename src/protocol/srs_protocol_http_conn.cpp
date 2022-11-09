@@ -86,6 +86,7 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
     
     // do parse
     if ((err = parse_message_imp(reader)) != srs_success) {
+        srs_trace("parse message imp failed");
         return srs_error_wrap(err, "parse message");
     }
     
@@ -158,6 +159,7 @@ srs_error_t SrsHttpParser::parse_message_imp(ISrsReader* reader)
         // when nothing parsed, read more to parse.
         // when requires more, only grow 1bytes, but the buffer will cache more.
         if ((err = buffer->grow(reader, buffer->size() + 1)) != srs_success) {
+            srs_trace("buffer grow faield");
             return srs_error_wrap(err, "grow buffer");
         }
     }

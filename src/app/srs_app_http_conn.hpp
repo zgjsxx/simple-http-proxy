@@ -139,10 +139,12 @@ private:
     client ----------->proxy ----------->server
     client <-----------proxy <-----------server
 */
+    // The manager object to manage the connection.
+    ISrsResourceManager* manager;
     //client socket reader/writer
     ISrsProtocolReadWriter* clt_skt; //clt = client
     //client socket reader/writer
-    ISrsProtocolReadWriter* svr_skt;
+    ISrsProtocolReadWriter* svr_skt; //svr = server
     //client ssl 
     SrsSslConnection* clt_ssl;
     //server ssl
@@ -163,7 +165,7 @@ private:
     std::string ip;
     int port;
 public:
-    SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsHttpServeMux* m, std::string cip, int port);
+    SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsResourceManager* cm, ISrsHttpServeMux* m, std::string cip, int port);
     virtual ~SrsHttpxProxyConn();
 public:
     virtual srs_error_t start();
@@ -180,6 +182,9 @@ public:
 public:
     virtual srs_error_t process_http_connection();
     virtual srs_error_t process_https_connection();
+public:
+    virtual srs_error_t on_disconnect();
+    virtual srs_error_t on_conn_done(srs_error_t r0);
 };
 
 // The http server, use http stream or static server to serve requests.
