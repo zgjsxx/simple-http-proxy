@@ -312,7 +312,7 @@ $(TARGET): $(OBJS) $(MODULE_DEPS)
 	@echo
 	@echo [$(MODULE) LD] $@
 	@echo
-	$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
 	$(AR) $@.a $(OBJS)
 
 else ifeq "$(BINARY_TYPE)" "plugin"
@@ -336,7 +336,7 @@ $(TARGET): $(OBJS) $(MODULE_DEPS)
 	@echo
 	@echo [$(MODULE) LD] $@
 	@echo
-	$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
 
 else ifeq "$(BINARY_TYPE)" "bin_bin"
 
@@ -358,7 +358,7 @@ $(CPP_OBJS): $(INTERMEDIA_PATH)/%.o: %.cpp
 	-@mkdir -p $(INTERMEDIA_PATH)
 	$(echo_proj_flags)
 	@echo [$(MODULE) CXX] $<
-	$(CXX) -c $(COMPILEFLAGS) $< -o $@
+	@$(CXX) -c $(COMPILEFLAGS) $< -o $@
 
 
 

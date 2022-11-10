@@ -74,7 +74,7 @@ void SrsFileLog::reopen()
     open_log_file();
 }
 
-void SrsFileLog::verbose(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...)
+void SrsFileLog::verbose(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...)
 {
     SrsThreadLocker(mutex_);
     //equals to:
@@ -107,7 +107,7 @@ void SrsFileLog::verbose(const char* tag, SrsContextId context_id, const char* f
     write_log(fd, log_data, size, SrsLogLevelVerbose);
 }
 
-void SrsFileLog::info(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...)
+void SrsFileLog::info(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...)
 {
     SrsThreadLocker(mutex_);
 
@@ -142,7 +142,7 @@ void SrsFileLog::info(const char* tag, SrsContextId context_id, const char* fmt,
     write_log(fd, log_data, size, SrsLogLevelInfo);
 }
 
-void SrsFileLog::trace(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...)
+void SrsFileLog::trace(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...)
 {
     SrsThreadLocker(mutex_);
 
@@ -176,7 +176,7 @@ void SrsFileLog::trace(const char* tag, SrsContextId context_id, const char* fmt
     write_log(fd, log_data, size, SrsLogLevelTrace);
 }
 
-void SrsFileLog::warn(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...)
+void SrsFileLog::warn(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...)
 {
     SrsThreadLocker(mutex_);
 
@@ -210,7 +210,7 @@ void SrsFileLog::warn(const char* tag, SrsContextId context_id, const char* fmt,
     write_log(fd, log_data, size, SrsLogLevelWarn);
 }
 
-void SrsFileLog::error(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...)
+void SrsFileLog::error(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...)
 {
     SrsThreadLocker(mutex_);
 

@@ -35,7 +35,6 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support block list
 - 
 ## 4.TO DO:
-- support url with ip address
 - support special website to do https tunnel
 - support access log  
 - http keepalive  

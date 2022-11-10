@@ -30,11 +30,11 @@ public:
 public:
     virtual srs_error_t initialize();
     virtual void reopen();
-    virtual void verbose(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...);
-    virtual void info(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...);
-    virtual void trace(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...);
-    virtual void warn(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...);
-    virtual void error(const char* tag, SrsContextId context_id, const char* fmt, const char* func, const char* file, int line, ...);
+    virtual void verbose(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...);
+    virtual void info(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...);
+    virtual void trace(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...);
+    virtual void warn(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...);
+    virtual void error(const char* tag, SrsContextId context_id, const char* func, const char* file, int line, const char* fmt, ...);
 private:
     virtual void write_log(int& fd, char* str_log, int size, int level);
     virtual void open_log_file();

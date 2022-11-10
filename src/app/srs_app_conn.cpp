@@ -404,7 +404,8 @@ srs_error_t SrsSslConnection::handshake(string key_file, string crt_file)
 #if (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
     ssl_ctx = SSL_CTX_new(TLS_method());
 #else
-    ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    // ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    ssl_ctx = SSL_CTX_new(TLS_server_method());
 #endif
     SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_NONE, NULL);
     srs_assert(SSL_CTX_set_cipher_list(ssl_ctx, "ALL") == 1);
@@ -546,7 +547,8 @@ srs_error_t SrsSslConnection::handshake(X509* cert, EVP_PKEY* key)
 #if (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
     ssl_ctx = SSL_CTX_new(TLS_method());
 #else
-    ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    // ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    ssl_ctx = SSL_CTX_new(TLS_server_method());
 #endif
     SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_NONE, NULL);
     srs_assert(SSL_CTX_set_cipher_list(ssl_ctx, "ALL") == 1);
@@ -851,7 +853,8 @@ srs_error_t SrsSslClient::handshake()
 #if (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
     ssl_ctx = SSL_CTX_new(TLS_method());
 #else
-    ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    // ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+    ssl_ctx = SSL_CTX_new(TLS_client_method());
 #endif
     SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_PEER, srs_verify_callback);
     srs_assert(SSL_CTX_set_cipher_list(ssl_ctx, "ALL") == 1);
