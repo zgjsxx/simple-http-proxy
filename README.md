@@ -43,6 +43,7 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support nex hip 
 - support utest  
 - add  phsishing database https://github.com/mitchellkrogza/Phishing.Database
+- support TLS1.3
 ## 5.test samples 
 
 **http chunked data test sample**
