@@ -185,6 +185,8 @@ public:
 public:
     virtual srs_error_t on_disconnect();
     virtual srs_error_t on_conn_done(srs_error_t r0);
+public:
+    virtual srs_error_t prepare403block();
 };
 
 // The http server, use http stream or static server to serve requests.

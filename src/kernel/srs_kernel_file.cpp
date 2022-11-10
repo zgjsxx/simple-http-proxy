@@ -241,6 +241,7 @@ srs_error_t SrsFileReader::read(void* buf, size_t count, ssize_t* pnread)
     }
     
     if (nread == 0) {
+        *pnread = nread;
         return srs_error_new(ERROR_SYSTEM_FILE_EOF, "file EOF");
     }
     

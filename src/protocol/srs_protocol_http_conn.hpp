@@ -147,8 +147,8 @@ public:
     // The uri contains the host and path.
     virtual std::string uri();
     // The url maybe the path.
-    virtual std::string url();    
-    virtual std::string host();    
+    virtual std::string url();
+    virtual std::string host();
     virtual std::string path();
     virtual std::string query();
 public:

@@ -9,6 +9,8 @@ public:
     SrsPolicy();
     ~SrsPolicy();
 public:
+    bool match_black_list(std::string domain);
+public:
     std::vector<std::string> black_list_vec;
 };
 

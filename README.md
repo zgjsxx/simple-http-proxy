@@ -5,6 +5,8 @@
 ## 1.introdution
 simple_http_proxy is a http/https proxy, it used ossrs/state-threads as its base coroutine library.
 
+It also has a inside http api server.
+
 ## 2.build
 ```shell
 ./configure
@@ -25,20 +27,22 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 ![player](doc/img/img1.png)
 
 ## 3.current support features:
-- support http request
+- support http/https api
+- support forward http request
 - support http connect method
 - support https descryption
 - support http chunked data
-
+- support block list
+- 
 ## 4.TO DO:
 - support url with ip address
-- support block list
 - support special website to do https tunnel
 - support access log  
 - http keepalive  
-- 301 redirect body process  
 - prevent JA3 blocked
-- log socket label      
+- log socket label   
+- support nex hip 
+- support utest  
 
 ## 5.test samples 
 
