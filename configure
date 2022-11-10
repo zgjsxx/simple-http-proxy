@@ -27,3 +27,15 @@ st_path=$CURR_DIR/3rdparty/st-srs/$TARGETDIR
 
 echo $st_path
 cp $st_path/libst.a ../../output/
+
+# compile gtest
+
+cd $CURR_DIR
+cd ./output
+
+cp -r ../3rdparty/gtest-fit/googletest gtest
+cd gtest
+make 
+
+cp gtest.a ../
+cp gtest_main.a ../
