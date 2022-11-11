@@ -110,6 +110,7 @@ public:
     virtual srs_error_t set_tcp_nodelay(bool v);
     // // Set socket option SO_SNDBUF in srs_utime_t.
     // virtual srs_error_t set_socket_buffer(srs_utime_t buffer_v);
+    virtual int get_fd();
 public:
     virtual void set_recv_timeout(srs_utime_t tm);
     virtual srs_utime_t get_recv_timeout();
@@ -163,7 +164,6 @@ private:
     SSL* ssl;
     BIO* bio_in;
     BIO* bio_out;
-    EVP_PKEY *ca_key;
     string sni_;//server_host_name
 public:
     SrsSslClient(SrsTcpClient* tcp);
@@ -177,7 +177,6 @@ public:
     virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
     virtual srs_error_t prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* server_key);
     virtual RSA* get_new_cert_rsa(int key_length);
-    virtual void prepareResignCA();
 };
 
 #endif

@@ -13,6 +13,8 @@ using std::vector;
 using std::map;
 using std::string;
 
+extern EVP_PKEY *ca_key;
+
 SrsResourceManager::SrsResourceManager(const std::string& label, bool verbose)
 {
     verbose_ = verbose;
@@ -283,6 +285,11 @@ SrsTcpConnection::~SrsTcpConnection()
 {
     srs_freep(skt);
     srs_close_stfd(stfd);
+}
+
+int SrsTcpConnection::get_fd()
+{
+    return srs_netfd_fileno(stfd);
 }
 
 srs_error_t SrsTcpConnection::set_tcp_nodelay(bool v)
@@ -1143,25 +1150,6 @@ RSA* SrsSslClient::get_new_cert_rsa(int key_length)
 
  	BN_free(bn);
  	return rsa;
-}
-void SrsSslClient::prepareResignCA()
-{
-	ca_key = EVP_PKEY_new();
-	RSA *rsa = RSA_new();
-
-	FILE *fp;
-	if ((fp = fopen("conf/cert/ca-key.pem", "r")) == NULL)
-	{
-		srs_trace("load private.key failed");
-	}
-	PEM_read_RSAPrivateKey(fp, &rsa, NULL, NULL);
-
-	if ((fp = fopen("conf/cert/ca-cert.pem", "r")) == NULL)
-	{
-		srs_trace("laod public.key failed");
-	}
-	PEM_read_RSAPublicKey(fp, &rsa, NULL, NULL);
-	EVP_PKEY_assign_RSA(ca_key, rsa);
 }
 
 srs_error_t SrsSslClient::set_SNI(std::string sni)

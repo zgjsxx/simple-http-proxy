@@ -46,6 +46,10 @@ public:
     // Set the context id of current thread.
     // @return the current context id.
     virtual const SrsContextId& set_id(const SrsContextId& v) = 0;
+    virtual void set_client_fd(const int fd) = 0;
+    virtual void set_server_fd(const int fd) = 0;
+    virtual int get_client_fd() = 0;
+    virtual int get_server_fd() = 0;
 };
 // @global User must provides a log object
 extern ISrsLog* _srs_log;

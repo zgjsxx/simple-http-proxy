@@ -18,6 +18,7 @@ extern SrsPolicy* _srs_policy;
 extern ISrsLog* _srs_log;
 extern SrsConfig* _srs_config;
 extern ISrsContext* _srs_context;
+extern SrsNotification* _srs_notification;
 
 #ifdef SRS_OSX
     pid_t gettid() {
@@ -82,6 +83,7 @@ srs_error_t srs_global_initialize()
     // The global objects which depends on ST.
     _srs_hybrid = new SrsHybridServer();
     _srs_policy = new SrsPolicy();
+    _srs_notification = new SrsNotification();
     return err;
 }
 

@@ -11,9 +11,8 @@ BINARY_TYPE = bin
 #
 # Sources
 #
-ADDITIONAL_CPP_SOURCES += srs_utest_main.cpp \
-						  srs_utest_core.cpp
 
+ADDITIONAL_SOURCE_COMPILE_PATH = ./
 
 CFLAGS +=	-I./ \
 			-I../core \

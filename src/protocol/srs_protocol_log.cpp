@@ -7,10 +7,19 @@
 static SrsContextId _srs_context_default;
 static int _srs_context_key = -1;
 
+static int _srs_client_fd_key = -1;
+static int _srs_server_fd_key = -1;
+
 void _srs_context_destructor(void* arg)
 {
     SrsContextId* cid = (SrsContextId*)arg;
     srs_freep(cid);
+}
+
+void _srs_int_destructor(void* arg)
+{
+    int* fd = (int*)arg;
+    srs_freep(fd);
 }
 
 SrsThreadContext::SrsThreadContext()
@@ -27,6 +36,58 @@ SrsContextId SrsThreadContext::generate_id()
     return cid.set_value(srs_random_str(8));
 }
 
+void SrsThreadContext::set_client_fd(const int fd)
+{
+    if (_srs_client_fd_key < 0) {
+        int r0 = srs_key_create(&_srs_client_fd_key, _srs_int_destructor);
+        srs_assert(r0 == 0);
+    }
+
+    int *fd_ptr = new int(fd);
+    int r0 = srs_thread_setspecific(_srs_client_fd_key, fd_ptr);
+    srs_assert(r0 == 0);
+}
+
+int SrsThreadContext::get_client_fd()
+{
+    if (!srs_thread_self()) {
+        return 0;
+    }
+
+    void* fd_ptr = srs_thread_getspecific(_srs_client_fd_key);
+    if (!fd_ptr) {
+        return 0;
+    }
+
+    return *(int*)fd_ptr;
+}
+
+void SrsThreadContext::set_server_fd(const int fd)
+{
+    if (_srs_server_fd_key < 0) {
+        int r0 = srs_key_create(&_srs_server_fd_key, _srs_int_destructor);
+        srs_assert(r0 == 0);
+    }
+
+    int *fd_ptr = new int(fd);
+    int r0 = srs_thread_setspecific(_srs_server_fd_key, fd_ptr);
+    srs_assert(r0 == 0);
+}
+
+int SrsThreadContext::get_server_fd()
+{
+    if (!srs_thread_self()) {
+        return 0;
+    }
+
+    void* fd_ptr = srs_thread_getspecific(_srs_server_fd_key);
+    if (!fd_ptr) {
+        return 0;
+    }
+
+    return *(int*)fd_ptr;
+}
+
 const SrsContextId& SrsThreadContext::set_id(const SrsContextId& v)
 {
     SrsContextId* cid = new SrsContextId();
@@ -34,22 +95,20 @@ const SrsContextId& SrsThreadContext::set_id(const SrsContextId& v)
 
     if (_srs_context_key < 0) {
         int r0 = srs_key_create(&_srs_context_key, _srs_context_destructor);
-        // srs_assert(r0 == 0);
+        srs_assert(r0 == 0);
     }
 
-
     int r0 = srs_thread_setspecific(_srs_context_key, cid);
-    // srs_assert(r0 == 0);
+    srs_assert(r0 == 0);
     return v;
 }
 
 const SrsContextId& SrsThreadContext::get_id()
 {
-    // ++_srs_pps_cids_get->sugar;
 
-    // if (!srs_thread_self()) {
-    //     return _srs_context_default;
-    // }
+    if (!srs_thread_self()) {
+        return _srs_context_default;
+    }
 
     void* cid = srs_thread_getspecific(_srs_context_key);
     if (!cid) {
@@ -87,26 +146,26 @@ bool srs_log_header(char* buffer, int size, bool utc, bool dangerous, const char
     if (dangerous) {
         if (tag) {
             written = snprintf(buffer, size,
-                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%d][%s][%s][%s:%d]",
+                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%d][%s][%s][%s:%d][%d:%d] ",
                 1900 + now.tm_year, 1 + now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, (int)(tv.tv_usec / 1000),
-                level, getpid(), cid.c_str(), errno, tag, func, file, line);
+                level, getpid(), cid.c_str(), errno, tag, func, file, line, _srs_context->get_client_fd(), _srs_context->get_server_fd());
         } else {
             written = snprintf(buffer, size,
-                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%d][%s][%s:%d] ",
+                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%d][%s][%s:%d][%d:%d] ",
                 1900 + now.tm_year, 1 + now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, (int)(tv.tv_usec / 1000),
-                level, getpid(), cid.c_str(), errno, func, file, line);
+                level, getpid(), cid.c_str(), errno, func, file, line, _srs_context->get_client_fd(), _srs_context->get_server_fd());
         }
     } else {
         if (tag) {
             written = snprintf(buffer, size,
-                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%s][%s][%s:%d] ",
+                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%s][%s][%s:%d][%d:%d] ",
                 1900 + now.tm_year, 1 + now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, (int)(tv.tv_usec / 1000),
-                level, getpid(), cid.c_str(), tag, func, file, line);
+                level, getpid(), cid.c_str(), tag, func, file, line, _srs_context->get_client_fd(), _srs_context->get_server_fd());
         } else {
             written = snprintf(buffer, size,
-                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%s][%s:%d] ",
+                "[%d-%02d-%02d %02d:%02d:%02d.%03d][%s][%d][%s][%s][%s:%d][%d:%d] ",
                 1900 + now.tm_year, 1 + now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, (int)(tv.tv_usec / 1000),
-                level, getpid(), cid.c_str(), func, file, line);
+                level, getpid(), cid.c_str(), func, file, line, _srs_context->get_client_fd(), _srs_context->get_server_fd());
         }
     }
     // Exceed the size, ignore this log.

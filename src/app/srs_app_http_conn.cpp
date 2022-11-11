@@ -16,6 +16,29 @@
 extern ISrsContext* _srs_context;
 extern SrsConfig* _srs_config;
 extern SrsPolicy* _srs_policy;
+extern SrsNotification* _srs_notification;
+
+EVP_PKEY *ca_key = NULL;
+
+static void prepareResignCA()
+{
+	ca_key = EVP_PKEY_new();
+	RSA *rsa = RSA_new();
+
+	FILE *fp;
+	if ((fp = fopen("conf/cert/ca-key.pem", "r")) == NULL)
+	{
+		srs_error("load private.key failed");
+	}
+	PEM_read_RSAPrivateKey(fp, &rsa, NULL, NULL);
+
+	if ((fp = fopen("conf/cert/ca-cert.pem", "r")) == NULL)
+	{
+		srs_error("laod public.key failed");
+	}
+	PEM_read_RSAPublicKey(fp, &rsa, NULL, NULL);
+	EVP_PKEY_assign_RSA(ca_key, rsa);
+}
 
 ISrsHttpConnOwner::ISrsHttpConnOwner()
 {
@@ -373,7 +396,7 @@ SrsHttpxProxyConn::SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsResourceMan
     port = port;
     clt_skt = io;
     manager = cm;
-    trd = new SrsSTCoroutine("httpProxy", this, _srs_context->get_id());
+    trd = new SrsSTCoroutine("httpProxy", this, _srs_context->generate_id());
     
     svr_skt = NULL;
     clt_ssl = NULL;
@@ -453,6 +476,7 @@ srs_error_t SrsHttpxProxyConn::on_conn_done(srs_error_t r0)
     // For HTTP-API timeout, we think it's done successfully,
     // because there may be no request or response for HTTP-API.
     if (srs_error_code(r0) == ERROR_SOCKET_TIMEOUT) {
+        srs_trace("socket is timeout");
         srs_freep(r0);
         return srs_success;
     }
@@ -498,10 +522,14 @@ srs_error_t SrsHttpxProxyConn::process_requests()
 
         // get a http message from client
         // current, we are sure to get http header, body is not sure
+        SrsTcpConnection* client_tcp_clt = (SrsTcpConnection*)clt_skt;
+        _srs_context->set_client_fd(client_tcp_clt->get_fd());
+
         ISrsHttpMessage* req = NULL;
         if ((err = parser->parse_message(clt_skt, &req)) != srs_success) {
             return srs_error_wrap(err, "parse message");
         }
+
         client_http_req = (SrsHttpMessage*)req;
         client_http_req->set_connection(this);
         // if SUCCESS, always NOT-NULL.
@@ -547,24 +575,7 @@ srs_error_t SrsHttpxProxyConn::prepare403block()
     block_header->set_content_type("text/html");
     block_header->set("Connection", "close");
 
-    SrsFileReader* read = new SrsFileReader();
-    read->open("./conf/block_page/black_list.html");
-    char buf[4096];
-    ssize_t nread = 0;
-    while(1)
-    {
-        err = read->read(buf, sizeof(buf), &nread);
-        if(nread == 0)
-        {
-            break;
-        }
-        if(err != srs_success)
-        {
-            break;
-        }
-        resp_body.append(buf, nread);
-        memset(buf, 0 , sizeof(buf));
-    }
+    resp_body = _srs_notification->getNotification(client_http_req->get_dest_domain(), remote_ip());
     block_header->set_content_length(resp_body.size());
     server_http_resp->restore_http_header();
     return err;
@@ -594,13 +605,14 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         //send request to server
         svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
         if((err = server_skt->connect()) != srs_success)
         {
             srs_trace("err = %d" , err == srs_success);
             return err;
         }
-
+        _srs_context->set_server_fd(server_skt->get_fd());
         server_skt->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
         client_http_req->body_read_all(req_body);
 
@@ -675,14 +687,16 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
     clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
 
-    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
+    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 30);
     SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+
     server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
     if((err = server_skt->connect()) != srs_success)
     {
         srs_trace("err = %d" , err == srs_success);
         return err;
     }
+    _srs_context->set_server_fd(server_skt->get_fd());
 
     svr_ssl = new SrsSslClient(server_skt);
     svr_ssl->set_SNI(client_http_req->get_dest_domain());
@@ -694,8 +708,12 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
 
 	X509 *fake_x509 = X509_new();
 	EVP_PKEY* server_key = EVP_PKEY_new();
-    svr_ssl->prepareResignCA();
-	svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
+    if(ca_key == NULL)
+    {
+        prepareResignCA();
+    }
+	
+    svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
 
 
     clt_ssl = new SrsSslConnection(clt_skt);
@@ -814,10 +832,6 @@ srs_error_t SrsHttpServer::initialize()
     //     return srs_error_wrap(err, "handle versions");
     // }
     
-    // if ((err = http_stream->initialize()) != srs_success) {
-    //     return srs_error_wrap(err, "http stream");
-    // }
-    
     // if ((err = http_static->initialize()) != srs_success) {
     //     return srs_error_wrap(err, "http static");
     // }
@@ -827,7 +841,8 @@ srs_error_t SrsHttpServer::initialize()
 
 srs_error_t SrsHttpServer::handle(std::string pattern, ISrsHttpHandler* handler)
 {
-    // return http_static->mux.handle(pattern, handler);
+    srs_error_t err = srs_success;
+    return err;
 }
 
 srs_error_t SrsHttpServer::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
@@ -838,7 +853,6 @@ srs_error_t SrsHttpServer::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage
 SrsHttpServer::SrsHttpServer(SrsServer* svr)
 {
     server = svr;
-    // http_stream = new SrsHttpStreamServer(svr);
     // http_static = new SrsHttpStaticServer(svr);
 }
 

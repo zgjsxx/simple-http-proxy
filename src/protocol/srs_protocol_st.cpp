@@ -117,6 +117,16 @@ srs_error_t srs_fd_reuseport(int fd)
     return srs_success;
 }
 
+srs_thread_t srs_thread_self()
+{
+    return (srs_thread_t)st_thread_self();
+}
+
+void srs_thread_exit(void* retval)
+{
+    st_thread_exit(retval);
+}
+
 int srs_thread_join(srs_thread_t thread, void **retvalp)
 {
     return st_thread_join((st_thread_t)thread, retvalp);
@@ -592,6 +602,10 @@ srs_error_t SrsTcpClient::connect()
     if(err == srs_success)
         srs_trace("return srs_success");
     return err;
+}
+int SrsTcpClient::get_fd()
+{
+    srs_netfd_fileno(stfd_);
 }
 
 void SrsTcpClient::set_recv_timeout(srs_utime_t tm)

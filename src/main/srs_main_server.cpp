@@ -23,7 +23,9 @@ ISrsContext* _srs_context = NULL;
 // @global config object for app module.
 SrsConfig* _srs_config = NULL;
 // @global policy object for app module
-SrsPolicy* _srs_policy;
+SrsPolicy* _srs_policy = NULL;
+// @global notification object for app module
+SrsNotification* _srs_notification = NULL;
 
 #include <iostream>
 using namespace std;
@@ -110,12 +112,11 @@ srs_error_t run_directly_or_daemon()
 srs_error_t do_main(int argc, char** argv)
 {
     srs_error_t err = srs_success;
-    std::cout << "srs_global_initialize" << std::endl;
     // Initialize global and thread-local variables.
     if ((err = srs_global_initialize()) != srs_success) {
         return srs_error_wrap(err, "global init");
     }
-    std::cout << "setup_thread_locals" << std::endl;
+
     if ((err = SrsThreadPool::setup_thread_locals()) != srs_success) {
         return srs_error_wrap(err, "thread init");
     }
@@ -125,7 +126,6 @@ srs_error_t do_main(int argc, char** argv)
 #endif
 
     // For background context id.
-    std::cout << "parse_options" << std::endl;
     // never use srs log(srs_trace, srs_error, etc) before config parse the option,
     // which will load the log config and apply it.
     if ((err = _srs_config->parse_options(argc, argv)) != srs_success) {

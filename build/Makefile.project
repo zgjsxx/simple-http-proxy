@@ -57,6 +57,11 @@
 #							  the developer should modify "ADDITIONAL_C_SOURCES" "ADDITIONAL_CC_SOURCES" "ADDITIONAL_CPP_SOURCES" mannaly
 #								to control which source files are in the compile list.
 #
+#
+#   "ADDITIONAL_SOURCE_COMPILE_PATH": the source codes in the "ADDITIONAL_SOURCE_COMPILE_PATH" will NOT be added to the compile list automatically.
+#                               It has the similar function with ADDITIONAL_C_SOURCES/ADDITIONAL_CC_SOURCES/ADDITIONAL_CPP_SOURCES. The difference
+#							   is that it can automatically add all file into compile list in a certain folder. 
+#
 #	"ADDITIONAL_C_SOURCES":	  the "*.c" files will be compiled. the directories of the files are not needed if the directory
 #								is already in "ADDITIONAL_SOURCE_PATH"
 #
@@ -65,10 +70,6 @@
 #
 #	"ADDITIONAL_CPP_SOURCES": the "*.cpp" files will be compiled. the directories of the files are not needed if the directory
 #								is already in "ADDITIONAL_SOURCE_PATH"
-
-
-
-
 
 
 ifndef PROXY_PATH
@@ -200,6 +201,28 @@ endif
 ifneq "$(AUTO_C_SOURCES)" ""
 	C_OBJS += $(patsubst %.c,$(INTERMEDIA_PATH)/%.o,$(notdir $(AUTO_C_SOURCES)))
 endif
+
+ifeq "$(ADDITIONAL_SOURCE_COMPILE_PATH)" "na"
+	ADDITIONAL_SOURCE_COMPILE_PATH =
+endif
+
+ADDITIONAL_SOURCES_PATH_C = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.c) )
+ADDITIONAL_SOURCES_PATH_CC = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.cc) )
+ADDITIONAL_SOURCES_PATH_CPP = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.cpp) )
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_CPP)" ""
+	DEPS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.d, $(notdir $(ADDITIONAL_SOURCES_PATH_CPP)))
+	CPP_OBJS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_SOURCES_PATH_CPP)))
+endif
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_CC)" ""
+	CC_OBJS += $(patsubst %.cc, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_SOURCES_PATH_CC)))
+endif
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_C)" ""
+	C_OBJS += $(patsubst %.c,$(INTERMEDIA_PATH)/%.o,$(notdir $(ADDITIONAL_SOURCES_PATH_C)))
+endif
+
 
 #
 ifneq "$(ADDITIONAL_CPP_SOURCES)" ""
@@ -336,7 +359,7 @@ $(TARGET): $(OBJS) $(MODULE_DEPS)
 	@echo
 	@echo [$(MODULE) LD] $@
 	@echo
-	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+	$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
 
 else ifeq "$(BINARY_TYPE)" "bin_bin"
 

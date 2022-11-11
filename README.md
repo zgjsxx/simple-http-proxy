@@ -28,22 +28,23 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 
 ## 3.current support features:
 - support http/https api
-- support forward http request
-- support http connect method
-- support https descryption
-- support http chunked data
-- support block list
+- support forward http/https traffic
+- support descrypt https traffic
+- support http/1.1 protocol
+- support TLS1.2 protocol
+- support domain block list
 - support utest with googletest
+- support log trace with coroutine id or client/server socket tag
+
 ## 4.TO DO:
 - support special website to do https tunnel
 - support access log  
 - http keepalive  
 - prevent JA3 blocked
-- log socket label   
-- support nex hip 
-- support utest  
+- support next hip 
 - add  phsishing database https://github.com/mitchellkrogza/Phishing.Database
 - support TLS1.3
+
 ## 5.test samples 
 
 **http chunked data test sample**

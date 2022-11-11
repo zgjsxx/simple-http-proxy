@@ -25,6 +25,10 @@ extern void *srs_thread_getspecific(int key);
 typedef void* (*_ST_THREAD_CREATE_PFN)(void *(*start)(void *arg), void *arg, int joinable, int stack_size);
 extern _ST_THREAD_CREATE_PFN _pfn_st_thread_create;
 
+
+// Get current coroutine/thread.
+extern srs_thread_t srs_thread_self();
+extern void srs_thread_exit(void* retval);
 extern int srs_thread_join(srs_thread_t thread, void **retvalp);
 extern void srs_thread_interrupt(srs_thread_t thread);
 
@@ -158,6 +162,7 @@ public:
     // @remark We will close the exists connection before do connect.
     virtual srs_error_t connect();
 // Interface ISrsProtocolReadWriter
+    virtual int get_fd();
 public:
     virtual void set_recv_timeout(srs_utime_t tm);
     virtual srs_utime_t get_recv_timeout();
