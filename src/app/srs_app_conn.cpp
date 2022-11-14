@@ -141,6 +141,7 @@ void SrsResourceManager::do_clear()
     // We should free the resources when finished all disposing callbacks,
     // which might cause context switch and reuse the freed addresses.
     for (int i = 0; i < (int)copy.size(); i++) {
+        srs_trace("free conn");
         ISrsResource* conn = copy.at(i);
         srs_freep(conn);
     }

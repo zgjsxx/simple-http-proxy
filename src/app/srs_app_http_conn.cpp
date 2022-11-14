@@ -621,7 +621,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         {
             char temp[32];
             snprintf(temp, sizeof(temp), "%x", req_body.size());
-            srs_trace("chunk size is %s", temp);
+            srs_trace("write chunk data to server, chunk size is %s", temp);
 
             server_skt->write(temp, strlen(temp), NULL);
             server_skt->write(const_cast<char*>("\r\n"), 2, NULL);
@@ -657,7 +657,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         {
             char temp[32];
             snprintf(temp, sizeof(temp), "%x", resp_body.size());
-            srs_trace("chunk size is %s", temp);
+            srs_trace("write chunk data to client, chunk size is %s", temp);
 
             clt_skt->write(temp, strlen(temp), NULL);
             clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
@@ -688,7 +688,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
     clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
 
-    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 30);
+    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 5);
     SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
 
     server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
@@ -756,7 +756,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         {
             char temp[32];
             snprintf(temp, sizeof(temp), "%x", req_body.size());
-            srs_trace("chunk size is %s", temp);
+            srs_trace("write chunk data to server, chunk size is %s", temp);
 
             svr_ssl->write(temp, strlen(temp), NULL);
             svr_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
@@ -791,7 +791,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         {
             char temp[32];
             snprintf(temp, sizeof(temp), "%x", resp_body.size());
-            srs_trace("chunk size is %s", temp);
+            srs_trace("write chunk data to client, chunk size is %s", temp);
 
             clt_ssl->write(temp, strlen(temp), NULL);
             clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);

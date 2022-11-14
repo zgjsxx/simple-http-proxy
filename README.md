@@ -50,6 +50,7 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 **http chunked data test sample**
 http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
 
+https://blog.csdn.net/qq_36256590/article/details/114707235
 
 ## 6. face issues
 1. http chunked data parse
