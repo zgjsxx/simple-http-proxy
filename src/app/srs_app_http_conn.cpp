@@ -12,6 +12,7 @@
 #include <srs_kernel_consts.hpp>
 #include <srs_app_policy.hpp>
 #include <srs_kernel_file.hpp>
+#include <poll.h>
 
 extern ISrsContext* _srs_context;
 extern SrsConfig* _srs_config;
@@ -698,6 +699,13 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     }
     _srs_context->set_server_fd(server_skt->get_fd());
 
+    //process_https_tunnel
+    if(!_srs_policy->is_https_descrypt_enable() || _srs_policy->match_tunnel_domain_list(client_http_req->get_dest_domain()))
+    {
+        processHttpsTunnel();
+        return err;
+    }
+
     svr_ssl = new SrsSslClient(server_skt);
     svr_ssl->set_SNI(client_http_req->get_dest_domain());
     if((err = svr_ssl->handshake()) != srs_success)
@@ -801,6 +809,73 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         resp_body = "";
     }
 }
+
+int SrsHttpxProxyConn::pass(ISrsProtocolReadWriter* in, ISrsProtocolReadWriter* out)
+{
+    srs_trace("pass");
+    srs_error_t err;
+    int IOBUFSIZE = 4096;
+	char buf[IOBUFSIZE];
+	ssize_t read_size = 0;
+    ssize_t write_size = 0;
+
+	err = in->read(buf, IOBUFSIZE, &read_size);
+    srs_trace("read size is %zd", read_size);
+	if (read_size <= 0)
+		return -1;
+
+	err = out->write(buf, read_size, &write_size);
+    srs_trace("write size is %zd", read_size);
+	if (read_size != read_size)
+		return -1;
+
+	return 0;
+}
+
+srs_error_t SrsHttpxProxyConn::processHttpsTunnel()
+{
+	srs_trace("process https tunnel");
+    srs_error_t err = srs_success;
+    SrsTcpConnection* client_tcp_clt = (SrsTcpConnection*)clt_skt;
+    SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+
+	struct pollfd pds[2];
+
+	pds[0].fd = client_tcp_clt->get_fd();
+	pds[0].events = POLLIN;
+
+	pds[1].fd = server_skt->get_fd();
+	pds[1].events = POLLIN;
+	srs_trace("client fd: %d, server fd: %d", pds[0].fd, pds[1].fd);
+	for ( ; ; )
+	{
+		pds[0].revents = 0;
+		pds[1].revents = 0;
+
+		if (srs_poll(pds, 2, SRS_UTIME_NO_TIMEOUT) <= 0)
+		{
+			srs_trace("st_poll error");
+			break;
+		}
+
+		if (pds[0].revents & POLLIN)
+		{
+            srs_trace("client has read events");
+			if (pass(clt_skt, server_skt) < 0)
+				break;
+		}
+
+		if (pds[1].revents & POLLIN)
+		{
+            srs_trace("server read events");
+			if (pass(server_skt, clt_skt) < 0)
+				break;
+		}
+	}
+
+	return err;
+}
+
 
 srs_error_t SrsHttpxProxyConn::on_disconnect()
 {

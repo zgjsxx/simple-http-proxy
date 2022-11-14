@@ -137,6 +137,11 @@ void srs_thread_interrupt(srs_thread_t thread)
     st_thread_interrupt((st_thread_t)thread);
 }
 
+int srs_poll(struct pollfd *pds, int npds, srs_utime_t timeout)
+{
+    return st_poll(pds, npds, timeout);
+}
+
 srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t* pstfd)
 {
     st_utime_t timeout = ST_UTIME_NO_TIMEOUT;

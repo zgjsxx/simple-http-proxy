@@ -70,6 +70,8 @@ extern int srs_mutex_unlock(srs_mutex_t mutex);
 
 extern srs_netfd_t srs_accept(srs_netfd_t stfd, struct sockaddr *addr, int *addrlen, srs_utime_t timeout);
 
+extern int srs_poll(struct pollfd *pds, int npds, srs_utime_t timeout);
+
 extern ssize_t srs_read(srs_netfd_t stfd, void *buf, size_t nbyte, srs_utime_t timeout);
 
 extern int srs_netfd_fileno(srs_netfd_t stfd);

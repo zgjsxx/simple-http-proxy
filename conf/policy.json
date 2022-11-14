@@ -1,3 +1,6 @@
 {
-    "black_list": ["www.example.com"]
+    "black_list": ["www.example.com"],
+    "https_descrypt": true, 
+    "tunnel_domain": [],
+    "client_ip_list": ["1.1.1.1"]
 }

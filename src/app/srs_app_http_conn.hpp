@@ -182,6 +182,8 @@ public:
 public:
     virtual srs_error_t process_http_connection();
     virtual srs_error_t process_https_connection();
+    virtual int pass(ISrsProtocolReadWriter* in, ISrsProtocolReadWriter* out);
+    virtual srs_error_t processHttpsTunnel();
 public:
     virtual srs_error_t on_disconnect();
     virtual srs_error_t on_conn_done(srs_error_t r0);

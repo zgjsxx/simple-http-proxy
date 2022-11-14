@@ -18,6 +18,7 @@ SrsPolicy::~SrsPolicy()
 
 void SrsPolicy::init()
 {
+    https_descrypt_enable = false;
     loadPolicy();
 }
 
@@ -73,6 +74,29 @@ void SrsPolicy::loadPolicy()
         srs_trace("push back %s", black_domain.c_str());
         black_list_vec.push_back(black_domain);
     }
+
+    prop = obj_req->get_property("https_descrypt");
+    if(!prop->is_boolean())
+    {
+        return;
+    }
+    https_descrypt_enable = prop->to_boolean();
+
+
+    prop = obj_req->get_property("tunnel_domain");
+    if(!prop->is_array())
+    {
+        return;
+    }
+
+    array = prop->to_array();
+
+    for(size_t i = 0; i < array->count(); i++)
+    {
+        std::string tunnel_domain = array->at(i)->to_str();
+        srs_trace("push back %s", tunnel_domain.c_str());
+        tunnel_domain_vec.push_back(tunnel_domain);
+    }
 }
 
 //domain black list
@@ -87,6 +111,25 @@ bool SrsPolicy::match_black_list(std::string url)
         }
     }
     return false;
+}
+
+// tunnel domain list
+bool SrsPolicy::match_tunnel_domain_list(std::string url)
+{
+    for(std::string tunnel_domain : tunnel_domain_vec)
+    {
+        srs_trace("tunnel_domain_item is %s", tunnel_domain.c_str());
+        if(url.find(tunnel_domain) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SrsPolicy::is_https_descrypt_enable()
+{
+    return https_descrypt_enable;
 }
 
 SrsNotification::SrsNotification()
