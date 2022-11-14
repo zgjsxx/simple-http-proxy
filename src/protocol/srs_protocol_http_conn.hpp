@@ -172,6 +172,16 @@ public:
     virtual string get_raw_header();
 };
 
+class ISrsHttpHeaderFilter
+{
+public:
+    ISrsHttpHeaderFilter();
+    virtual ~ISrsHttpHeaderFilter();
+public:
+    // Filter the HTTP header h.
+    virtual srs_error_t filter(SrsHttpHeader* h) = 0;
+};
+
 // Response writer use st socket
 class SrsHttpResponseWriter : public ISrsHttpResponseWriter
 {
@@ -180,7 +190,8 @@ private:
     SrsHttpHeader* hdr;
     // Before writing header, there is a chance to filter it,
     // such as remove some headers or inject new.
-    // ISrsHttpHeaderFilter* hf;    
+public:
+    ISrsHttpHeaderFilter* hf;    
 private:
     char header_cache[SRS_HTTP_HEADER_CACHE_SIZE];
     iovec* iovss_cache;

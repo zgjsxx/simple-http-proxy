@@ -914,7 +914,7 @@ SrsHttpResponseWriter::SrsHttpResponseWriter(ISrsProtocolReadWriter* io)
     header_sent = false;
     nb_iovss_cache = 0;
     iovss_cache = NULL;
-    // hf = NULL;
+    hf = NULL;
 }
 
 SrsHttpResponseWriter::~SrsHttpResponseWriter()
@@ -1141,10 +1141,11 @@ srs_error_t SrsHttpResponseWriter::send_header(char* data, int size)
     if (hdr->get("Connection").empty()) {
         hdr->set("Connection", "Keep-Alive");
     }
-     // Filter the header before writing it.
-    // if (hf && ((err = hf->filter(hdr)) != srs_success)) {
-    //     return srs_error_wrap(err, "filter header");
-    // }  
+    // Filter the header before writing it.
+    if (hf && ((err = hf->filter(hdr)) != srs_success)) {
+        return srs_error_wrap(err, "filter header");
+    }
+
     // write header
     hdr->write(ss);
     
@@ -1152,4 +1153,12 @@ srs_error_t SrsHttpResponseWriter::send_header(char* data, int size)
     ss << SRS_HTTP_CRLF;  
     std::string buf = ss.str();
     return skt->write((void*)buf.c_str(), buf.length(), NULL);           
+}
+
+ISrsHttpHeaderFilter::ISrsHttpHeaderFilter()
+{
+}
+
+ISrsHttpHeaderFilter::~ISrsHttpHeaderFilter()
+{
 }
