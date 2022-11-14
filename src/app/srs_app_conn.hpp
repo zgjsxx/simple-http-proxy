@@ -153,6 +153,7 @@ public:
     virtual srs_utime_t get_send_timeout();
     virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
     virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
+    virtual int get_fd();
 };
 
 class SrsSslClient : public ISrsReader, public ISrsStreamWriter

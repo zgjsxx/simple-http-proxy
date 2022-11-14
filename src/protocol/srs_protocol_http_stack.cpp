@@ -694,6 +694,11 @@ void SrsHttpHeader::set(string key, string value)
     headers[key] = value;
 }
 
+void SrsHttpHeader::addCookie(std::string cookie)
+{
+    cookie_list.push_back(cookie);
+}
+
 string SrsHttpHeader::get(string key)
 {
     std::string v;
@@ -759,6 +764,10 @@ void SrsHttpHeader::write(stringstream& ss)
     map<string, string>::iterator it;
     for (it = headers.begin(); it != headers.end(); ++it) {
         ss << it->first << ": " << it->second << SRS_HTTP_CRLF;
+    }
+    for (std::string cookie : cookie_list)
+    {
+        ss << "Set-Cookie: " << cookie << SRS_HTTP_CRLF;
     }
 }
 

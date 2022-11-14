@@ -377,10 +377,12 @@ srs_error_t SrsStSocket::read(void* buf, size_t size, ssize_t* nread)
     // Otherwise, a value of -1 is returned and errno is set to indicate the error.
     if (nb_read <= 0) {
         if (nb_read < 0 && errno == ETIME) {
+            srs_trace("socket %d is timeout", srs_netfd_fileno(stfd_));
             return srs_error_new(ERROR_SOCKET_TIMEOUT, "timeout %d ms", srsu2msi(rtm));
         }
         
         if (nb_read == 0) {
+            srs_trace("socket %d is close", srs_netfd_fileno(stfd_));
             errno = ECONNRESET;
         }
         

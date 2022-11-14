@@ -124,6 +124,7 @@ class SrsHttpHeader
 {
 private:
     std::map<std::string, std::string> headers;
+    std::vector<std::string> cookie_list;
 public:
     SrsHttpHeader();
     virtual ~SrsHttpHeader();
@@ -131,6 +132,8 @@ public:
     // Add adds the key, value pair to the header.
     // It appends to any existing values associated with key.
     virtual void set(std::string key, std::string value);
+
+    virtual void addCookie(std::string);
     // Get gets the first value associated with the given key.
     // If there are no values associated with the key, Get returns "".
     // To access multiple values of a key, access the map directly

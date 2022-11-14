@@ -36,6 +36,7 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support utest with googletest
 - support log trace with coroutine id or client/server socket tag
 - support https global tunnel and tunnel by domain
+- support multiple set-cookie header
 ## 4.TO DO:
 - support access log  
 - http keepalive  

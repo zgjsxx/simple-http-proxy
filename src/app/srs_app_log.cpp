@@ -295,7 +295,6 @@ void SrsFileLog::write_log(int& fd, char *str_log, int size, int level)
 
 void SrsFileLog::open_log_file()
 {
-    std::cout << "open log file" << std::endl;
     if (!_srs_config) {
         return;
     }

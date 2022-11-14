@@ -733,7 +733,6 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         // current, we are sure to get http header, body is not sure
         ISrsHttpMessage* req = NULL;
         if ((err = parser->parse_message(clt_ssl, &req)) != srs_success) {
-            srs_trace("parse message failed");
             return srs_error_wrap(err, "parse message");
         }
         SrsAutoFree(ISrsHttpMessage, req);
@@ -836,15 +835,13 @@ srs_error_t SrsHttpxProxyConn::processHttpsTunnel()
 {
 	srs_trace("process https tunnel");
     srs_error_t err = srs_success;
-    SrsTcpConnection* client_tcp_clt = (SrsTcpConnection*)clt_skt;
-    SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
 
 	struct pollfd pds[2];
 
-	pds[0].fd = client_tcp_clt->get_fd();
+	pds[0].fd = clt_skt->get_fd();
 	pds[0].events = POLLIN;
 
-	pds[1].fd = server_skt->get_fd();
+	pds[1].fd = svr_skt->get_fd();
 	pds[1].events = POLLIN;
 	srs_trace("client fd: %d, server fd: %d", pds[0].fd, pds[1].fd);
 	for ( ; ; )
@@ -861,14 +858,14 @@ srs_error_t SrsHttpxProxyConn::processHttpsTunnel()
 		if (pds[0].revents & POLLIN)
 		{
             srs_trace("client has read events");
-			if (pass(clt_skt, server_skt) < 0)
+			if (pass(clt_skt, svr_skt) < 0)
 				break;
 		}
 
 		if (pds[1].revents & POLLIN)
 		{
             srs_trace("server read events");
-			if (pass(server_skt, clt_skt) < 0)
+			if (pass(svr_skt, clt_skt) < 0)
 				break;
 		}
 	}

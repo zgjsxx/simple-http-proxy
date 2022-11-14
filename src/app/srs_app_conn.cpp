@@ -403,6 +403,11 @@ SrsSslConnection::~SrsSslConnection()
     }
 }
 
+int SrsSslConnection::get_fd()
+{
+    return transport->get_fd();
+}
+
 srs_error_t SrsSslConnection::handshake(string key_file, string crt_file)
 {
     srs_error_t err = srs_success;
@@ -596,7 +601,6 @@ srs_error_t SrsSslConnection::handshake(X509* cert, EVP_PKEY* key)
     uint8_t* data = NULL;
     int r1, size;
 
-    srs_trace("srs_key is valid");
     // srs_info("ssl: use key %s and cert %s", key_file.c_str(), crt_file.c_str());
 
     // Receive ClientHello

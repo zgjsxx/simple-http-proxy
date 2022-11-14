@@ -97,6 +97,8 @@ class ISrsProtocolReadWriter : public ISrsProtocolReader, public ISrsProtocolWri
 public:
     ISrsProtocolReadWriter();
     virtual ~ISrsProtocolReadWriter();
+public:
+    virtual int get_fd() = 0;
 };
 
 #endif

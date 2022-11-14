@@ -98,7 +98,6 @@ srs_error_t SrsHttpParser::parse_message(ISrsReader* reader, ISrsHttpMessage** p
     msg->set_header(header, http_should_keep_alive(&hp_header));
     // For HTTP response, no url.
     if (type_ != HTTP_RESPONSE && (err = msg->set_url(url, jsonp)) != srs_success) {
-        srs_trace("not suc");
         srs_freep(msg);
         return srs_error_wrap(err, "set url=%s, jsonp=%d", url.c_str(), jsonp);
     }
@@ -237,8 +236,17 @@ int SrsHttpParser::on_header_field(http_parser* parser, const char* at, size_t l
     SrsHttpParser* obj = (SrsHttpParser*)parser->data;
     srs_assert(obj);
 
-    if (!obj->field_value.empty()) {
-        obj->header->set(obj->field_name, obj->field_value);
+    //response header can have multiple Set-Cookie headers
+    if (!obj->field_name.empty()) {
+        if(obj->field_name == "Set-Cookie" || obj->field_name == "set-cookie")
+        {
+            obj->header->addCookie(obj->field_value);
+        }
+        else
+        {
+            obj->header->set(obj->field_name, obj->field_value);
+        }
+
         obj->field_name = obj->field_value = "";
     }
     
@@ -356,7 +364,6 @@ srs_error_t SrsHttpResponseReader::read(void* data, size_t nb_data, ssize_t* nb_
 
 srs_error_t SrsHttpResponseReader::read_chunked(void* data, size_t nb_data, ssize_t* nb_read)
 {
-    srs_trace("get trunked data");
     srs_error_t err = srs_success;
     
     // when no bytes left in chunk,
