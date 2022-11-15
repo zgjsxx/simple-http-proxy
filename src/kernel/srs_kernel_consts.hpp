@@ -1,6 +1,8 @@
 #ifndef SRS_KERNEL_CONSTS_HPP
 #define SRS_KERNEL_CONSTS_HPP
 
+#define SRS_CONSTS_HTTP_DEFAULT_PORT 80
+
 // Default port of rtmp
 #define SRS_CONSTS_RTMP_DEFAULT_PORT 1935
 

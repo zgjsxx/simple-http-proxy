@@ -37,9 +37,10 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support log trace with coroutine id or client/server socket tag
 - support https global tunnel and tunnel by domain
 - support multiple set-cookie header
+- support http keepalive  
 ## 4.TO DO:
+- async dns query
 - support access log  
-- http keepalive  
 - prevent JA3 blocked
 - support next hip 
 - add  phsishing database https://github.com/mitchellkrogza/Phishing.Database

@@ -61,4 +61,23 @@ public:
     virtual int get_fd();
 };
 
+
+class MockStatistic : public ISrsProtocolStatistic
+{
+private:
+    int64_t in;
+    int64_t out;
+public:
+    MockStatistic();
+    virtual ~MockStatistic();
+public:
+    virtual int64_t get_recv_bytes();
+    virtual int64_t get_send_bytes();
+public:
+    MockStatistic* set_in(int64_t v);
+    MockStatistic* set_out(int64_t v);
+    MockStatistic* add_in(int64_t v);
+    MockStatistic* add_out(int64_t v);
+};
+
 #endif

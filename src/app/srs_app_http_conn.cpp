@@ -516,54 +516,40 @@ srs_error_t SrsHttpxProxyConn::do_cycle()
 srs_error_t SrsHttpxProxyConn::process_requests()
 {
     srs_error_t err = srs_success;
-    for (int req_id = 0; ; req_id++) {
-        if ((err = trd->pull()) != srs_success) {
-            return srs_error_wrap(err, "pull");
-        }
+    if ((err = trd->pull()) != srs_success) {
+        return srs_error_wrap(err, "pull");
+    }
 
-        // get a http message from client
-        // current, we are sure to get http header, body is not sure
-        SrsTcpConnection* client_tcp_clt = (SrsTcpConnection*)clt_skt;
-        _srs_context->set_client_fd(client_tcp_clt->get_fd());
+    // get a http message from client
+    // current, we are sure to get http header, body is not sure
+    SrsTcpConnection* client_tcp_clt = (SrsTcpConnection*)clt_skt;
+    _srs_context->set_client_fd(client_tcp_clt->get_fd());
 
-        ISrsHttpMessage* req = NULL;
-        if ((err = parser->parse_message(clt_skt, &req)) != srs_success) {
-            return srs_error_wrap(err, "parse message");
-        }
+    ISrsHttpMessage* req = NULL;
+    if ((err = parser->parse_message(clt_skt, &req)) != srs_success) {
+        return srs_error_wrap(err, "parse message");
+    }
 
-        client_http_req = (SrsHttpMessage*)req;
-        client_http_req->set_connection(this);
-        // if SUCCESS, always NOT-NULL.
-        // always free it in this scope.
-        srs_assert(req);
-        SrsAutoFree(ISrsHttpMessage, req);
+    client_http_req = (SrsHttpMessage*)req;
+    client_http_req->set_connection(this);
+    // if SUCCESS, always NOT-NULL.
+    // always free it in this scope.
+    srs_assert(req);
 
-        // Attach owner connection to message.
-        srs_trace("dest_domain is %s, dest_port is %d", client_http_req->get_dest_domain().c_str(), client_http_req->get_dest_port());
-        if(client_http_req->is_http_connect())
-        {
-            srs_trace("https connection is comming");
-            err = process_https_connection();
-            srs_trace("https connection is done");
-            return err;
-        }
-        else
-        {
-            srs_trace("http connection is comming");
-            err = process_http_connection();
-            return err;
-        }
-
-    //     // After the request is processed.
-    //     if ((err = handler_->on_message_done(req, &writer)) != srs_success) {
-    //         return srs_error_wrap(err, "on message done");
-    //     }
-
-    //     // donot keep alive, disconnect it.
-    //     // @see https://github.com/ossrs/srs/issues/399
-    //     if (!req->is_keep_alive()) {
-    //         break;
-    //     }
+    // Attach owner connection to message.
+    srs_trace("dest_domain is %s, dest_port is %d", client_http_req->get_dest_domain().c_str(), client_http_req->get_dest_port());
+    if(client_http_req->is_http_connect())
+    {
+        srs_trace("https connection is comming");
+        err = process_https_connection();
+        srs_trace("https connection is done");
+        return err;
+    }
+    else
+    {
+        srs_trace("http connection is comming");
+        err = process_http_connection();
+        return err;
     }
 }
 
@@ -587,13 +573,14 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
     srs_error_t err = srs_success;
     for (int req_id = 0; ; req_id++) {
         ISrsHttpMessage* req = NULL;
-        if(req_id != 0)
+        if(client_http_req == NULL)
         {
             if ((err = parser->parse_message(clt_skt, &req)) != srs_success) {
                 return srs_error_wrap(err, "parse message");
             }
             client_http_req = (SrsHttpMessage*)req;
         }
+        SrsAutoFree(ISrsHttpMessage, req);
 
         if(_srs_policy->match_black_list(client_http_req->get_dest_domain()))
         {
@@ -644,9 +631,9 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
 
         ISrsHttpMessage* server_resp = NULL;
         if ((err = server_parser->parse_message(svr_skt, &server_resp)) != srs_success) {
-            srs_trace("parse message");
             return srs_error_wrap(err, "parse message");
         }
+
         SrsAutoFree(ISrsHttpMessage, server_resp);
         // send response to client
         server_http_resp = (SrsHttpMessage*)server_resp;
@@ -670,12 +657,16 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             srs_trace("resp_body is %d", resp_body.size());
             clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
         }
-        if(req_id != 0)
-        {
-            SrsAutoFree(ISrsHttpMessage, req);
+
+        // donot keep alive, disconnect it.
+        if (!client_http_req->is_keep_alive()) {
+            break;
         }
+
         resp_body = "";
         req_body = "";
+        client_http_req = NULL;
+        server_http_resp = NULL;
     }
     return err;
 }
@@ -727,6 +718,8 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     clt_ssl = new SrsSslConnection(clt_skt);
     clt_ssl->handshake(fake_x509, server_key);
 
+    //free the http connect msg
+    srs_freep(client_http_req);
 
     for (int req_id = 0; ; req_id++) {
         // get a http message from client
@@ -804,9 +797,20 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             srs_trace("resp_body is %d", resp_body.size());
             clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
         }
+
+        // donot keep alive, disconnect it.
+        if (!client_http_req->is_keep_alive()) {
+            break;
+        }
+
         req_body = "";
         resp_body = "";
+        client_http_req = NULL;
+        server_http_resp = NULL;
+        srs_trace("http transaction done");
     }
+
+    return err;
 }
 
 int SrsHttpxProxyConn::pass(ISrsProtocolReadWriter* in, ISrsProtocolReadWriter* out)

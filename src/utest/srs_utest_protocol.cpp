@@ -181,3 +181,46 @@ int MockBufferIO::get_fd()
 {
 
 }
+
+MockStatistic::MockStatistic()
+{
+    in = out = 0;
+}
+
+MockStatistic::~MockStatistic()
+{
+}
+
+int64_t MockStatistic::get_recv_bytes()
+{
+    return in;
+}
+
+int64_t MockStatistic::get_send_bytes()
+{
+    return out;
+}
+
+MockStatistic* MockStatistic::set_in(int64_t v)
+{
+    in = v;
+    return this;
+}
+
+MockStatistic* MockStatistic::set_out(int64_t v)
+{
+    out = v;
+    return this;
+}
+
+MockStatistic* MockStatistic::add_in(int64_t v)
+{
+    in += v;
+    return this;
+}
+
+MockStatistic* MockStatistic::add_out(int64_t v)
+{
+    out += v;
+    return this;
+}
