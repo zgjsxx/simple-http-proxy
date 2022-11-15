@@ -190,14 +190,8 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
         srs_close_stfd(stfd);
         return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);
     }
-    srs_trace("connect suc");
+    srs_trace("connect server suc");
 
-    if(stfd == NULL){
-        srs_trace("stfd == NULL");
-    }
-    else{
-        srs_trace("stfd != NULL");
-    }
     *pstfd = stfd;
     return srs_success;
 }
@@ -596,18 +590,13 @@ srs_error_t SrsTcpClient::connect()
     srs_freep(io);
     srs_assert(stfd);
 
-    if(stfd == NULL)
-    {
-        srs_trace("stfd == NULL");
-    }
     io = new SrsStSocket(stfd);
 
     srs_close_stfd(stfd_);
     stfd_ = stfd;
 
     srs_assert(stfd_);
-    if(err == srs_success)
-        srs_trace("return srs_success");
+
     return err;
 }
 int SrsTcpClient::get_fd()

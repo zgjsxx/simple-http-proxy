@@ -9,6 +9,7 @@
 
 #include <srs_protocol_io.hpp>
 #include <srs_kernel_stream.hpp>
+#include <srs_kernel_kbps.hpp>
 
 class MockBufferIO : public ISrsProtocolReadWriter
 {
@@ -78,6 +79,20 @@ public:
     MockStatistic* set_out(int64_t v);
     MockStatistic* add_in(int64_t v);
     MockStatistic* add_out(int64_t v);
+};
+
+
+class MockWallClock : public SrsWallClock
+{
+private:
+    int64_t clock;
+public:
+    MockWallClock();
+    virtual ~MockWallClock();
+public:
+    virtual srs_utime_t now();
+public:
+    virtual MockWallClock* set_clock(srs_utime_t v);
 };
 
 #endif

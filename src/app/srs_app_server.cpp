@@ -23,6 +23,8 @@ std::string srs_listener_type2string(SrsListenerType type)
             return "HTTPS-API";
         case SrsListenerTcp:
             return "TCP";
+        case SrsListenerHttpProxy:
+            return "HTTP-Proxy";
         default:
             return "UNKONWN";
     }
@@ -702,7 +704,7 @@ srs_error_t SrsServer::listen_http_proxy()
     srs_parse_endpoint(ep, ip, port);
 
     if ((err = listener->listen(ip, port)) != srs_success) {
-        return srs_error_wrap(err, "http proxy api listen %s:%d", ip.c_str(), port);
+        return srs_error_wrap(err, "http proxy listen %s:%d", ip.c_str(), port);
     }
 
     return err; 

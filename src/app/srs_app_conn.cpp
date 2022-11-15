@@ -84,6 +84,7 @@ srs_error_t SrsResourceManager::cycle()
         while (!zombies_.empty()) {
             clear();
         }
+        srs_trace("current connection is %d", conns_.size());
 
         srs_cond_wait(cond);
     }

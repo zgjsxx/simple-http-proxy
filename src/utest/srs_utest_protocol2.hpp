@@ -11,5 +11,6 @@
 #include <srs_utest_protocol2.hpp>
 */
 #include <srs_utest_protocol.hpp>
+#include <srs_utest_main.hpp>
 
 #endif

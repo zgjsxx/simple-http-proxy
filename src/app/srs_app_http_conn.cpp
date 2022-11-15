@@ -659,7 +659,8 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         }
 
         // donot keep alive, disconnect it.
-        if (!client_http_req->is_keep_alive()) {
+        if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {
+            srs_trace("not keep-alive connection, close it now");
             break;
         }
 
@@ -759,7 +760,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         }
         else
         {
-            srs_trace("req_body is %d", req_body.size());
+            srs_trace("write resp_body to client, size is %d", req_body.size());
             svr_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
         }
 
@@ -794,12 +795,13 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         }
         else
         {
-            srs_trace("resp_body is %d", resp_body.size());
+            srs_trace("write resp_body to client, size is %d", resp_body.size());
             clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
         }
 
         // donot keep alive, disconnect it.
-        if (!client_http_req->is_keep_alive()) {
+        if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {
+            srs_trace("not keep-alive connection, close it now");
             break;
         }
 
@@ -807,7 +809,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         resp_body = "";
         client_http_req = NULL;
         server_http_resp = NULL;
-        srs_trace("http transaction done");
+        srs_trace("one https transaction done, wait next");
     }
 
     return err;

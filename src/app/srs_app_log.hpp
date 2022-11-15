@@ -15,7 +15,7 @@
 
 class SrsFileLog : public ISrsLog, public ISrsReloadHandler
 {
-private: 
+protected: 
     SrsLogLevel level;
 private:
     char* log_data;
