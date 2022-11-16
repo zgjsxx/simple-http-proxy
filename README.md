@@ -38,9 +38,10 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support https global tunnel and tunnel by domain
 - support multiple set-cookie header
 - support http keepalive  
+- support url category machine learning (https://github.com/domantasm96/URL-categorization-using-machine-learning)
+- 
 ## 4.TO DO:
 - url category https://data.world/crowdflower/url-categorization
-- url category machine learning https://github.com/domantasm96/URL-categorization-using-machine-learning
 - async dns query
 - support access log  
 - prevent JA3 blocked

@@ -12,6 +12,8 @@
 #include <srs_kernel_consts.hpp>
 #include <srs_app_policy.hpp>
 #include <srs_kernel_file.hpp>
+#include <srs_app_http_client.hpp>
+#include <srs_protocol_json.hpp>
 #include <poll.h>
 
 extern ISrsContext* _srs_context;
@@ -581,6 +583,9 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             client_http_req = (SrsHttpMessage*)req;
         }
         SrsAutoFree(ISrsHttpMessage, req);
+        
+        // beta
+        // detect_url_category();
 
         if(_srs_policy->match_black_list(client_http_req->get_dest_domain()))
         {
@@ -747,6 +752,9 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         client_http_req = (SrsHttpMessage*)req;
         client_http_req->set_connection(this);
 
+        // beta
+        // detect_url_category();
+
         if(_srs_policy->match_black_list(client_http_req->get_dest_domain()))
         {
             prepare403block();
@@ -903,6 +911,39 @@ srs_error_t SrsHttpxProxyConn::processHttpsTunnel()
 	return err;
 }
 
+srs_error_t SrsHttpxProxyConn::detect_url_category()
+{
+    SrsHttpClient hc;
+    hc.initialize("http", "127.0.0.1", 8081, SRS_UTIME_SECONDS * 5);
+    SrsJsonObject* req_obj = SrsJsonAny::object();
+    req_obj->set("url", SrsJsonAny::str(client_http_req->uri().c_str()));
+    ISrsHttpMessage *resp = NULL;
+    hc.post("/url_detect", req_obj->dumps(), &resp);
+    std::string req_body_tmp = "";
+    
+    if(resp != NULL)
+    {
+        resp->body_read_all(req_body_tmp);
+
+        SrsJsonAny* any = NULL;
+        if ((any = SrsJsonAny::loads(req_body_tmp)) == NULL) {
+            srs_error("load error");
+        }
+
+        SrsJsonObject *obj_req = NULL;
+        SrsAutoFree(SrsJsonObject, obj_req);
+
+        if(any->is_object())
+        {
+            obj_req = any->to_object();
+        }
+
+        SrsJsonAny* prop = obj_req->get_property("category");
+        std::string category = prop->to_str();
+
+        srs_trace("url category is %s", category.c_str());
+    }
+}
 
 srs_error_t SrsHttpxProxyConn::on_disconnect()
 {

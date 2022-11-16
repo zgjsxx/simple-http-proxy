@@ -188,6 +188,9 @@ public:
     virtual srs_error_t on_disconnect();
     virtual srs_error_t on_conn_done(srs_error_t r0);
 public:
+    //get url actegory of the url
+    virtual srs_error_t detect_url_category();
+public:
     virtual srs_error_t prepare403block();
 };
 
