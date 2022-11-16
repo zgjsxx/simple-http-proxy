@@ -729,7 +729,6 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
 	
     svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
 
-
     clt_ssl = new SrsSslConnection(clt_skt);
     clt_ssl->handshake(fake_x509, server_key);
 
