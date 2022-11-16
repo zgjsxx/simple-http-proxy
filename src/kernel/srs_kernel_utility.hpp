@@ -59,4 +59,6 @@ extern std::string srs_path_filext(std::string path);
     typedef int (*srs_gettimeofday_t) (struct timeval* tv, struct timezone* tz);
 #endif
 
+extern bool srs_is_file_exist(const std::string& file_path);
+
 #endif

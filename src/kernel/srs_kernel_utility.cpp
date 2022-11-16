@@ -331,3 +331,8 @@ string srs_any_address_for_listener()
     }
     return SRS_CONSTS_LOOPBACK;
 }
+
+bool srs_is_file_exist(const std::string& file_path)
+{
+    return access(file_path.c_str(), 0) == 0;
+}

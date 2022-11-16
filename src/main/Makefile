@@ -36,12 +36,7 @@ STATIC_LIBRARY += $(PROXY_PATH)/output/libcore.a
 STATIC_LIBRARY += $(PROXY_PATH)/output/openssl/lib/libssl.a \
 				  $(PROXY_PATH)/output/openssl/lib/libcrypto.a
 STATIC_LIBRARY += $(PROXY_PATH)/output/libst.a
+STATIC_LIBRARY += -pthread -ldl
 
-
-LDFLAGS +=  -L$(PROXY_PATH)/3rdparty/statethread \
-			-L$(PROXY_PATH)/3rdparty/openssl/lib \
-			-lst -llog4cxx  -pthread -ldl\
-			-Wl,-rpath=$(PROXY_PATH)/3rdparty/st-srs \
-			-Wl,-rpath=$(PROXY_PATH)/3rdparty/openssl/lib	
 #
 include $(PROXY_PATH)/build/Makefile.project

@@ -287,6 +287,10 @@ void SrsFileLog::write_log(int& fd, char *str_log, int size, int level)
         open_log_file();
     }
 
+    if(!srs_is_file_exist(_srs_config->get_log_file())){
+        open_log_file();
+    }
+
     // write log to file.
     if(fd > 0){
         ::write(fd, str_log, size);

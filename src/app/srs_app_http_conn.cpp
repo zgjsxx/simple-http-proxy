@@ -591,7 +591,10 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         }
 
         //send request to server
-        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
+        if(svr_skt == NULL)
+        {
+            svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_NO_TIMEOUT);
+        }
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
 
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
@@ -601,8 +604,15 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             return err;
         }
         _srs_context->set_server_fd(server_skt->get_fd());
+        //forward client req header to server
         server_skt->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
-        client_http_req->body_read_all(req_body);
+
+        //check whether request has body
+        if(client_http_req->is_chunked() || client_http_req->content_length() != 0)
+        {
+            client_http_req->body_read_all(req_body);
+        }
+        srs_trace("client req is chunked: %d, content_length: %d", client_http_req->is_chunked(), client_http_req->content_length());
 
         if(client_http_req->is_chunked())
         {
@@ -616,7 +626,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             server_skt->write(const_cast<char*>("\r\n"), 2, NULL);
             server_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else
+        else if(client_http_req->content_length() != 0)
         {
             srs_trace("req_body is %d", req_body.size());
             server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
@@ -638,8 +648,12 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         // send response to client
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_skt->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
-        
-        server_http_resp->body_read_all(resp_body);
+        if(server_http_resp->is_chunked() || server_http_resp->content_length() != 0)
+        {
+            server_http_resp->body_read_all(resp_body);
+        }
+        srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
+
         if(server_http_resp->is_chunked())
         {
             char temp[32];
@@ -652,7 +666,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
             clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else
+        else if(server_http_resp->content_length() != 0)
         {
             srs_trace("resp_body is %d", resp_body.size());
             clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
@@ -733,7 +747,6 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
 
         client_http_req = (SrsHttpMessage*)req;
         client_http_req->set_connection(this);
-        client_http_req->body_read_all(req_body);
 
         if(_srs_policy->match_black_list(client_http_req->get_dest_domain()))
         {
@@ -743,9 +756,16 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             return err;
         }
 
-        //send request to server
+        //send request header to server
         svr_ssl->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
 
+        //check whether need to forward body
+        if(client_http_req->is_chunked() || client_http_req->content_length() != 0)
+        {
+            client_http_req->body_read_all(req_body);
+        }
+
+        srs_trace("client req is chunked: %d, content_length: %d", client_http_req->is_chunked(), client_http_req->content_length());
         if(client_http_req->is_chunked())
         {
             char temp[32];
@@ -758,7 +778,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             svr_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
             svr_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else
+        else if(client_http_req->content_length() != 0)
         {
             srs_trace("write resp_body to client, size is %d", req_body.size());
             svr_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
@@ -780,7 +800,12 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_ssl->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
         
-        server_http_resp->body_read_all(resp_body);
+        if(server_http_resp->is_chunked() || server_http_resp->content_length() != 0)
+        {
+            server_http_resp->body_read_all(resp_body);
+        }
+
+        srs_trace("server resp is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
         if(server_http_resp->is_chunked())
         {
             char temp[32];
@@ -793,7 +818,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
             clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else
+        else if(server_http_resp->content_length() != 0)
         {
             srs_trace("write resp_body to client, size is %d", resp_body.size());
             clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
