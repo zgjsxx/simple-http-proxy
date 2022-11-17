@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+  <title i18n="title.title"></title>
+ </head>
+ <!---
+
+ <style type="text/css">
+/*<![CDATA[*/
+    html {
+     height: 100%;
+    }
+    body {
+     background-color: #fff;
+     font-family: Arial, Verdana, Helvetica, sans-serif;
+     font-size: 13px;
+    }
+    #contentBg {
+     background-color: #F9FBFC; /*fallback*/
+     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#E7E7E7)); /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-linear-gradient(top, #ffffff, #E7E7E7); /* Safari 5.1, Chrome 10+ */
+     background: -moz-linear-gradient(top, #ffffff, #E7E7E7); /* Firefox 3.6+ */
+     background: -ms-linear-gradient(top, #ffffff, #E7E7E7); /* IE 10 */
+     background: -o-linear-gradient(top, #ffffff, #E7E7E7); /* Opera 11.10+ */
+     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ffffffff', endColorstr='#ffe7e7e7');/*For IE7-8-9*/
+     *height: 1%;/*For IE7*/
+    }
+    /* Inset, by Dan Eden */
+    .company {
+	 border-bottom: 2px solid #CC3025;
+	 padding: 10px;
+	}
+	.title {
+	 text-align: left;
+	 font-size: 14px;
+	 padding: 10px 0;
+	 font-weight: bold;
+	 text-transform: uppercase;
+	 color: #CC3025
+	}
+	p {
+	 text-align: left;
+	 line-height: 20px;
+	 font-size:13px;
+	}
+    .notif {
+     padding: 4px 20px 40px 20px;
+    }
+    .septop {
+     height: 3px;
+     background-color: #bbb;
+    }
+    .sepbot {
+     height: 2px;
+     background-color: #bbb;
+    }
+    .actionemphasis {
+     text-transform: uppercase;
+     font-weight: bold;
+     color: #CC3025
+    }
+    .footer {
+     font-size: 10px;
+     color: #666;
+     text-align: right;
+     line-height: 20px;
+     padding: 8px 0px;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto 0;
+    }
+    .content {
+     position: relative;
+     min-height: 100px;
+     box-shadow: 4px 2px 11px -1px #C2C2C2;
+     border: 1px solid #BBB;
+     margin: 0 auto;
+    }
+    .btn {
+      display: inline-block;
+      *display: inline;
+      margin-bottom: 0;
+      *margin-left: .3em;
+      font-size: 12px;
+      line-height: 20px;
+      color: #333333;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      background-color: #f5f5f5;
+      *background-color: #e6e6e6;
+      background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+      background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+      background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+      background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+      background-repeat: repeat-x;
+      border: 1px solid #cccccc;
+      *border: 0;
+      border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+      border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+      border-bottom-color: #b3b3b3;
+      -webkit-border-radius: 3px;
+         -moz-border-radius: 3px;
+              border-radius: 3px;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+      filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+      *zoom: 1;
+      -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+         -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+              box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    .btn:hover {
+      color: #333333;
+      text-decoration: none;
+      background-position: 0 -15px;
+      -webkit-transition: background-position 0.1s linear;
+         -moz-transition: background-position 0.1s linear;
+           -o-transition: background-position 0.1s linear;
+              transition: background-position 0.1s linear;
+    }
+    .btn-danger {
+      color: #ffffff;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+      background-color: #da4f49;
+      *background-color: #bd362f;
+      background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+      background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+      background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+      background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+      background-repeat: repeat-x;
+      border-color: #bd362f #bd362f #802420;
+      border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+      filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    }
+    .btn-danger:hover {
+      color: #ffffff;
+      background-color: #bd362f;
+      *background-color: #a9302a;
+    }
+	.details div{
+		padding-bottom: 8px;
+		font-size:13px;
+	}
+    /*]]>*/
+ </style>
+ -->
+ <body>
+  <div class="container">
+   <div class="content">
+    <div class="company">
+		<span style="font-size: 20px;" i18n="company.company"></span>
+	</div>
+    <div id="contentBg">
+     <div class="notif">
+      <div class="title" i18n="blacklist_msg.block">Black list block
+      </div>
+      <div class="septop">
+      </div>
+	  <p i18n="common.tip1"></p>
+      <div class="details">
+       <div><strong i18n="common.event_detail"></strong></div>
+       <div i18n="common.url" style="word-wrap:break-word;"></div>
+      </div>
+      <p i18n="common.message"><p>
+      <div id="l10n_URL">URL: %URL%</div>
+      <div id="l10n_URL">IP: %IP%</div>
+      <div class="sepbot"></div>
+     </div><!--notif-->
+    </div><!--contentBg-->
+   </div><!--content-->
+   <div class="footer" i18n="footer.footer"></div>
+  </div><!--container-->
+  <script>
+    #L10TAG
+  </script>
+ </body>
+</html>

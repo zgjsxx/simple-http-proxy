@@ -1,0 +1,41 @@
+#!/bin/bash
+CURR_DIR=$(pwd)
+echo $CURR_DIR
+
+# compile openssl
+OPENSSL_DEST_DIR=$CURR_DIR/output/openssl
+mkdir output
+mkdir output/openssl
+
+OPENSSL_OPTIONS="-no-shared -no-threads"
+
+cd 3rdparty/openssl
+./config --prefix=$OPENSSL_DEST_DIR $OPENSSL_OPTIONS -DOPENSSL_NO_HEARTBEATS
+make && make install
+
+# compile st
+cd $CURR_DIR
+cd 3rdparty/st-srs
+make linux-debug
+
+OS="LINUX"
+BUILD="DBG"
+VERSION=`uname -r`
+
+TARGETDIR="${OS}_${VERSION}_$BUILD"
+st_path=$CURR_DIR/3rdparty/st-srs/$TARGETDIR
+
+echo $st_path
+cp $st_path/libst.a ../../output/
+
+# compile gtest
+
+cd $CURR_DIR
+cd ./output
+
+cp -r ../3rdparty/gtest-fit/googletest gtest
+cd gtest
+make 
+
+cp gtest.a ../
+cp gtest_main.a ../

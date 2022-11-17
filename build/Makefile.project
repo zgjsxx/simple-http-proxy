@@ -1,0 +1,425 @@
+# The Makefile should be written as:
+# 	define PROXY_PATH
+# 	include Makefile.common
+# 	include Makefile.path
+# 	define some variants (refer the following document)
+# 	include Makefile.project
+
+
+# The developer can refer the makefiles in component-daemon projects.
+#
+# Variants will be:
+#  The variants which must be defined:
+#  	"MODULE": 		the filename of the module, such as "libhttpproxy.so", "iwss-process", "support.a"
+#
+#   "MODULE_DEPS":  the libraries for linking the "MODULE"
+#
+#	"BINARY_TYPE": 	the module type (dynamic library, static library or a executable file),
+#					the value can be one of:
+#						"so": 		dynamic library in /usr/iwss/lib (for example: "BINARY_TYPE = so")
+#						"plugin": 	dynamic library in /usr/iwss/plugin (for example: "BINARY_TYPE = plugin")
+#						"a":		archive file or static library (for example: "BINARY_TYPE = a")
+#						"bin": 		execute file in /usr/iwss path (for example: "BINARY_TYPE = bin")
+#						"bin_bin": 	execute file in /usr/iwss/bin path (for example: "BINARY_TYPE = bin_bin")
+#						"na":		dont generate link rule
+#
+#	"SOURCE_PATH": 	the paths where the source codes (*.cpp, *.c, *.cc) are in.
+#					The source codes in the "SOURCE_PATH" will be added to the compile list automatically.
+#					the value can be one of:
+#						""(blank) or "na": the variant will be ignored, (for example: "SOURCE_PATH = na")
+#						directory list (seperated by " "): the directories that the source files will be search in,
+#									if there are source codes in current directory, the "." directory should be added.
+#									(for example: "SOURCE_PATH = . thread tmufe")
+#
+#  The variants should be changed:
+#	"INCDIR":		the directory list for include files.
+#					for example, if a path "DIR_1" is an include file path, the developer can add "DIR_1" to "INCDIR",
+#					but, the developer can add "-IDIR_1" to "CFLAGS" too to get the same behaviour.
+#
+#	"CFLAGS":		the CFLAGS should be changed to add include files path, (for example, "CFLAGS += $(DAEMON_INC_CFLAGS)")
+#					the CFLAGS should not be reset by "=", it should be changed by adding some values using "+=".
+#
+#	"LDFLAGS":		the LDFLAGS should be changed to add library path, (for example, "LDFLAGS += -liwsslog")
+#					the LDFLAGS should not be reset by "=", it should be changed by adding some values using "+=".
+#					the path "$(OUT_PATH)/bin/lib" has been added to LDFLAGS.
+#
+# 	"STATIC_LIBRARY": the "STATIC_LIBRARY" is used to add some static library for linking.
+#
+#  The variants can be optional:
+#  	"OUT_BIN_PATH":	the path which the "MODULE" will be created.
+#					if the variant is not defined, the "MODULE" will be created in "$(OUT_PATH)/bin/lib" for "so" and "a" files,
+#						or in "$(OUT_PATH)/bin/bin" for execuate files.
+#					so, if the "MODULE" path is not the default value, the "OUT_BIN_PATH" must be defined.
+#
+#   "ADDITIONAL_SOURCE_PATH": the paths where the source codes ("ADDITIONAL_CPP_SOURCES" for *.cpp,
+#								"ADDITIONAL_C_SOURCES" for *.c, "ADDITIONAL_CC_SOURCES" for *.cc) are in.
+#							  but the source codes in the "ADDITIONAL_SOURCE_PATH" will NOT be added to the compile list automatically.
+#							  the developer should modify "ADDITIONAL_C_SOURCES" "ADDITIONAL_CC_SOURCES" "ADDITIONAL_CPP_SOURCES" mannaly
+#								to control which source files are in the compile list.
+#
+#
+#   "ADDITIONAL_SOURCE_COMPILE_PATH": the source codes in the "ADDITIONAL_SOURCE_COMPILE_PATH" will NOT be added to the compile list automatically.
+#                               It has the similar function with ADDITIONAL_C_SOURCES/ADDITIONAL_CC_SOURCES/ADDITIONAL_CPP_SOURCES. The difference
+#							   is that it can automatically add all file into compile list in a certain folder. 
+#
+#	"ADDITIONAL_C_SOURCES":	  the "*.c" files will be compiled. the directories of the files are not needed if the directory
+#								is already in "ADDITIONAL_SOURCE_PATH"
+#
+#	"ADDITIONAL_CC_SOURCES":  the "*.cc" files will be compiled. the directories of the files are not needed if the directory
+#								is already in "ADDITIONAL_SOURCE_PATH"
+#
+#	"ADDITIONAL_CPP_SOURCES": the "*.cpp" files will be compiled. the directories of the files are not needed if the directory
+#								is already in "ADDITIONAL_SOURCE_PATH"
+
+
+ifndef PROXY_PATH
+$(error PROXY_PATH is not set!)
+endif
+
+$(info PROXY_PATH is $(PROXY_PATH))
+
+
+
+
+
+# Make sure MODULE is defined
+
+ifndef MODULE
+$(error MODULE is not set!)
+endif
+$(info MODULE is $(MODULE))
+
+
+ifndef BINARY_TYPE
+$(error BINARY_TYPE is not set!)
+endif
+$(info BINARY_TYPE is $(BINARY_TYPE))
+
+#
+# Make sure system varaibles are defined
+#
+OUT_PATH = $(OUTPUT_BUILD_PATH)
+OBJ_PATH = $(TMPOBJ_BUILD_PATH)
+$(info OUT_PATH is $(OUT_PATH))
+$(info OBJ_PATH is $(OBJ_PATH))
+
+
+#
+# Project specific varaibles (for *.so)
+#
+MODULE_NOEXT    = $(patsubst %.so,%,$(MODULE))
+INTERMEDIA_PATH = $(OBJ_PATH)/$(MODULE_NOEXT)
+
+ifeq "$(BINARY_TYPE)" "so"
+	BINS_PATH       = $(OUTPUT_LIB_PATH)
+	CFLAGS 			+= $(CFLAGS_SO)
+	LDFLAGS			+= $(LDFLAGS_SO)
+    $(info $(LDFLAGS))
+
+else ifeq "$(BINARY_TYPE)" "plugin"
+	BINS_PATH       = $(OUTPUT_PLUGIN_PATH)
+	CFLAGS 			+= $(CFLAGS_SO)
+	LDFLAGS			+= $(LDFLAGS_SO)
+
+else ifeq "$(BINARY_TYPE)" "a"
+	BINS_PATH       = $(OUTPUT_LIB_PATH)
+	CFLAGS 			+= $(CFLAGS_SO)
+
+else ifeq "$(BINARY_TYPE)" "bin"
+	BINS_PATH       = $(OUTPUT_BIN_PATH)
+
+else ifeq "$(BINARY_TYPE)" "bin_bin"
+	BINS_PATH       = $(OUTPUT_BIN_BIN_PATH)
+
+else ifeq "$(BINARY_TYPE)" "na"
+
+else
+
+$(error BINARY_TYPE is wrong!)
+
+
+
+endif
+
+ifneq "$(OUT_BIN_PATH)" ""
+	BINS_PATH = $(OUT_BIN_PATH)
+endif
+
+#
+# Project specific varaibles
+#
+ifneq "$(BINARY_TYPE)" "na"
+	TARGET = $(BINS_PATH)/$(MODULE)
+endif
+
+#
+# Outside Modifier for SOURCE
+#
+
+ifeq "$(SOURCE_PATH)" "na"
+	SOURCE_PATH =
+endif
+
+AUTO_C_SOURCES = $(foreach d,$(SOURCE_PATH),$(wildcard $(d)/*.c) )
+AUTO_CC_SOURCES = $(foreach d,$(SOURCE_PATH),$(wildcard $(d)/*.cc) )
+AUTO_CPP_SOURCES = $(foreach d,$(SOURCE_PATH),$(wildcard $(d)/*.cpp) )
+
+
+
+#
+LDFLAGS += -L$(OUTPUT_LIB_PATH)
+
+ifneq "$(INCDIR)" ""
+	CFLAGS += $(addprefix -I, $(INCDIR))
+endif
+
+COMPILEFLAGS = $(CFLAGS)
+LINKFLAGS = $(LDFLAGS)
+
+ANSIC_COMPILEFLAGS_1 = $(filter-out $(CFLAGS_STD),$(COMPILEFLAGS))
+ANSIC_COMPILEFLAGS_2 = $(filter-out -Wno-reorder,$(ANSIC_COMPILEFLAGS_1))
+ANSIC_COMPILEFLAGS = $(ANSIC_COMPILEFLAGS_2)
+
+#
+# Auto generate depends and objs
+#
+CPP_OBJS =
+CC_OBJS =
+C_OBJS =
+DEPS =
+
+#
+ifneq "$(AUTO_CPP_SOURCES)" ""
+	DEPS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.d, $(notdir $(AUTO_CPP_SOURCES)))
+	CPP_OBJS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.o, $(notdir $(AUTO_CPP_SOURCES)))
+endif
+
+ifneq "$(AUTO_CC_SOURCES)" ""
+	CC_OBJS += $(patsubst %.cc, $(INTERMEDIA_PATH)/%.o, $(notdir $(AUTO_CC_SOURCES)))
+endif
+
+ifneq "$(AUTO_C_SOURCES)" ""
+	C_OBJS += $(patsubst %.c,$(INTERMEDIA_PATH)/%.o,$(notdir $(AUTO_C_SOURCES)))
+endif
+
+ifeq "$(ADDITIONAL_SOURCE_COMPILE_PATH)" "na"
+	ADDITIONAL_SOURCE_COMPILE_PATH =
+endif
+
+ADDITIONAL_SOURCES_PATH_C = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.c) )
+ADDITIONAL_SOURCES_PATH_CC = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.cc) )
+ADDITIONAL_SOURCES_PATH_CPP = $(foreach d,$(ADDITIONAL_SOURCE_COMPILE_PATH),$(wildcard $(d)/*.cpp) )
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_CPP)" ""
+	DEPS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.d, $(notdir $(ADDITIONAL_SOURCES_PATH_CPP)))
+	CPP_OBJS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_SOURCES_PATH_CPP)))
+endif
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_CC)" ""
+	CC_OBJS += $(patsubst %.cc, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_SOURCES_PATH_CC)))
+endif
+
+ifneq "$(ADDITIONAL_SOURCES_PATH_C)" ""
+	C_OBJS += $(patsubst %.c,$(INTERMEDIA_PATH)/%.o,$(notdir $(ADDITIONAL_SOURCES_PATH_C)))
+endif
+
+
+#
+ifneq "$(ADDITIONAL_CPP_SOURCES)" ""
+	DEPS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.d, $(notdir $(ADDITIONAL_CPP_SOURCES)))
+	CPP_OBJS += $(patsubst %.cpp, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_CPP_SOURCES)))
+endif
+
+ifneq "$(ADDITIONAL_CC_SOURCES)" ""
+	CC_OBJS += $(patsubst %.cc, $(INTERMEDIA_PATH)/%.o, $(notdir $(ADDITIONAL_CC_SOURCES)))
+endif
+
+ifneq "$(ADDITIONAL_C_SOURCES)" ""
+	C_OBJS += $(patsubst %.c,$(INTERMEDIA_PATH)/%.o,$(notdir $(ADDITIONAL_C_SOURCES)))
+endif
+
+#
+
+
+
+OBJS = $(CPP_OBJS) $(C_OBJS) $(CC_OBJS)
+
+ifneq "$(SOURCE_PATH)" ""
+	vpath %.cpp $(SOURCE_PATH)
+	vpath %.c $(SOURCE_PATH)
+	vpath %.cc $(SOURCE_PATH)
+endif
+
+ifneq "$(ADDITIONAL_SOURCE_PATH)" ""
+	vpath %.cpp $(ADDITIONAL_SOURCE_PATH)
+	vpath %.c $(ADDITIONAL_SOURCE_PATH)
+	vpath %.cc $(ADDITIONAL_SOURCE_PATH)
+endif
+
+#
+# Tasks
+#
+
+FLAGS_ECHO_FILE = $(INTERMEDIA_PATH)/flags.echo
+
+ifeq "$(WITH_VERBOSE_MAKE_MSG)" "1"
+
+define echo_proj_flags
+	@if [ ! -f $(FLAGS_ECHO_FILE) ] ; then \
+		echo; \
+		echo Compile Flags for Module: $(MODULE); \
+		echo; \
+		echo ===============================; \
+		echo CXX flags:; \
+		echo  $(CXX) -c $(COMPILEFLAGS); \
+		echo; \
+		echo CC flags:; \
+		echo  $(CC) -c $(ANSIC_COMPILEFLAGS); \
+		echo; \
+		echo LINK flags:; \
+		echo  $(CXX) $(LINKFLAGS) $(STATIC_LIBRARY); \
+		echo; \
+		echo AR flags:; \
+		echo  $(AR); \
+		echo ===============================; \
+		echo; \
+		touch $(FLAGS_ECHO_FILE); \
+	fi
+
+endef
+
+else
+
+define echo_proj_flags
+endef
+
+endif
+
+
+.PHONY: PROJ_PREPARE dep PROJ_MAIN PROJ_MAIN_OPT clean clean_t clean_obj $(MODULE_DEPS)
+
+PROJ_MAIN: PROJ_MAIN_OPT
+
+ifeq "$(BINARY_TYPE)" "na"
+
+PROJ_MAIN_OPT: PROJ_PREPARE $(DEPS)
+	@echo
+	@echo BUILD $(MODULE) success at `$(DATE_CMD)`
+	@echo
+
+else
+
+PROJ_MAIN_OPT: PROJ_PREPARE $(DEPS) $(TARGET)
+	@echo
+	@echo BUILD $(MODULE) success at `$(DATE_CMD)`
+	@echo
+
+endif
+
+ifeq "$(BINARY_TYPE)" "a"
+
+$(TARGET): $(OBJS) $(MODULE_DEPS)
+	-@mkdir -p $(BINS_PATH)
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo
+	@echo [$(MODULE) AR] $(MODULE)
+	@echo
+	$(AR) $@ $(OBJS)
+
+else ifeq "$(BINARY_TYPE)" "so"
+$(TARGET): $(OBJS) $(MODULE_DEPS)
+	-@mkdir -p $(BINS_PATH)
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo
+	@echo [$(MODULE) LD] $@
+	@echo
+	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+	$(AR) $@.a $(OBJS)
+
+else ifeq "$(BINARY_TYPE)" "plugin"
+
+$(TARGET): $(OBJS) $(MODULE_DEPS)
+	-@mkdir -p $(BINS_PATH)
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo
+	@echo [$(MODULE) LD] $@
+	@echo
+	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+	@$(AR) $@.a $(OBJS)
+
+else ifeq "$(BINARY_TYPE)" "bin"
+
+$(TARGET): $(OBJS) $(MODULE_DEPS)
+	-@mkdir -p $(BINS_PATH)
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo
+	@echo [$(MODULE) LD] $@
+	@echo
+	$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+
+else ifeq "$(BINARY_TYPE)" "bin_bin"
+
+$(TARGET): $(OBJS) $(MODULE_DEPS)
+	-@mkdir -p $(BINS_PATH)
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo
+	@echo [$(MODULE) LD] $@
+	@echo
+	@$(CXX) $(LINKFLAGS) -o $@ $(OBJS) $(STATIC_LIBRARY)
+
+endif
+
+
+
+#generate object file with cpp source code
+$(CPP_OBJS): $(INTERMEDIA_PATH)/%.o: %.cpp
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo [$(MODULE) CXX] $<
+	@$(CXX) -c $(COMPILEFLAGS) $< -o $@
+
+
+
+$(C_OBJS): $(INTERMEDIA_PATH)/%.o: %.c
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo [$(MODULE) C] $<
+	@$(CC) -c $(ANSIC_COMPILEFLAGS) -o $@ $<
+
+$(CC_OBJS): $(INTERMEDIA_PATH)/%.o: %.cc
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	@echo [$(MODULE) CXX] $<
+	@$(CXX) -c $(COMPILEFLAGS) -o $@ $<
+
+PROJ_PREPARE:
+	@echo
+
+clean:
+	-if [ "$(TARGET)" != "" ] ; then rm -rf $(TARGET); fi
+	-rm -rf $(INTERMEDIA_PATH)
+
+clean_t:
+	-if [ "$(TARGET)" != "" ] ; then rm -rf $(TARGET); fi
+
+clean_obj:
+	-rm -rf $(INTERMEDIA_PATH)
+
+# load the deps files, and ignore the load error
+ifneq ($(MAKECMDGOALS),clean)
+-include $(DEPS)
+endif
+
+dep: $(DEPS)
+
+$(DEPS): $(INTERMEDIA_PATH)/%.d: %.cpp
+	-@mkdir -p $(INTERMEDIA_PATH)
+	$(echo_proj_flags)
+	-@rm -f $@
+	-@echo -n "$(INTERMEDIA_PATH)/" > $@
+	@$(CXX) -M $(COMPILEFLAGS) $< >> $@
