@@ -753,6 +753,11 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     //process_https_tunnel
     if(!_srs_policy->is_https_descrypt_enable() || _srs_policy->match_tunnel_domain_list(client_http_req->get_dest_domain()))
     {
+        //connection to server established 
+        //prepare 200 to client
+        string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
+        clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
+        srs_trace("write HTTP 200 connection to client");
         processHttpsTunnel();
         return err;
     }
