@@ -155,6 +155,7 @@ public:
     // Read body to string.
     // @remark for small http body.
     virtual srs_error_t body_read_all(std::string& body);
+    virtual srs_error_t body_read_part(string& body, int read_size, int& finish);
     // Get the body reader, to read one by one.
     // @remark when body is very large, or chunked, use this.
     virtual ISrsHttpResponseReader* body_reader();

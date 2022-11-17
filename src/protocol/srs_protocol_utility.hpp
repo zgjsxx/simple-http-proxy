@@ -21,5 +21,5 @@ extern srs_error_t srs_write_large_iovs(ISrsProtocolReadWriter* skt, iovec* iovs
 
 // Read all content util EOF.
 extern srs_error_t srs_ioutil_read_all(ISrsReader* in, std::string& content);
-
+extern srs_error_t srs_ioutil_read_part(ISrsReader* in, std::string& content, int size, int& finish);
 #endif

@@ -663,29 +663,66 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         // send response to client
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_skt->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
+
         if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
         {
-            server_http_resp->body_read_all(resp_body);
-        }
-        srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
+            while(1)
+            {
+                resp_body = "";
+                srs_trace("start to read body");
+                int finish = 0;
+                err = server_http_resp->body_read_part(resp_body, 4096, finish);
+                srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
 
-        if(server_http_resp->is_chunked())
-        {
-            char temp[32];
-            snprintf(temp, sizeof(temp), "%x", resp_body.size());
-            srs_trace("write chunk data to client, chunk size is %s", temp);
+                if(server_http_resp->is_chunked())
+                {
+                    char temp[32];
+                    snprintf(temp, sizeof(temp), "%x", resp_body.size());
+                    srs_trace("write chunk data to client, chunk size is %s", temp);
 
-            clt_skt->write(temp, strlen(temp), NULL);
-            clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-            clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
-        }
-        else if(server_http_resp->content_length() > 0)
-        {
-            srs_trace("resp_body is %d", resp_body.size());
-            clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-        }
+                    clt_skt->write(temp, strlen(temp), NULL);
+                    clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+                    clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                    clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+                }
+                else if(server_http_resp->content_length() > 0)
+                {
+                    srs_trace("resp_body is %d", resp_body.size());
+                    clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                }
+
+                if(finish)
+                {
+                    srs_trace("meet eof");
+                    clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+                    break;
+                }
+            }
+        }   
+
+        // if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
+        // {
+        //     server_http_resp->body_read_all(resp_body);
+        // }
+
+        // srs_trace("server resp is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
+        // if(server_http_resp->is_chunked())
+        // {
+        //     char temp[32];
+        //     snprintf(temp, sizeof(temp), "%x", resp_body.size());
+        //     srs_trace("write chunk data to client, chunk size is %s", temp);
+
+        //     clt_skt->write(temp, strlen(temp), NULL);
+        //     clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        //     clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        //     clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+        //     clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+        // }
+        // else if(server_http_resp->content_length() > 0)
+        // {
+        //     srs_trace("write resp_body to client, size is %d", resp_body.size());
+        //     clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        // }
 
         // donot keep alive, disconnect it.
         if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {
@@ -866,30 +903,65 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         // send response to client
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_ssl->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
-        
+
         if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
         {
-            server_http_resp->body_read_all(resp_body);
-        }
+            while(1)
+            {
+                resp_body = "";
+                srs_trace("start to read body");
+                int finish = 0;
+                err = server_http_resp->body_read_part(resp_body, 4096, finish);
+                srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
 
-        srs_trace("server resp is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
-        if(server_http_resp->is_chunked())
-        {
-            char temp[32];
-            snprintf(temp, sizeof(temp), "%x", resp_body.size());
-            srs_trace("write chunk data to client, chunk size is %s", temp);
+                if(server_http_resp->is_chunked())
+                {
+                    char temp[32];
+                    snprintf(temp, sizeof(temp), "%x", resp_body.size());
+                    srs_trace("write chunk data to client, chunk size is %s", temp);
 
-            clt_ssl->write(temp, strlen(temp), NULL);
-            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-            clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
-            clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
-        }
-        else if(server_http_resp->content_length() > 0)
-        {
-            srs_trace("write resp_body to client, size is %d", resp_body.size());
-            clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-        }
+                    clt_ssl->write(temp, strlen(temp), NULL);
+                    clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+                    clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                    clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+                }
+                else if(server_http_resp->content_length() > 0)
+                {
+                    srs_trace("resp_body is %d", resp_body.size());
+                    clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                }
+                if(finish)
+                {
+                    srs_trace("meet eof");
+                    clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+                    break;
+                }
+            }
+        }  
+
+        // if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
+        // {
+        //     server_http_resp->body_read_all(resp_body);
+        // }
+
+        // srs_trace("server resp is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
+        // if(server_http_resp->is_chunked())
+        // {
+        //     char temp[32];
+        //     snprintf(temp, sizeof(temp), "%x", resp_body.size());
+        //     srs_trace("write chunk data to client, chunk size is %s", temp);
+
+        //     clt_ssl->write(temp, strlen(temp), NULL);
+        //     clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+        //     clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        //     clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
+        //     clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+        // }
+        // else if(server_http_resp->content_length() > 0)
+        // {
+        //     srs_trace("write resp_body to client, size is %d", resp_body.size());
+        //     clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+        // }
 
         // donot keep alive, disconnect it.
         if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {

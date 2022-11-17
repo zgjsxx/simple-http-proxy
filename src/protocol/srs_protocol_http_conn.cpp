@@ -725,6 +725,12 @@ srs_error_t SrsHttpMessage::body_read_all(string& body)
     return srs_ioutil_read_all(_body, body);
 }
 
+srs_error_t SrsHttpMessage::body_read_part(string& body, int read_size, int& finish)
+{
+    //process Transfer-Encoding: Trunked
+    return srs_ioutil_read_part(_body, body, read_size, finish);
+}
+
 ISrsHttpResponseReader* SrsHttpMessage::body_reader()
 {
     return _body;
