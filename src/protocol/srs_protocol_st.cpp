@@ -163,9 +163,14 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
     
     addrinfo* r  = NULL;
     SrsAutoFreeH(addrinfo, r, freeaddrinfo);
+    time_t before = time(NULL);
     if(getaddrinfo(server.c_str(), sport, (const addrinfo*)&hints, &r)) {
+        time_t after = time(NULL);
+        srs_trace("getaddr info cost %d s", after - before);        
         return srs_error_new(ERROR_SYSTEM_IP_INVALID, "get address info");
     }
+    time_t after = time(NULL);
+    srs_trace("getaddr info cost %d s", after - before);
     
     int sock = socket(r->ai_family, r->ai_socktype, r->ai_protocol);
     if(sock == -1){
@@ -601,7 +606,7 @@ srs_error_t SrsTcpClient::connect()
 }
 int SrsTcpClient::get_fd()
 {
-    srs_netfd_fileno(stfd_);
+    return srs_netfd_fileno(stfd_);
 }
 
 void SrsTcpClient::set_recv_timeout(srs_utime_t tm)

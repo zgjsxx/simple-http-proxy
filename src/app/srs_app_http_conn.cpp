@@ -16,7 +16,8 @@
 #include <srs_protocol_json.hpp>
 #include <srs_app_access_log.hpp>
 #include <poll.h>
-
+#include <crypto/x509.h>
+#include <crypto/evp.h>
 extern ISrsContext* _srs_context;
 extern SrsConfig* _srs_config;
 extern SrsPolicy* _srs_policy;
@@ -24,7 +25,7 @@ extern SrsNotification* _srs_notification;
 extern SrsAccessLog* _srs_access_log;
 
 EVP_PKEY *ca_key = NULL;
-
+ResignEndpointCertMap* g_resignEndpointCertMap = new ResignEndpointCertMap();
 static void prepareResignCA()
 {
 	ca_key = EVP_PKEY_new();
@@ -615,7 +616,6 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
         if((err = server_skt->connect()) != srs_success)
         {
-            srs_trace("err = %d" , err == srs_success);
             return err;
         }
         _srs_context->set_server_fd(server_skt->get_fd());
@@ -784,13 +784,12 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     // no next hip, connect directly, no need to foward connect request
     if(svr_skt == NULL)
     {
-        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 5);
+        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 2);
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
 
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
         if((err = server_skt->connect()) != srs_success)
         {
-            srs_trace("err = %d" , err == srs_success);
             return err;
         }
         _srs_context->set_server_fd(server_skt->get_fd());
@@ -816,14 +815,28 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         return err;
     }
 
-	X509 *fake_x509 = X509_new();
-	EVP_PKEY* server_key = EVP_PKEY_new();
-    if(ca_key == NULL)
+    X509 *fake_x509 = NULL;
+    EVP_PKEY* server_key = NULL;
+    if(g_resignEndpointCertMap->count(client_http_req->get_dest_domain()) > 0)
     {
-        prepareResignCA();
+        ResignEndpointCert* resignEndpointCert = g_resignEndpointCertMap->get(client_http_req->get_dest_domain());
+        fake_x509 = resignEndpointCert->get_resign_cert();
+        server_key = resignEndpointCert->get_resign_key();
     }
-	
-    svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
+    else
+    {
+        fake_x509 = X509_new();
+        server_key = EVP_PKEY_new();
+        if(ca_key == NULL)
+        {
+            prepareResignCA();
+        }
+        
+        svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
+        ResignEndpointCert *resignEndpointCert = new ResignEndpointCert(fake_x509, server_key);
+        g_resignEndpointCertMap->insert(client_http_req->get_dest_domain(), resignEndpointCert);
+    }
+
 
     //connection to server established 
     //prepare 200 to client
@@ -1153,4 +1166,63 @@ SrsHttpServer::~SrsHttpServer()
 {
     // srs_freep(http_stream);
     // srs_freep(http_static);
+}
+
+
+ResignEndpointCert::ResignEndpointCert()
+{
+    resign_x509 = NULL;
+    resign_key = NULL;
+}
+
+ResignEndpointCert::ResignEndpointCert(X509* x509, EVP_PKEY* key)
+{
+    resign_x509 = x509;
+    resign_key = key;
+}
+
+ResignEndpointCert::~ResignEndpointCert()
+{
+    srs_freep(resign_x509);
+    srs_freep(resign_key);
+}
+
+X509* ResignEndpointCert::get_resign_cert()
+{
+    return resign_x509;
+}
+
+EVP_PKEY* ResignEndpointCert::get_resign_key()
+{
+    return resign_key;
+}
+
+
+
+ResignEndpointCertMap::ResignEndpointCertMap()
+{
+
+}
+
+ResignEndpointCertMap::~ResignEndpointCertMap()
+{
+    for(auto &t : m_domain_cert_map)
+    {
+        srs_freep(t.second);
+    }
+}
+
+void ResignEndpointCertMap::insert(string domain, ResignEndpointCert* cert)
+{
+    m_domain_cert_map.insert(std::make_pair(domain, cert));
+}
+
+int ResignEndpointCertMap::count(string domain)
+{
+    return m_domain_cert_map.count(domain);
+}
+
+ResignEndpointCert* ResignEndpointCertMap::get(string domain)
+{
+    return m_domain_cert_map[domain];
 }

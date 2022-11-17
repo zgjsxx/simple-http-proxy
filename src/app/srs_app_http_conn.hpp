@@ -10,6 +10,8 @@
 #include <srs_app_conn.hpp>
 #include <srs_app_server.hpp>
 
+#include <unordered_map>
+using std::unordered_map;
 class SrsHttpParser;
 
 // The owner of HTTP connection.
@@ -212,4 +214,30 @@ public:
     virtual srs_error_t serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r);
 };
 
+class ResignEndpointCert
+{
+public:
+    ResignEndpointCert();
+    ResignEndpointCert(X509* x509, EVP_PKEY* key);
+    ~ResignEndpointCert();
+private:
+    X509 *resign_x509;
+	EVP_PKEY* resign_key;
+public:
+    virtual X509* get_resign_cert();
+    virtual EVP_PKEY* get_resign_key();
+};
+
+class ResignEndpointCertMap
+{
+public:
+    ResignEndpointCertMap();
+    ~ResignEndpointCertMap();
+public:
+    void insert(string domain, ResignEndpointCert* cert);
+    int count(string domain);
+    ResignEndpointCert* get(string domain);
+private:
+    unordered_map<string, ResignEndpointCert*> m_domain_cert_map;
+};
 #endif

@@ -43,14 +43,16 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support access log  
 - support get a chunk data and then send a chunk data, instead of getting all body and then transfer to client
 ## 4.TO DO:
-- url category https://data.world/crowdflower/url-categorization
 - async dns query
+- support docker/k8s
+- support content-type block
+- support client ip block
+- url category https://data.world/crowdflower/url-categorization
 - prevent JA3 blocked
 - add phsishing database https://github.com/mitchellkrogza/Phishing.Database
 - support TLS1.3
-- support content-type block
-- support client ip block
-- support docker/k8s
+
+
 ## 5.test samples 
 
 **http chunked data test sample**

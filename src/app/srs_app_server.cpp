@@ -785,7 +785,6 @@ srs_error_t SrsServer::fd_to_resource(SrsListenerType type, srs_netfd_t& stfd, I
         *pr = new SrsHttpxConn(type == SrsListenerHttpsApi, this, new SrsTcpConnection(fd2), http_api_mux, ip, port);
     } 
     else if(type == SrsListenerHttpProxy){
-        srs_trace("http proxy connection is come in");
         *pr = new SrsHttpxProxyConn(new SrsTcpConnection(fd2), this, http_api_mux, ip, port);
     } 
     else {
