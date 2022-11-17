@@ -240,6 +240,9 @@ public:
     //proxy related conf  
     virtual bool get_http_proxy_enabled();
     virtual std::string get_http_proxy_listen();
+    virtual bool get_next_hip_proxy_enabled();
+    virtual std::string get_next_hip_proxy_port();
+    virtual std::string get_next_hip_proxy_ip();
 private:
     SrsConfDirective* get_https_api();
 public:

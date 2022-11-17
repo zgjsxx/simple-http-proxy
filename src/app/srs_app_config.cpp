@@ -1427,3 +1427,70 @@ string SrsConfig::get_http_proxy_listen()
 
     return conf->arg0();
 }
+
+
+bool SrsConfig::get_next_hip_proxy_enabled()
+{
+    static bool DEFAULT = false;
+
+    SrsConfDirective* conf = root->get("http_proxy");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("next_hip");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("enabled");
+    if (!conf) {
+        return DEFAULT;
+    }    
+
+    return SRS_CONF_PERFER_FALSE(conf->arg0());
+}
+
+string SrsConfig::get_next_hip_proxy_ip()
+{
+    static string DEFAULT = "";
+
+    SrsConfDirective* conf = root->get("http_proxy");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("next_hip");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("ip");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return conf->arg0();
+}
+
+string SrsConfig::get_next_hip_proxy_port()
+{
+    static string DEFAULT = "";
+
+    SrsConfDirective* conf = root->get("http_proxy");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("next_hip");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("port");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return conf->arg0();
+}

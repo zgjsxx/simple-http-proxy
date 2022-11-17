@@ -595,6 +595,14 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             return err;
         }
 
+        //if configure the next hip, forward traffic to next hip
+        //client -> proxy ->next hip -> ... -> server
+        //client <- proxy <-next hip <- ... <- server
+        if(_srs_config->get_next_hip_proxy_enabled())
+        {
+            svr_skt = new SrsTcpClient(_srs_config->get_next_hip_proxy_ip(), atoi(_srs_config->get_next_hip_proxy_port().c_str()), SRS_UTIME_SECONDS * 5);
+        }
+
         //send request to server
         if(svr_skt == NULL)
         {
@@ -682,7 +690,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             srs_trace("not keep-alive connection, close it now");
             break;
         }
-        
+
         if(server_http_resp->status_code() == 101)
         {
             //web socket tracffic, tunnel it
@@ -701,21 +709,46 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
 srs_error_t SrsHttpxProxyConn::process_https_connection()
 {
     srs_error_t err = srs_success;
-
-    //prepare 200 to client
-    string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
-    clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
-
-    svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 5);
-    SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
-
-    server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
-    if((err = server_skt->connect()) != srs_success)
+    if(_srs_config->get_next_hip_proxy_enabled())
     {
-        srs_trace("err = %d" , err == srs_success);
-        return err;
+        //if configure the next hip, forward traffic to next hip
+        //client -> proxy ->next hip -> ... -> server
+        //client <- proxy <-next hip <- ... <- server        
+        svr_skt = new SrsTcpClient(_srs_config->get_next_hip_proxy_ip(), atoi(_srs_config->get_next_hip_proxy_port().c_str()), SRS_UTIME_SECONDS * 5);
+        SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+        server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
+        if((err = server_skt->connect()) != srs_success)
+        {
+            srs_trace("err = %d" , err == srs_success);
+            return err;
+        }
+        _srs_context->set_server_fd(server_skt->get_fd());
+        server_skt->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
+        //receive 200 connection established
+        if ((err = server_parser->initialize(HTTP_RESPONSE)) != srs_success) {
+            return srs_error_wrap(err, "init parser for %s", ip.c_str());
+        }        
+        ISrsHttpMessage* resp = NULL;
+        if ((err = server_parser->parse_message(server_skt, &resp)) != srs_success) {
+            return srs_error_wrap(err, "parse message");
+        }
+        SrsAutoFree(ISrsHttpMessage, resp);
     }
-    _srs_context->set_server_fd(server_skt->get_fd());
+
+    // no next hip, connect directly, no need to foward connect request
+    if(svr_skt == NULL)
+    {
+        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 5);
+        SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
+
+        server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
+        if((err = server_skt->connect()) != srs_success)
+        {
+            srs_trace("err = %d" , err == srs_success);
+            return err;
+        }
+        _srs_context->set_server_fd(server_skt->get_fd());
+    }
 
     //process_https_tunnel
     if(!_srs_policy->is_https_descrypt_enable() || _srs_policy->match_tunnel_domain_list(client_http_req->get_dest_domain()))
@@ -724,7 +757,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         return err;
     }
 
-    svr_ssl = new SrsSslClient(server_skt);
+    svr_ssl = new SrsSslClient((SrsTcpClient*)svr_skt);
     svr_ssl->set_SNI(client_http_req->get_dest_domain());
     if((err = svr_ssl->handshake()) != srs_success)
     {
@@ -740,6 +773,12 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     }
 	
     svr_ssl->prepare_resign_endpoint(fake_x509, server_key);
+
+    //connection to server established 
+    //prepare 200 to client
+    string res = "HTTP/1.1 200 Connection Established\r\n\r\n";
+    clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
+    srs_trace("write HTTP 200 connection to client");
 
     clt_ssl = new SrsSslConnection(clt_skt);
     clt_ssl->handshake(fake_x509, server_key);
