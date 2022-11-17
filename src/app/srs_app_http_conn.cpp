@@ -613,7 +613,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         server_skt->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
 
         //check whether request has body
-        if(client_http_req->is_chunked() || client_http_req->content_length() != 0)
+        if(client_http_req->is_chunked() || client_http_req->content_length() > 0)
         {
             client_http_req->body_read_all(req_body);
         }
@@ -631,7 +631,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             server_skt->write(const_cast<char*>("\r\n"), 2, NULL);
             server_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else if(client_http_req->content_length() != 0)
+        else if(client_http_req->content_length() > 0)
         {
             srs_trace("req_body is %d", req_body.size());
             server_skt->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
@@ -653,7 +653,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         // send response to client
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_skt->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
-        if(server_http_resp->is_chunked() || server_http_resp->content_length() != 0)
+        if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
         {
             server_http_resp->body_read_all(resp_body);
         }
@@ -671,7 +671,7 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
             clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else if(server_http_resp->content_length() != 0)
+        else if(server_http_resp->content_length() > 0)
         {
             srs_trace("resp_body is %d", resp_body.size());
             clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
@@ -681,6 +681,13 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
         if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {
             srs_trace("not keep-alive connection, close it now");
             break;
+        }
+        
+        if(server_http_resp->status_code() == 101)
+        {
+            //web socket tracffic, tunnel it
+            srs_trace("web socket traffic, tunnel it");
+            processHttpsTunnel();
         }
 
         resp_body = "";
@@ -767,7 +774,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         svr_ssl->write(const_cast<char*>(client_http_req->get_raw_header().c_str()), client_http_req->get_raw_header().size(), NULL);
 
         //check whether need to forward body
-        if(client_http_req->is_chunked() || client_http_req->content_length() != 0)
+        if(client_http_req->is_chunked() || client_http_req->content_length() > 0)
         {
             client_http_req->body_read_all(req_body);
         }
@@ -785,7 +792,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             svr_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
             svr_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else if(client_http_req->content_length() != 0)
+        else if(client_http_req->content_length() > 0)
         {
             srs_trace("write resp_body to client, size is %d", req_body.size());
             svr_ssl->write(const_cast<char*>(req_body.c_str()), req_body.size(), NULL);
@@ -807,7 +814,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         server_http_resp = (SrsHttpMessage*)server_resp;
         clt_ssl->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
         
-        if(server_http_resp->is_chunked() || server_http_resp->content_length() != 0)
+        if(server_http_resp->is_chunked() || server_http_resp->content_length() > 0)
         {
             server_http_resp->body_read_all(resp_body);
         }
@@ -825,7 +832,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             clt_ssl->write(const_cast<char*>("\r\n"), 2, NULL);
             clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
         }
-        else if(server_http_resp->content_length() != 0)
+        else if(server_http_resp->content_length() > 0)
         {
             srs_trace("write resp_body to client, size is %d", resp_body.size());
             clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
@@ -835,6 +842,13 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         if (!client_http_req->is_keep_alive() || !server_http_resp->is_keep_alive()) {
             srs_trace("not keep-alive connection, close it now");
             break;
+        }
+
+        if(server_http_resp->status_code() == 101)
+        {
+            //web socket tracffic, tunnel it
+            srs_trace("web socket traffic, tunnel it");
+            processHttpsTunnel();
         }
 
         req_body = "";
