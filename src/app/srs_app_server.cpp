@@ -509,6 +509,7 @@ srs_error_t SrsServer::http_handle()
     }
 
     srs_trace("http_api_mux handle end");
+    return err;
 }
 
 srs_error_t SrsServer::start(SrsWaitGroup* wg)
