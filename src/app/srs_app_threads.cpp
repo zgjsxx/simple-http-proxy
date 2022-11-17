@@ -12,6 +12,7 @@
 #include <srs_protocol_log.hpp>
 #include <srs_app_hybrid.hpp>
 #include <srs_app_policy.hpp>
+#include <srs_app_access_log.hpp>
 using namespace std;
 
 extern SrsPolicy* _srs_policy;
@@ -19,7 +20,7 @@ extern ISrsLog* _srs_log;
 extern SrsConfig* _srs_config;
 extern ISrsContext* _srs_context;
 extern SrsNotification* _srs_notification;
-
+extern SrsAccessLog* _srs_access_log;
 #ifdef SRS_OSX
     pid_t gettid() {
         return 0;
@@ -84,6 +85,7 @@ srs_error_t srs_global_initialize()
     _srs_hybrid = new SrsHybridServer();
     _srs_policy = new SrsPolicy();
     _srs_notification = new SrsNotification();
+    _srs_access_log = new SrsAccessLog();
     return err;
 }
 

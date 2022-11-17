@@ -39,16 +39,16 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support multiple set-cookie header
 - support http keepalive  
 - support url category machine learning (https://github.com/domantasm96/URL-categorization-using-machine-learning)
-- support next hip 
-- 
+- support configure next hip proxy 
+- support access log  
 ## 4.TO DO:
 - url category https://data.world/crowdflower/url-categorization
 - async dns query
-- support access log  
 - prevent JA3 blocked
-- add  phsishing database https://github.com/mitchellkrogza/Phishing.Database
+- add phsishing database https://github.com/mitchellkrogza/Phishing.Database
 - support TLS1.3
-
+- support content-type block
+- support client ip block
 ## 5.test samples 
 
 **http chunked data test sample**

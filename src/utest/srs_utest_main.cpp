@@ -3,7 +3,7 @@
 #include <srs_app_config.hpp>
 #include <srs_utest_main.hpp>
 #include <srs_app_policy.hpp>
-
+#include <srs_app_access_log.hpp>
 ISrsLog* _srs_log = NULL;
 ISrsContext* _srs_context = NULL;
 SrsConfig* _srs_config = NULL;
@@ -12,6 +12,7 @@ SrsPolicy* _srs_policy = NULL;
 // @global notification object for app module
 SrsNotification* _srs_notification = NULL;
 
+SrsAccessLog* _srs_access_log = NULL;
 // Initialize global settings.
 srs_error_t prepare_main() {
     srs_error_t err = srs_success;

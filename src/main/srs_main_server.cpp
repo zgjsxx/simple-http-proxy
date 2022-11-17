@@ -11,6 +11,7 @@
 #include <srs_app_hybrid.hpp>
 #include <srs_app_server.hpp>
 #include <srs_app_policy.hpp>
+#include <srs_app_access_log.hpp>
 
 #ifdef SRS_GPERF_CP
 #include <gperftools/profiler.h>
@@ -27,6 +28,7 @@ SrsPolicy* _srs_policy = NULL;
 // @global notification object for app module
 SrsNotification* _srs_notification = NULL;
 
+SrsAccessLog* _srs_access_log = NULL;
 #include <iostream>
 using namespace std;
 

@@ -14,12 +14,14 @@
 #include <srs_kernel_file.hpp>
 #include <srs_app_http_client.hpp>
 #include <srs_protocol_json.hpp>
+#include <srs_app_access_log.hpp>
 #include <poll.h>
 
 extern ISrsContext* _srs_context;
 extern SrsConfig* _srs_config;
 extern SrsPolicy* _srs_policy;
 extern SrsNotification* _srs_notification;
+extern SrsAccessLog* _srs_access_log;
 
 EVP_PKEY *ca_key = NULL;
 
@@ -698,6 +700,13 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
             processHttpsTunnel();
         }
 
+        SrsAccessLogInfo* log_info = new SrsAccessLogInfo();
+        SrsAutoFree(SrsAccessLogInfo, log_info);
+        log_info->domain = client_http_req->get_dest_domain();
+        log_info->client_ip = remote_ip();
+        log_info->status_code = server_http_resp->status_code();
+        _srs_access_log->write_access_log(log_info);
+
         resp_body = "";
         req_body = "";
         client_http_req = NULL;
@@ -895,11 +904,18 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
             processHttpsTunnel();
         }
 
+        SrsAccessLogInfo* log_info = new SrsAccessLogInfo();
+        SrsAutoFree(SrsAccessLogInfo, log_info);
+        log_info->domain = client_http_req->get_dest_domain();
+        log_info->client_ip = remote_ip();
+        log_info->status_code = server_http_resp->status_code();
+        _srs_access_log->write_access_log(log_info);
+        srs_trace("one https transaction done, wait next");
+
         req_body = "";
         resp_body = "";
         client_http_req = NULL;
         server_http_resp = NULL;
-        srs_trace("one https transaction done, wait next");
     }
 
     return err;
