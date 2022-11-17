@@ -49,6 +49,7 @@ You can see the certificate has been replaced by our proxy. It means the descryp
 - support TLS1.3
 - support content-type block
 - support client ip block
+- support docker/k8s
 ## 5.test samples 
 
 **http chunked data test sample**
