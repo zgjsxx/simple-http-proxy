@@ -1,5 +1,6 @@
 .so
 3rdparty
+3rdparty/c-ares
 tmpobj
 output
 .vscode
