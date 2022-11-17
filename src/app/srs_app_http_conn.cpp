@@ -912,6 +912,10 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
                 srs_trace("start to read body");
                 int finish = 0;
                 err = server_http_resp->body_read_part(resp_body, 4096, finish);
+                if(err != srs_success)
+                {
+                    return err;
+                }
                 srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
 
                 if(server_http_resp->is_chunked())
