@@ -65,10 +65,39 @@ SrsAsyncDns::~SrsAsyncDns()
 void SrsAsyncDns::init()
 {
     int res;
+	// A basic init call will read configuration from /etc/resolv.conf
     if((res = ares_init(&channel)) != ARES_SUCCESS) { 
         // std::cout << "ares feiled: " << res << std::endl;
         return;
     }
+
+	if (ARES_SUCCESS != res)
+	{
+		return;
+	}
+
+	{
+		struct ares_addr_node* servers = NULL;
+		ares_get_servers(channel, &servers);
+
+		struct ares_addr_node* tmpNode = NULL;
+		tmpNode = servers;
+		while (tmpNode)
+		{
+			if (tmpNode->family == AF_INET)
+            {
+                char ipv4_str[32] = {0};
+                inet_ntop(AF_INET, &tmpNode->addr.addr4.s_addr, ipv4_str, sizeof(ipv4_str)); 
+                srs_trace("server ip address = %s",ipv4_str);   
+                srs_trace("dns server: %s", ipv4_str);
+                dns_server_ip = ipv4_str;            
+            }
+
+			tmpNode = tmpNode->next;
+		}
+
+		ares_free_data(servers);
+	}
     pds.fd = 0;
     lookup_success = false;
 }
@@ -101,7 +130,7 @@ void SrsAsyncDns::do_resolve(string hostname, int port, struct sockaddr_in* serv
 
     srs_trace("ares_init_options suc");
 	//set dns server
-    ares_set_servers_csv(theChannel, "114.114.114.114");
+    ares_set_servers_csv(theChannel, dns_server_ip.c_str());
     //get host by name
     ares_gethostbyname(theChannel, hostname.c_str(), AF_INET, dns_callback, server_addr);
  

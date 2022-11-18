@@ -2,51 +2,62 @@
 cpu_numer=`cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l`
 echo $cpu_numer
 
-CURR_DIR=$(pwd)
-echo $CURR_DIR
-
-# compile openssl
-OPENSSL_DEST_DIR=$CURR_DIR/output/openssl
+WORKSPACE=$(pwd)
+echo $WORKSPACE
 mkdir output
-mkdir output/openssl
+# compile openssl
+OPENSSL_DEST_DIR=$WORKSPACE/output/openssl
+if [ ! -d $OPENSSL_DEST_DIR ];then
 
-OPENSSL_OPTIONS="-no-shared -no-threads"
+    mkdir output/openssl
+    OPENSSL_OPTIONS="-no-shared -no-threads"
 
-cd 3rdparty/openssl
-./config --prefix=$OPENSSL_DEST_DIR $OPENSSL_OPTIONS -DOPENSSL_NO_HEARTBEATS
-make -j$cpu_numer && make install
+    cd 3rdparty/openssl
+    ./config --prefix=$OPENSSL_DEST_DIR $OPENSSL_OPTIONS -DOPENSSL_NO_HEARTBEATS
+    make -j$cpu_numer && make install
+fi
 
 # compile st
-cd $CURR_DIR
-cd 3rdparty/st-srs
-make linux-debug
+cd $WORKSPACE
+ST_LIB_PATH=$WORKSPACE/output/libst.a
+if [ ! -f $ST_LIB_PATH ]; then
+    cd 3rdparty/st-srs
+    make linux-debug
 
-OS="LINUX"
-BUILD="DBG"
-VERSION=`uname -r`
+    OS="LINUX"
+    BUILD="DBG"
+    VERSION=`uname -r`
 
-TARGETDIR="${OS}_${VERSION}_$BUILD"
-st_path=$CURR_DIR/3rdparty/st-srs/$TARGETDIR
+    TARGETDIR="${OS}_${VERSION}_$BUILD"
+    st_path=$WORKSPACE/3rdparty/st-srs/$TARGETDIR
 
-echo $st_path
-cp $st_path/libst.a ../../output/
+    echo $st_path
+    cp $st_path/libst.a ../../output/
+fi
 
 # compile gtest
-
-cd $CURR_DIR
+cd $WORKSPACE
 cd ./output
+GTEST_PATH=$WORKSPACE/output/gtest.a
+if [ ! -f GTEST_PATH ]; then
+    cp -r ../3rdparty/gtest-fit/googletest gtest
+    cd gtest
+    make 
 
-cp -r ../3rdparty/gtest-fit/googletest gtest
-cd gtest
-make 
+    cp gtest.a ../
+    cp gtest_main.a ../
+fi
 
-cp gtest.a ../
-cp gtest_main.a ../
-
-cd $CURR_DIR
+# compile c-ares
+cd $WORKSPACE
 mkdir output/c-ares
 
 cd 3rdparty/c-ares
-CARES_DEST_DIR=$CURR_DIR/output/c-ares
-./configure --prefix=$CARES_DEST_DIR
-make -j$cpu_numer && make install
+CARES_DEST_DIR=$WORKSPACE/output/c-ares
+if [ ! -d CARES_DEST_DIR ];then
+    ./configure --prefix=$CARES_DEST_DIR
+    make -j$cpu_numer && make install
+fi
+
+cd $WORKSPACE
+echo "configure success"

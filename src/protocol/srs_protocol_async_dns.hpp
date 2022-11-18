@@ -8,13 +8,6 @@
 #include <arpa/inet.h>
 using namespace std;
 
-#define IP_LEN 32
-typedef struct {
-	char host[64];
-	char ip[10][IP_LEN]; 
-	int count;   
-}IpList;
-
 void srs_sock_state_cb(void* data, int fd, int readable, int writable);
 
 class SrsAsyncDns
@@ -29,6 +22,7 @@ public:
 private:
     ares_channel channel;
     bool lookup_success;
+    string dns_server_ip;
 public:
     struct pollfd pds;
 };

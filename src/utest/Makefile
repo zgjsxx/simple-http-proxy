@@ -39,6 +39,7 @@ STATIC_LIBRARY += $(PROXY_PATH)/output/gtest.a
 STATIC_LIBRARY += $(PROXY_PATH)/output/openssl/lib/libssl.a \
 				  $(PROXY_PATH)/output/openssl/lib/libcrypto.a
 STATIC_LIBRARY += $(PROXY_PATH)/output/libst.a
+STATIC_LIBRARY += $(PROXY_PATH)/output/c-ares/lib/libcares.a
 STATIC_LIBRARY += -pthread -ldl
 
 
