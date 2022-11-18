@@ -1,7 +1,9 @@
 #!/bin/bash
+cpu_numer=`cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l`
+echo $cpu_numer
+
 CURR_DIR=$(pwd)
 echo $CURR_DIR
-
 
 # compile openssl
 OPENSSL_DEST_DIR=$CURR_DIR/output/openssl
@@ -12,7 +14,7 @@ OPENSSL_OPTIONS="-no-shared -no-threads"
 
 cd 3rdparty/openssl
 ./config --prefix=$OPENSSL_DEST_DIR $OPENSSL_OPTIONS -DOPENSSL_NO_HEARTBEATS
-make && make install
+make -j$cpu_numer && make install
 
 # compile st
 cd $CURR_DIR
@@ -47,4 +49,4 @@ mkdir output/c-ares
 cd 3rdparty/c-ares
 CARES_DEST_DIR=$CURR_DIR/output/c-ares
 ./configure --prefix=$CARES_DEST_DIR
-make && make install
+make -j$cpu_numer && make install

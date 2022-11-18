@@ -23,6 +23,7 @@ CFLAGS +=	-I./ \
 			-I../core \
 			-I../kernel \
 			-I../../3rdparty/st-srs \
+			-I../../3rdparty/c-ares/include \
 			-std=c++11
 
 #
