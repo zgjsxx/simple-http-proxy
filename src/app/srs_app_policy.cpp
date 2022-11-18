@@ -104,7 +104,7 @@ bool SrsPolicy::match_black_list(std::string url)
 {
     for(std::string black_item : black_list_vec)
     {
-        srs_trace("black_item is %s", black_item.c_str());
+        // srs_trace("black_item is %s", black_item.c_str());
         if(url.find(black_item) != std::string::npos)
         {
             return true;

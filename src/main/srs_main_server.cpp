@@ -12,7 +12,6 @@
 #include <srs_app_server.hpp>
 #include <srs_app_policy.hpp>
 #include <srs_app_access_log.hpp>
-
 #ifdef SRS_GPERF_CP
 #include <gperftools/profiler.h>
 #endif

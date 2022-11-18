@@ -5,6 +5,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <srs_protocol_st.hpp>
+#include <srs_protocol_async_dns.hpp>
 #include <srs_kernel_error.hpp>
 #include <srs_kernel_log.hpp>
 #include <srs_core.hpp>
@@ -13,7 +14,7 @@
 
 // nginx also set to 512
 #define SERVER_LISTEN_BACKLOG 512
-
+extern SrsAsyncDns* _srs_dns_query;
 #ifdef __linux__
 #include <sys/epoll.h>
 
@@ -152,31 +153,24 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
     *pstfd = NULL;
     srs_netfd_t stfd = NULL;
 
-    char sport[8];
-    int r0 = snprintf(sport, sizeof(sport), "%d", port);
-    srs_assert(r0 > 0 && r0 < (int)sizeof(sport));
-    
-    addrinfo hints;
-    memset(&hints, 0, sizeof(hints));
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    
-    addrinfo* r  = NULL;
-    SrsAutoFreeH(addrinfo, r, freeaddrinfo);
-    time_t before = time(NULL);
-    if(getaddrinfo(server.c_str(), sport, (const addrinfo*)&hints, &r)) {
-        time_t after = time(NULL);
-        srs_trace("getaddr info cost %d s", after - before);        
-        return srs_error_new(ERROR_SYSTEM_IP_INVALID, "get address info");
+    struct sockaddr_in server_addr;
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_port = htons(port);
+    SrsAsyncDns* _srs_dns_query = new SrsAsyncDns();
+    SrsAutoFree(SrsAsyncDns, _srs_dns_query);
+    _srs_dns_query->do_resolve(server, port, &server_addr);
+    srs_trace("addr is %u", server_addr.sin_addr.s_addr);
+    if(server_addr.sin_addr.s_addr == 0)
+    {
+        return srs_error_new(ERROR_SOCKET_CREATE, "dns lookup error");
     }
-    time_t after = time(NULL);
-    srs_trace("getaddr info cost %d s", after - before);
-    
-    int sock = socket(r->ai_family, r->ai_socktype, r->ai_protocol);
-    if(sock == -1){
+	
+    int sock;
+
+	if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
         return srs_error_new(ERROR_SOCKET_CREATE, "create socket");
-    }
-    
+	}
+
     srs_assert(!stfd);
     stfd = st_netfd_open_socket(sock);
     if(stfd == NULL){
@@ -185,12 +179,18 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
     }
     srs_trace("connect to %s:%d", server.c_str(), port);
     
-    char ipv4_str[32] = {0};
-    struct sockaddr_in* addr = (struct sockaddr_in *)r->ai_addr;
-    inet_ntop(AF_INET, &addr->sin_addr, ipv4_str, sizeof(ipv4_str));
-    srs_trace("server ip address = %s",ipv4_str);
+    // char ipv4_str[32] = {0};
+    // struct sockaddr_in* addr = (struct sockaddr_in *)r->ai_addr;
+    // inet_ntop(AF_INET, &addr->sin_addr, ipv4_str, sizeof(ipv4_str));
+    // srs_trace("server ip address = %s",ipv4_str);
 
-    if (st_connect((st_netfd_t)stfd, r->ai_addr, r->ai_addrlen, timeout) == -1){
+    // if (st_connect((st_netfd_t)stfd, r->ai_addr, r->ai_addrlen, timeout) == -1){
+    //     srs_trace("connect failed");
+    //     srs_close_stfd(stfd);
+    //     return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);
+    // }
+
+    if (st_connect((st_netfd_t)stfd, (struct sockaddr *)&server_addr, sizeof(server_addr), timeout) == -1){
         srs_trace("connect failed");
         srs_close_stfd(stfd);
         return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);

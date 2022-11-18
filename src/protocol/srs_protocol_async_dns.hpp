@@ -24,9 +24,11 @@ public:
     ~SrsAsyncDns();
 public:
     virtual void init();
-    virtual void do_resolve(string hostname);
+    virtual void do_resolve(string hostname, int port, struct sockaddr_in* server_addr);
+    virtual bool getLookupResult();
 private:
     ares_channel channel;
+    bool lookup_success;
 public:
     struct pollfd pds;
 };

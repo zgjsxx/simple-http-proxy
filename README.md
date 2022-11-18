@@ -67,3 +67,7 @@ https://blog.csdn.net/qq_36256590/article/details/114707235
 4. srs framework error code
 5. need to support HTTP options method
 6. http/https write flow
+
+
+ /etc/security/limits.conf
+ *               -       core            unlimited

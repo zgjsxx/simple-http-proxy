@@ -23,6 +23,7 @@ CFLAGS +=	-I./ \
 			-I../../3rdparty/st-srs \
 			-I../proxy/include \
 			-I../../3rdparty/openssl/include \
+			-I../../3rdparty/c-ares
 	
 CFLAGS += -std=c++11
 CFLAGS += -fPIC

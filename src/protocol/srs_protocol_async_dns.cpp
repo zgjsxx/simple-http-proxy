@@ -8,40 +8,46 @@ void srs_sock_state_cb(void* data, int fd, int readable, int writable)
     SrsAsyncDns* pDns = (SrsAsyncDns*)data;
     if(readable == 0 && writable == 0)
     {
-        srs_trace("no event");
+        pDns->pds.fd = 0;
+        srs_trace("no event, dns look up is finish");
+        return;
     }
     pDns->pds.fd = fd;
     pDns->pds.events = 0;
     if(readable != 0)
     {
-        srs_trace("readable");
+        srs_trace("wait readable");
         pDns->pds.events |= POLLIN;
     }
     if(writable != 0)
     {
-        srs_trace("writable");
+        srs_trace("wait writable");
         pDns->pds.events |= POLLOUT;
     }
 }
 
 void dns_callback (void* arg, int status, int timeouts, struct hostent* hptr)
 {
-    IpList *ips = (IpList*)arg;
-	if( ips == NULL ) 
-    {
-        return;
-    }
+    srs_trace("dns call back");
+    struct sockaddr_in *server_addr = (struct sockaddr_in *)arg;
+
     if(status == ARES_SUCCESS)
     {
-		strncpy(ips->host, hptr->h_name, sizeof(ips->host));
-        char **pptr = hptr->h_addr_list;
-		for(int i = 0; *pptr != NULL && i < 10; pptr++, ++i)
-        {
-            inet_ntop(hptr->h_addrtype, *pptr, ips->ip[ips->count++], IP_LEN);
+        srs_trace("lookup success");
+		for(char **pptr = hptr->h_addr_list; *pptr != NULL; pptr++)
+        {         
+            char ipv4_str[32] = {0};
+            inet_ntop(AF_INET, *pptr, ipv4_str, sizeof(ipv4_str)); 
+            srs_trace("server ip address = %s",ipv4_str);
+            server_addr->sin_family = AF_INET;
+            memcpy(&server_addr->sin_addr.s_addr, hptr->h_addr, hptr->h_length);
+            // lookup_success = true;
+            break;
         } 
     }
     else
     {
+        // lookup_success = false;
         srs_trace("lookup failed");
     }
 }
@@ -59,15 +65,15 @@ SrsAsyncDns::~SrsAsyncDns()
 void SrsAsyncDns::init()
 {
     int res;
-    if((res = ares_init(&channel)) != ARES_SUCCESS) {     // ares 对channel 进行初始化
+    if((res = ares_init(&channel)) != ARES_SUCCESS) { 
         // std::cout << "ares feiled: " << res << std::endl;
         return;
     }
     pds.fd = 0;
-    srs_trace("ares suc");
+    lookup_success = false;
 }
 
-void SrsAsyncDns::do_resolve(string hostname)
+void SrsAsyncDns::do_resolve(string hostname, int port, struct sockaddr_in* server_addr)
 {
     srs_trace("begin to look up %s", hostname.c_str());
 	ares_channel theChannel = NULL;
@@ -93,25 +99,22 @@ void SrsAsyncDns::do_resolve(string hostname)
 	ares_init_options(&theChannel, &op, optmask);
 	ares_destroy_options(&op);
 
-	// ares_destroy_options(&op);
     srs_trace("ares_init_options suc");
-	// //set dns server
+	//set dns server
     ares_set_servers_csv(theChannel, "114.114.114.114");
     //get host by name
-    IpList iplist;
-    ares_gethostbyname(theChannel, hostname.c_str(), AF_INET, dns_callback, &iplist);
+    ares_gethostbyname(theChannel, hostname.c_str(), AF_INET, dns_callback, server_addr);
  
     while (true) 
     {  
         if(pds.fd == 0)
         {
-            srs_trace("fd = 0");
-            srs_usleep(10000);
-            continue;
+            srs_trace("fd = 0, lookup finish");
+            break;
         }
         pds.revents = 0;
         srs_trace("fd = %d", pds.fd);
-		if (srs_poll(&pds, 1, SRS_UTIME_NO_TIMEOUT) <= 0)
+		if (srs_poll(&pds, 1, 1 * SRS_UTIME_SECONDS) <= 0)
 		{
 			srs_trace("st_poll error");
 			break;
@@ -136,4 +139,9 @@ void SrsAsyncDns::do_resolve(string hostname)
 		}
     }
     ares_destroy(theChannel);   
+}
+
+bool SrsAsyncDns::getLookupResult()
+{
+    return lookup_success;
 }
