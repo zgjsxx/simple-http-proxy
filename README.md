@@ -2,6 +2,7 @@
 [![c++](https://img.shields.io/static/v1?label=build&message=passing&color=green)](https://www.python.org/)
 [![qt](https://img.shields.io/static/v1?label=statethread&message=1.9&color=blue)](https://www.python.org/)
 [![qt](https://img.shields.io/static/v1?label=openssl&message=1.1.1l&color=blue)](https://www.python.org/)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzgjsxx%2Fsimple-http-proxy.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzgjsxx%2Fsimple-http-proxy?ref=badge_shield)
 ## 1.introdution
 simple_http_proxy is a http/https proxy, it used ossrs/state-threads as its base coroutine library.
 
@@ -71,3 +72,6 @@ https://blog.csdn.net/qq_36256590/article/details/114707235
 
  /etc/security/limits.conf
  *               -       core            unlimited
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzgjsxx%2Fsimple-http-proxy.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzgjsxx%2Fsimple-http-proxy?ref=badge_large)
