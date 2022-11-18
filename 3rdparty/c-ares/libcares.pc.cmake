@@ -10,7 +10,7 @@ libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
 includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
 
 Name: c-ares
-URL: https://c-ares.org/
+URL: https://c-ares.haxx.se/
 Description: asynchronous DNS lookup library
 Version: @CARES_VERSION@
 Requires: 

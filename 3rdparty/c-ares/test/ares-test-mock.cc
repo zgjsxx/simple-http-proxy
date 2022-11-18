@@ -1,11 +1,6 @@
 #include "ares-test.h"
 #include "dns-proto.h"
 
-#ifndef WIN32
-#include <sys/types.h>
-#include <sys/stat.h>
-#endif
-
 #include <sstream>
 #include <vector>
 
@@ -43,7 +38,7 @@ TEST_P(MockChannelTest, Basic) {
     0x01, 0x02, 0x03, 0x04
   };
 
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReplyData(&server_, reply));
 
   HostResult result;
@@ -59,15 +54,15 @@ TEST_P(MockChannelTest, Basic) {
 TEST_P(MockUDPChannelTest, GetHostByNameParallelLookups) {
   DNSPacket rsp1;
   rsp1.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp1));
   DNSPacket rsp2;
   rsp2.set_response().set_aa()
-    .add_question(new DNSQuestion("www.example.com", T_A))
+    .add_question(new DNSQuestion("www.example.com", ns_t_a))
     .add_answer(new DNSARR("www.example.com", 100, {1, 2, 3, 4}));
-  ON_CALL(server_, OnRequest("www.example.com", T_A))
+  ON_CALL(server_, OnRequest("www.example.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp2));
 
   HostResult result1;
@@ -95,12 +90,12 @@ TEST_P(MockUDPChannelTest, GetHostByNameParallelLookups) {
 TEST_P(MockUDPChannelTest, TruncationRetry) {
   DNSPacket rsptruncated;
   rsptruncated.set_response().set_aa().set_tc()
-    .add_question(new DNSQuestion("www.google.com", T_A));
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
   DNSPacket rspok;
   rspok.set_response()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {1, 2, 3, 4}));
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsptruncated))
     .WillOnce(SetReply(&server_, &rspok));
   HostResult result;
@@ -123,9 +118,9 @@ static int SocketConnectCallback(ares_socket_t fd, int type, void *data) {
 TEST_P(MockChannelTest, SockCallback) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {2, 3, 4, 5}));
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
 
   // Get notified of new sockets
@@ -168,9 +163,9 @@ static int SocketConfigureCallback(ares_socket_t fd, int type, void *data) {
 TEST_P(MockChannelTest, SockConfigureCallback) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {2, 3, 4, 5}));
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
 
   // Get notified of new sockets
@@ -205,7 +200,7 @@ TEST_P(MockChannelTest, SockConfigureFailCallback) {
 // TCP only to prevent retries
 TEST_P(MockTCPChannelTest, MalformedResponse) {
   std::vector<byte> one = {0x01};
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReplyData(&server_, one));
 
   HostResult result;
@@ -218,9 +213,9 @@ TEST_P(MockTCPChannelTest, MalformedResponse) {
 TEST_P(MockTCPChannelTest, FormErrResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(FORMERR);
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_formerr);
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -232,9 +227,9 @@ TEST_P(MockTCPChannelTest, FormErrResponse) {
 TEST_P(MockTCPChannelTest, ServFailResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(SERVFAIL);
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_servfail);
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -247,24 +242,24 @@ TEST_P(MockTCPChannelTest, ServFailResponse) {
 TEST_P(MockTCPChannelTest, NotImplResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(NOTIMP);
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_notimpl);
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
   Process();
   EXPECT_TRUE(result.done_);
-  // ARES_FLAG_NOCHECKRESP not set, so NOTIMP consumed
+  // ARES_FLAG_NOCHECKRESP not set, so NOTIMPL consumed
   EXPECT_EQ(ARES_ECONNREFUSED, result.status_);
 }
 
 TEST_P(MockTCPChannelTest, RefusedResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(REFUSED);
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_refused);
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -277,9 +272,9 @@ TEST_P(MockTCPChannelTest, RefusedResponse) {
 TEST_P(MockTCPChannelTest, YXDomainResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(YXDOMAIN);
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_yxdomain);
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -316,9 +311,9 @@ TEST_P(MockExtraOptsTest, SimpleQuery) {
 
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp));
 
   HostResult result;
@@ -354,9 +349,9 @@ class MockNoCheckRespChannelTest : public MockFlagsChannelOptsTest {
 TEST_P(MockNoCheckRespChannelTest, ServFailResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(SERVFAIL);
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_servfail);
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -368,9 +363,9 @@ TEST_P(MockNoCheckRespChannelTest, ServFailResponse) {
 TEST_P(MockNoCheckRespChannelTest, NotImplResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(NOTIMP);
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_notimpl);
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -382,9 +377,9 @@ TEST_P(MockNoCheckRespChannelTest, NotImplResponse) {
 TEST_P(MockNoCheckRespChannelTest, RefusedResponse) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A));
-  rsp.set_rcode(REFUSED);
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
+  rsp.set_rcode(ns_r_refused);
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp));
   HostResult result;
   ares_gethostbyname(channel_, "www.google.com.", AF_INET, HostCallback, &result);
@@ -400,13 +395,13 @@ class MockEDNSChannelTest : public MockFlagsChannelOptsTest {
 
 TEST_P(MockEDNSChannelTest, RetryWithoutEDNS) {
   DNSPacket rspfail;
-  rspfail.set_response().set_aa().set_rcode(FORMERR)
-    .add_question(new DNSQuestion("www.google.com", T_A));
+  rspfail.set_response().set_aa().set_rcode(ns_r_servfail)
+    .add_question(new DNSQuestion("www.google.com", ns_t_a));
   DNSPacket rspok;
   rspok.set_response()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 100, {1, 2, 3, 4}));
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReply(&server_, &rspfail))
     .WillOnce(SetReply(&server_, &rspok));
   HostResult result;
@@ -420,20 +415,20 @@ TEST_P(MockEDNSChannelTest, RetryWithoutEDNS) {
 
 TEST_P(MockChannelTest, SearchDomains) {
   DNSPacket nofirst;
-  nofirst.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+  nofirst.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
-  nosecond.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+  nosecond.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket yesthird;
   yesthird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a))
     .add_answer(new DNSARR("www.third.gov", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesthird));
 
   HostResult result;
@@ -448,21 +443,21 @@ TEST_P(MockChannelTest, SearchDomains) {
 // Relies on retries so is UDP-only
 TEST_P(MockUDPChannelTest, SearchDomainsWithResentReply) {
   DNSPacket nofirst;
-  nofirst.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  EXPECT_CALL(server_, OnRequest("www.first.com", T_A))
+  nofirst.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  EXPECT_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillOnce(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
-  nosecond.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  EXPECT_CALL(server_, OnRequest("www.second.org", T_A))
+  nosecond.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  EXPECT_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillOnce(SetReply(&server_, &nosecond));
   DNSPacket yesthird;
   yesthird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a))
     .add_answer(new DNSARR("www.third.gov", 0x0200, {2, 3, 4, 5}));
   // Before sending the real answer, resend an earlier reply
-  EXPECT_CALL(server_, OnRequest("www.third.gov", T_A))
+  EXPECT_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillOnce(DoAll(SetReply(&server_, &nofirst),
                     SetReplyQID(&server_, 123)))
     .WillOnce(DoAll(SetReply(&server_, &yesthird),
@@ -479,25 +474,25 @@ TEST_P(MockUDPChannelTest, SearchDomainsWithResentReply) {
 
 TEST_P(MockChannelTest, SearchDomainsBare) {
   DNSPacket nofirst;
-  nofirst.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+  nofirst.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
-  nosecond.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+  nosecond.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket nothird;
-  nothird.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.third.gov", T_A));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+  nothird.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a));
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &nothird));
   DNSPacket yesbare;
   yesbare.set_response().set_aa()
-    .add_question(new DNSQuestion("www", T_A))
+    .add_question(new DNSQuestion("www", ns_t_a))
     .add_answer(new DNSARR("www", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www", T_A))
+  ON_CALL(server_, OnRequest("www", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesbare));
 
   HostResult result;
@@ -513,19 +508,19 @@ TEST_P(MockChannelTest, SearchNoDataThenSuccess) {
   // First two search domains recognize the name but have no A records.
   DNSPacket nofirst;
   nofirst.set_response().set_aa()
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
   nosecond.set_response().set_aa()
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket yesthird;
   yesthird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a))
     .add_answer(new DNSARR("www.third.gov", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesthird));
 
   HostResult result;
@@ -541,23 +536,23 @@ TEST_P(MockChannelTest, SearchNoDataThenNoDataBare) {
   // First two search domains recognize the name but have no A records.
   DNSPacket nofirst;
   nofirst.set_response().set_aa()
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
   nosecond.set_response().set_aa()
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket nothird;
   nothird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a));
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &nothird));
   DNSPacket nobare;
   nobare.set_response().set_aa()
-    .add_question(new DNSQuestion("www", T_A));
-  ON_CALL(server_, OnRequest("www", T_A))
+    .add_question(new DNSQuestion("www", ns_t_a));
+  ON_CALL(server_, OnRequest("www", ns_t_a))
     .WillByDefault(SetReply(&server_, &nobare));
 
   HostResult result;
@@ -571,23 +566,23 @@ TEST_P(MockChannelTest, SearchNoDataThenFail) {
   // First two search domains recognize the name but have no A records.
   DNSPacket nofirst;
   nofirst.set_response().set_aa()
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
   nosecond.set_response().set_aa()
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket nothird;
   nothird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a));
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &nothird));
   DNSPacket nobare;
-  nobare.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www", T_A));
-  ON_CALL(server_, OnRequest("www", T_A))
+  nobare.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www", ns_t_a));
+  ON_CALL(server_, OnRequest("www", ns_t_a))
     .WillByDefault(SetReply(&server_, &nobare));
 
   HostResult result;
@@ -600,7 +595,7 @@ TEST_P(MockChannelTest, SearchNoDataThenFail) {
 TEST_P(MockChannelTest, SearchAllocFailure) {
   SearchResult result;
   SetAllocFail(1);
-  ares_search(channel_, "fully.qualified.", C_IN, T_A, SearchCallback, &result);
+  ares_search(channel_, "fully.qualified.", ns_c_in, ns_t_a, SearchCallback, &result);
   /* Already done */
   EXPECT_TRUE(result.done_);
   EXPECT_EQ(ARES_ENOMEM, result.status_);
@@ -608,19 +603,19 @@ TEST_P(MockChannelTest, SearchAllocFailure) {
 
 TEST_P(MockChannelTest, SearchHighNdots) {
   DNSPacket nobare;
-  nobare.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("a.b.c.w.w.w", T_A));
-  ON_CALL(server_, OnRequest("a.b.c.w.w.w", T_A))
+  nobare.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("a.b.c.w.w.w", ns_t_a));
+  ON_CALL(server_, OnRequest("a.b.c.w.w.w", ns_t_a))
     .WillByDefault(SetReply(&server_, &nobare));
   DNSPacket yesfirst;
   yesfirst.set_response().set_aa()
-    .add_question(new DNSQuestion("a.b.c.w.w.w.first.com", T_A))
+    .add_question(new DNSQuestion("a.b.c.w.w.w.first.com", ns_t_a))
     .add_answer(new DNSARR("a.b.c.w.w.w.first.com", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("a.b.c.w.w.w.first.com", T_A))
+  ON_CALL(server_, OnRequest("a.b.c.w.w.w.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesfirst));
 
   SearchResult result;
-  ares_search(channel_, "a.b.c.w.w.w", C_IN, T_A, SearchCallback, &result);
+  ares_search(channel_, "a.b.c.w.w.w", ns_c_in, ns_t_a, SearchCallback, &result);
   Process();
   EXPECT_TRUE(result.done_);
   EXPECT_EQ(ARES_SUCCESS, result.status_);
@@ -634,18 +629,12 @@ TEST_P(MockChannelTest, SearchHighNdots) {
 TEST_P(MockChannelTest, UnspecifiedFamilyV6) {
   DNSPacket rsp6;
   rsp6.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_AAAA))
+    .add_question(new DNSQuestion("example.com", ns_t_aaaa))
     .add_answer(new DNSAaaaRR("example.com", 100,
                               {0x21, 0x21, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03}));
-  ON_CALL(server_, OnRequest("example.com", T_AAAA))
+  ON_CALL(server_, OnRequest("example.com", ns_t_aaaa))
     .WillByDefault(SetReply(&server_, &rsp6));
-
-  DNSPacket rsp4;
-  rsp4.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_A));
-  ON_CALL(server_, OnRequest("example.com", T_A))
-    .WillByDefault(SetReply(&server_, &rsp4));
 
   HostResult result;
   ares_gethostbyname(channel_, "example.com.", AF_UNSPEC, HostCallback, &result);
@@ -660,14 +649,14 @@ TEST_P(MockChannelTest, UnspecifiedFamilyV6) {
 TEST_P(MockChannelTest, UnspecifiedFamilyV4) {
   DNSPacket rsp6;
   rsp6.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_AAAA));
-  ON_CALL(server_, OnRequest("example.com", T_AAAA))
+    .add_question(new DNSQuestion("example.com", ns_t_aaaa));
+  ON_CALL(server_, OnRequest("example.com", ns_t_aaaa))
     .WillByDefault(SetReply(&server_, &rsp6));
   DNSPacket rsp4;
   rsp4.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_A))
+    .add_question(new DNSQuestion("example.com", ns_t_a))
     .add_answer(new DNSARR("example.com", 100, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("example.com", T_A))
+  ON_CALL(server_, OnRequest("example.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp4));
 
   HostResult result;
@@ -682,14 +671,14 @@ TEST_P(MockChannelTest, UnspecifiedFamilyV4) {
 TEST_P(MockChannelTest, UnspecifiedFamilyNoData) {
   DNSPacket rsp6;
   rsp6.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_AAAA))
+    .add_question(new DNSQuestion("example.com", ns_t_aaaa))
     .add_answer(new DNSCnameRR("example.com", 100, "elsewhere.com"));
-  ON_CALL(server_, OnRequest("example.com", T_AAAA))
+  ON_CALL(server_, OnRequest("example.com", ns_t_aaaa))
     .WillByDefault(SetReply(&server_, &rsp6));
   DNSPacket rsp4;
   rsp4.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_A));
-  ON_CALL(server_, OnRequest("example.com", T_A))
+    .add_question(new DNSQuestion("example.com", ns_t_a));
+  ON_CALL(server_, OnRequest("example.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp4));
 
   HostResult result;
@@ -704,15 +693,15 @@ TEST_P(MockChannelTest, UnspecifiedFamilyNoData) {
 TEST_P(MockChannelTest, UnspecifiedFamilyCname6A4) {
   DNSPacket rsp6;
   rsp6.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_AAAA))
+    .add_question(new DNSQuestion("example.com", ns_t_aaaa))
     .add_answer(new DNSCnameRR("example.com", 100, "elsewhere.com"));
-  ON_CALL(server_, OnRequest("example.com", T_AAAA))
+  ON_CALL(server_, OnRequest("example.com", ns_t_aaaa))
     .WillByDefault(SetReply(&server_, &rsp6));
   DNSPacket rsp4;
   rsp4.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_A))
+    .add_question(new DNSQuestion("example.com", ns_t_a))
     .add_answer(new DNSARR("example.com", 100, {1, 2, 3, 4}));
-  ON_CALL(server_, OnRequest("example.com", T_A))
+  ON_CALL(server_, OnRequest("example.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp4));
 
   HostResult result;
@@ -745,11 +734,11 @@ TEST_P(MockChannelTest, ExplicitIPAllocFail) {
 TEST_P(MockChannelTest, SortListV4) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_A))
+    .add_question(new DNSQuestion("example.com", ns_t_a))
     .add_answer(new DNSARR("example.com", 100, {22, 23, 24, 25}))
     .add_answer(new DNSARR("example.com", 100, {12, 13, 14, 15}))
     .add_answer(new DNSARR("example.com", 100, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("example.com", T_A))
+  ON_CALL(server_, OnRequest("example.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &rsp));
 
   {
@@ -783,14 +772,14 @@ TEST_P(MockChannelTest, SortListV4) {
 TEST_P(MockChannelTest, SortListV6) {
   DNSPacket rsp;
   rsp.set_response().set_aa()
-    .add_question(new DNSQuestion("example.com", T_AAAA))
+    .add_question(new DNSQuestion("example.com", ns_t_aaaa))
     .add_answer(new DNSAaaaRR("example.com", 100,
                               {0x11, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02}))
     .add_answer(new DNSAaaaRR("example.com", 100,
                               {0x21, 0x21, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03}));
-  ON_CALL(server_, OnRequest("example.com", T_AAAA))
+  ON_CALL(server_, OnRequest("example.com", ns_t_aaaa))
     .WillByDefault(SetReply(&server_, &rsp));
 
   {
@@ -820,20 +809,20 @@ TEST_P(MockChannelTest, SortListV6) {
 // Relies on retries so is UDP-only
 TEST_P(MockUDPChannelTest, SearchDomainsAllocFail) {
   DNSPacket nofirst;
-  nofirst.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.first.com", T_A));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+  nofirst.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.first.com", ns_t_a));
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &nofirst));
   DNSPacket nosecond;
-  nosecond.set_response().set_aa().set_rcode(NXDOMAIN)
-    .add_question(new DNSQuestion("www.second.org", T_A));
-  ON_CALL(server_, OnRequest("www.second.org", T_A))
+  nosecond.set_response().set_aa().set_rcode(ns_r_nxdomain)
+    .add_question(new DNSQuestion("www.second.org", ns_t_a));
+  ON_CALL(server_, OnRequest("www.second.org", ns_t_a))
     .WillByDefault(SetReply(&server_, &nosecond));
   DNSPacket yesthird;
   yesthird.set_response().set_aa()
-    .add_question(new DNSQuestion("www.third.gov", T_A))
+    .add_question(new DNSQuestion("www.third.gov", ns_t_a))
     .add_answer(new DNSARR("www.third.gov", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.third.gov", T_A))
+  ON_CALL(server_, OnRequest("www.third.gov", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesthird));
 
   // Fail a variety of different memory allocations, and confirm
@@ -867,10 +856,10 @@ TEST_P(MockUDPChannelTest, Resend) {
   std::vector<byte> nothing;
   DNSPacket reply;
   reply.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 0x0100, {0x01, 0x02, 0x03, 0x04}));
 
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReplyData(&server_, nothing))
     .WillOnce(SetReplyData(&server_, nothing))
     .WillOnce(SetReply(&server_, &reply));
@@ -911,7 +900,7 @@ TEST_P(MockUDPChannelTest, CancelLater) {
   std::vector<byte> nothing;
 
   // On second request, cancel the channel.
-  EXPECT_CALL(server_, OnRequest("www.google.com", T_A))
+  EXPECT_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillOnce(SetReplyData(&server_, nothing))
     .WillOnce(CancelChannel(&server_, channel_));
 
@@ -950,13 +939,13 @@ TEST_P(MockChannelTest, GetHostByNameDestroyRelative) {
 TEST_P(MockChannelTest, GetHostByNameCNAMENoData) {
   DNSPacket response;
   response.set_response().set_aa()
-    .add_question(new DNSQuestion("cname.first.com", T_A))
+    .add_question(new DNSQuestion("cname.first.com", ns_t_a))
     .add_answer(new DNSCnameRR("cname.first.com", 100, "a.first.com"));
-  ON_CALL(server_, OnRequest("cname.first.com", T_A))
+  ON_CALL(server_, OnRequest("cname.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &response));
 
   HostResult result;
-  ares_gethostbyname(channel_, "cname.first.com.", AF_INET, HostCallback, &result);
+  ares_gethostbyname(channel_, "cname.first.com", AF_INET, HostCallback, &result);
   Process();
   EXPECT_TRUE(result.done_);
   EXPECT_EQ(ARES_ENODATA, result.status_);
@@ -979,9 +968,9 @@ TEST_P(MockChannelTest, GetHostByAddrDestroy) {
 TEST_P(MockChannelTest, HostAlias) {
   DNSPacket reply;
   reply.set_response().set_aa()
-    .add_question(new DNSQuestion("www.google.com", T_A))
+    .add_question(new DNSQuestion("www.google.com", ns_t_a))
     .add_answer(new DNSARR("www.google.com", 0x0100, {0x01, 0x02, 0x03, 0x04}));
-  ON_CALL(server_, OnRequest("www.google.com", T_A))
+  ON_CALL(server_, OnRequest("www.google.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &reply));
 
   TempFile aliases("\n\n# www commentedout\nwww www.google.com\n");
@@ -999,9 +988,9 @@ TEST_P(MockChannelTest, HostAlias) {
 TEST_P(MockChannelTest, HostAliasMissing) {
   DNSPacket yesfirst;
   yesfirst.set_response().set_aa()
-    .add_question(new DNSQuestion("www.first.com", T_A))
+    .add_question(new DNSQuestion("www.first.com", ns_t_a))
     .add_answer(new DNSARR("www.first.com", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesfirst));
 
   TempFile aliases("\n\n# www commentedout\nww www.google.com\n");
@@ -1018,9 +1007,9 @@ TEST_P(MockChannelTest, HostAliasMissing) {
 TEST_P(MockChannelTest, HostAliasMissingFile) {
   DNSPacket yesfirst;
   yesfirst.set_response().set_aa()
-    .add_question(new DNSQuestion("www.first.com", T_A))
+    .add_question(new DNSQuestion("www.first.com", ns_t_a))
     .add_answer(new DNSARR("www.first.com", 0x0200, {2, 3, 4, 5}));
-  ON_CALL(server_, OnRequest("www.first.com", T_A))
+  ON_CALL(server_, OnRequest("www.first.com", ns_t_a))
     .WillByDefault(SetReply(&server_, &yesfirst));
 
   EnvValue with_env("HOSTALIASES", "bogus.mcfile");
@@ -1035,26 +1024,11 @@ TEST_P(MockChannelTest, HostAliasMissingFile) {
 
 TEST_P(MockChannelTest, HostAliasUnreadable) {
   TempFile aliases("www www.google.com\n");
-  EXPECT_EQ(chmod(aliases.filename(), 0), 0);
-
-  /* Perform OS sanity checks.  We are observing on Debian after the chmod(fn, 0)
-   * that we are still able to fopen() the file which is unexpected.  Skip the
-   * test if we observe this behavior */
-  struct stat st;
-  EXPECT_EQ(stat(aliases.filename(), &st), 0);
-  EXPECT_EQ(st.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO), 0);
-  FILE *fp = fopen(aliases.filename(), "r");
-  if (fp != NULL) {
-    if (verbose) std::cerr << "Skipping Test due to OS incompatibility (open file caching)" << std::endl;
-    fclose(fp);
-    return;
-  }
-
+  chmod(aliases.filename(), 0);
   EnvValue with_env("HOSTALIASES", aliases.filename());
 
   HostResult result;
   ares_gethostbyname(channel_, "www", AF_INET, HostCallback, &result);
-  Process();
   EXPECT_TRUE(result.done_);
   EXPECT_EQ(ARES_EFILE, result.status_);
   chmod(aliases.filename(), 0777);
@@ -1097,39 +1071,39 @@ TEST_P(RotateMultiMockTest, ThirdServer) {
   ares_destroy_options(&opts);
 
   DNSPacket servfailrsp;
-  servfailrsp.set_response().set_aa().set_rcode(SERVFAIL)
-    .add_question(new DNSQuestion("www.example.com", T_A));
+  servfailrsp.set_response().set_aa().set_rcode(ns_r_servfail)
+    .add_question(new DNSQuestion("www.example.com", ns_t_a));
   DNSPacket notimplrsp;
-  notimplrsp.set_response().set_aa().set_rcode(NOTIMP)
-    .add_question(new DNSQuestion("www.example.com", T_A));
+  notimplrsp.set_response().set_aa().set_rcode(ns_r_notimpl)
+    .add_question(new DNSQuestion("www.example.com", ns_t_a));
   DNSPacket okrsp;
   okrsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.example.com", T_A))
+    .add_question(new DNSQuestion("www.example.com", ns_t_a))
     .add_answer(new DNSARR("www.example.com", 100, {2,3,4,5}));
 
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &okrsp));
   CheckExample();
 
   // Second time around, starts from server [1].
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &okrsp));
   CheckExample();
 
   // Third time around, starts from server [2].
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &okrsp));
   CheckExample();
 }
@@ -1142,58 +1116,58 @@ TEST_P(NoRotateMultiMockTest, ThirdServer) {
   ares_destroy_options(&opts);
 
   DNSPacket servfailrsp;
-  servfailrsp.set_response().set_aa().set_rcode(SERVFAIL)
-    .add_question(new DNSQuestion("www.example.com", T_A));
+  servfailrsp.set_response().set_aa().set_rcode(ns_r_servfail)
+    .add_question(new DNSQuestion("www.example.com", ns_t_a));
   DNSPacket notimplrsp;
-  notimplrsp.set_response().set_aa().set_rcode(NOTIMP)
-    .add_question(new DNSQuestion("www.example.com", T_A));
+  notimplrsp.set_response().set_aa().set_rcode(ns_r_notimpl)
+    .add_question(new DNSQuestion("www.example.com", ns_t_a));
   DNSPacket okrsp;
   okrsp.set_response().set_aa()
-    .add_question(new DNSQuestion("www.example.com", T_A))
+    .add_question(new DNSQuestion("www.example.com", ns_t_a))
     .add_answer(new DNSARR("www.example.com", 100, {2,3,4,5}));
 
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &okrsp));
   CheckExample();
 
   // Second time around, still starts from server [0].
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &okrsp));
   CheckExample();
 
   // Third time around, still starts from server [0].
-  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[0], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[0].get(), &servfailrsp));
-  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[1], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[1].get(), &notimplrsp));
-  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", T_A))
+  EXPECT_CALL(*servers_[2], OnRequest("www.example.com", ns_t_a))
     .WillOnce(SetReply(servers_[2].get(), &okrsp));
   CheckExample();
 }
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockChannelTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockChannelTest, ::testing::ValuesIn(ares::test::families_modes));
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockUDPChannelTest, ::testing::ValuesIn(ares::test::families));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockUDPChannelTest, ::testing::ValuesIn(ares::test::families));
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockTCPChannelTest, ::testing::ValuesIn(ares::test::families));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockTCPChannelTest, ::testing::ValuesIn(ares::test::families));
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockExtraOptsTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockExtraOptsTest, ::testing::ValuesIn(ares::test::families_modes));
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockNoCheckRespChannelTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockNoCheckRespChannelTest, ::testing::ValuesIn(ares::test::families_modes));
 
-INSTANTIATE_TEST_SUITE_P(AddressFamilies, MockEDNSChannelTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(AddressFamilies, MockEDNSChannelTest, ::testing::ValuesIn(ares::test::families_modes));
 
-INSTANTIATE_TEST_SUITE_P(TransportModes, RotateMultiMockTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(TransportModes, RotateMultiMockTest, ::testing::ValuesIn(ares::test::families_modes));
 
-INSTANTIATE_TEST_SUITE_P(TransportModes, NoRotateMultiMockTest, ::testing::ValuesIn(ares::test::families_modes));
+INSTANTIATE_TEST_CASE_P(TransportModes, NoRotateMultiMockTest, ::testing::ValuesIn(ares::test::families_modes));
 
 }  // namespace test
 }  // namespace ares

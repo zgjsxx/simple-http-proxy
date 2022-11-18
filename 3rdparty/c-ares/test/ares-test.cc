@@ -1,11 +1,9 @@
-#include "ares_setup.h"
-#include "ares.h"
-#include "ares_nameser.h"
 #include "ares-test.h"
 #include "ares-test-ai.h"
 #include "dns-proto.h"
 
 // Include ares internal files for DNS protocol details
+#include "nameser.h"
 #include "ares_dns.h"
 
 #ifdef HAVE_NETDB_H
@@ -32,8 +30,7 @@ namespace ares {
 namespace test {
 
 bool verbose = false;
-static constexpr int dynamic_port = 0;
-int mock_port = dynamic_port;
+int mock_port = 5300;
 
 const std::vector<int> both_families = {AF_INET, AF_INET6};
 const std::vector<int> ipv4_family = {AF_INET};
@@ -137,7 +134,7 @@ bool LibraryTest::ShouldAllocFail(size_t size) {
 
 // static
 void* LibraryTest::amalloc(size_t size) {
-  if (ShouldAllocFail(size) || size == 0) {
+  if (ShouldAllocFail(size)) {
     if (verbose) std::cerr << "Failing malloc(" << size << ") request" << std::endl;
     return nullptr;
   } else {
@@ -172,8 +169,8 @@ void DefaultChannelModeTest::Process() {
   ProcessWork(channel_, NoExtraFDs, nullptr);
 }
 
-MockServer::MockServer(int family, int port)
-  : udpport_(port), tcpport_(port), qid_(-1) {
+MockServer::MockServer(int family, int port, int tcpport)
+  : udpport_(port), tcpport_(tcpport ? tcpport : udpport_), qid_(-1) {
   // Create a TCP socket to receive data on.
   tcpfd_ = socket(family, SOCK_STREAM, 0);
   EXPECT_NE(-1, tcpfd_);
@@ -200,21 +197,6 @@ MockServer::MockServer(int family, int port)
     addr.sin_port = htons(udpport_);
     int udprc = bind(udpfd_, (struct sockaddr*)&addr, sizeof(addr));
     EXPECT_EQ(0, udprc) << "Failed to bind AF_INET to UDP port " << udpport_;
-    // retrieve system-assigned port
-    if (udpport_ == dynamic_port) {
-      ares_socklen_t len = sizeof(addr);
-      auto result = getsockname(udpfd_, (struct sockaddr*)&addr, &len);
-      EXPECT_EQ(0, result);
-      udpport_ = ntohs(addr.sin_port);
-      EXPECT_NE(dynamic_port, udpport_);
-    }
-    if (tcpport_ == dynamic_port) {
-      ares_socklen_t len = sizeof(addr);
-      auto result = getsockname(tcpfd_, (struct sockaddr*)&addr, &len);
-      EXPECT_EQ(0, result);
-      tcpport_ = ntohs(addr.sin_port);
-      EXPECT_NE(dynamic_port, tcpport_);
-    }
   } else {
     EXPECT_EQ(AF_INET6, family);
     struct sockaddr_in6 addr;
@@ -227,21 +209,6 @@ MockServer::MockServer(int family, int port)
     addr.sin6_port = htons(udpport_);
     int udprc = bind(udpfd_, (struct sockaddr*)&addr, sizeof(addr));
     EXPECT_EQ(0, udprc) << "Failed to bind AF_INET6 to UDP port " << udpport_;
-    // retrieve system-assigned port
-    if (udpport_ == dynamic_port) {
-      ares_socklen_t len = sizeof(addr);
-      auto result = getsockname(udpfd_, (struct sockaddr*)&addr, &len);
-      EXPECT_EQ(0, result);
-      udpport_ = ntohs(addr.sin6_port);
-      EXPECT_NE(dynamic_port, udpport_);
-    }
-    if (tcpport_ == dynamic_port) {
-      ares_socklen_t len = sizeof(addr);
-      auto result = getsockname(tcpfd_, (struct sockaddr*)&addr, &len);
-      EXPECT_EQ(0, result);
-      tcpport_ = ntohs(addr.sin6_port);
-      EXPECT_NE(dynamic_port, tcpport_);
-    }
   }
   if (verbose) std::cerr << "Configured "
                          << (family == AF_INET ? "IPv4" : "IPv6")
@@ -262,8 +229,46 @@ MockServer::~MockServer() {
   sclose(udpfd_);
 }
 
-void MockServer::ProcessPacket(int fd, struct sockaddr_storage *addr, socklen_t addrlen,
-                               byte *data, int len) {
+void MockServer::ProcessFD(int fd) {
+  if (fd != tcpfd_ && fd != udpfd_ && connfds_.find(fd) == connfds_.end()) {
+    // Not one of our FDs.
+    return;
+  }
+  if (fd == tcpfd_) {
+    int connfd = accept(tcpfd_, NULL, NULL);
+    if (connfd < 0) {
+      std::cerr << "Error accepting connection on fd " << fd << std::endl;
+    } else {
+      connfds_.insert(connfd);
+    }
+    return;
+  }
+
+  // Activity on a data-bearing file descriptor.
+  struct sockaddr_storage addr;
+  socklen_t addrlen = sizeof(addr);
+  byte buffer[2048];
+  int len = recvfrom(fd, BYTE_CAST buffer, sizeof(buffer), 0,
+                     (struct sockaddr *)&addr, &addrlen);
+  byte* data = buffer;
+  if (fd != udpfd_) {
+    if (len == 0) {
+      connfds_.erase(std::find(connfds_.begin(), connfds_.end(), fd));
+      sclose(fd);
+      return;
+    }
+    if (len < 2) {
+      std::cerr << "Packet too short (" << len << ")" << std::endl;
+      return;
+    }
+    int tcplen = (data[0] << 8) + data[1];
+    data += 2;
+    len -= 2;
+    if (tcplen != len) {
+      std::cerr << "Warning: TCP length " << tcplen
+                << " doesn't match remaining data length " << len << std::endl;
+    }
+  }
 
   // Assume the packet is a well-formed DNS request and extract the request
   // details.
@@ -276,7 +281,7 @@ void MockServer::ProcessPacket(int fd, struct sockaddr_storage *addr, socklen_t 
     std::cerr << "Not a request" << std::endl;
     return;
   }
-  if (DNS_HEADER_OPCODE(data) != O_QUERY) {
+  if (DNS_HEADER_OPCODE(data) != ns_o_query) {
     std::cerr << "Not a query (opcode " << DNS_HEADER_OPCODE(data)
               << ")" << std::endl;
     return;
@@ -306,7 +311,7 @@ void MockServer::ProcessPacket(int fd, struct sockaddr_storage *addr, socklen_t 
               << " bytes after name)" << std::endl;
     return;
   }
-  if (DNS_QUESTION_CLASS(question) != C_IN) {
+  if (DNS_QUESTION_CLASS(question) != ns_c_in) {
     std::cerr << "Unexpected question class (" << DNS_QUESTION_CLASS(question)
               << ")" << std::endl;
     return;
@@ -320,63 +325,7 @@ void MockServer::ProcessPacket(int fd, struct sockaddr_storage *addr, socklen_t 
     std::cerr << "ProcessRequest(" << qid << ", '" << namestr
               << "', " << RRTypeToString(rrtype) << ")" << std::endl;
   }
-  ProcessRequest(fd, addr, addrlen, qid, namestr, rrtype);
-
-}
-
-void MockServer::ProcessFD(int fd) {
-  if (fd != tcpfd_ && fd != udpfd_ && connfds_.find(fd) == connfds_.end()) {
-    // Not one of our FDs.
-    return;
-  }
-  if (fd == tcpfd_) {
-    int connfd = accept(tcpfd_, NULL, NULL);
-    if (connfd < 0) {
-      std::cerr << "Error accepting connection on fd " << fd << std::endl;
-    } else {
-      connfds_.insert(connfd);
-    }
-    return;
-  }
-
-  // Activity on a data-bearing file descriptor.
-  struct sockaddr_storage addr;
-  socklen_t addrlen = sizeof(addr);
-  byte buffer[2048];
-  int len = recvfrom(fd, BYTE_CAST buffer, sizeof(buffer), 0,
-                     (struct sockaddr *)&addr, &addrlen);
-  byte* data = buffer;
-
-  if (fd != udpfd_) {
-    if (len == 0) {
-      connfds_.erase(std::find(connfds_.begin(), connfds_.end(), fd));
-      sclose(fd);
-      return;
-    }
-    if (len < 2) {
-      std::cerr << "Packet too short (" << len << ")" << std::endl;
-      return;
-    }
-    /* TCP might aggregate the various requests into a single packet, so we
-     * need to split */
-    while (len) {
-      int tcplen = (data[0] << 8) + data[1];
-      data += 2;
-      len -= 2;
-      if (tcplen > len) {
-        std::cerr << "Warning: TCP length " << tcplen
-                  << " doesn't match remaining data length " << len << std::endl;
-      }
-      int process_len = (tcplen > len)?len:tcplen;
-      ProcessPacket(fd, &addr, addrlen, data, process_len);
-      len -= process_len;
-      data += process_len;
-    }
-  } else {
-    /* UDP is always a single packet */
-    ProcessPacket(fd, &addr, addrlen, data, len);
-  }
-
+  ProcessRequest(fd, &addr, addrlen, qid, namestr, rrtype);
 }
 
 std::set<int> MockServer::fds() const {
@@ -432,8 +381,7 @@ MockChannelOptsTest::NiceMockServers MockChannelOptsTest::BuildServers(int count
   NiceMockServers servers;
   assert(count > 0);
   for (int ii = 0; ii < count; ii++) {
-    int port = base_port == dynamic_port ? dynamic_port : base_port + ii;
-    std::unique_ptr<NiceMockServer> server(new NiceMockServer(family, port));
+    std::unique_ptr<NiceMockServer> server(new NiceMockServer(family, base_port + ii));
     servers.push_back(std::move(server));
   }
   return servers;
@@ -455,9 +403,9 @@ MockChannelOptsTest::MockChannelOptsTest(int count,
   }
 
   // Point the library at the first mock server by default (overridden below).
-  opts.udp_port = server_.udpport();
+  opts.udp_port = mock_port;
   optmask |= ARES_OPT_UDP_PORT;
-  opts.tcp_port = server_.tcpport();
+  opts.tcp_port = mock_port;
   optmask |= ARES_OPT_TCP_PORT;
 
   // If not already overridden, set short-ish timeouts.
@@ -556,12 +504,7 @@ void MockChannelOptsTest::Process() {
 std::ostream& operator<<(std::ostream& os, const HostResult& result) {
   os << '{';
   if (result.done_) {
-    os << StatusToString(result.status_);
-    if (result.host_.addrtype_ != -1) {
-      os << " " << result.host_;
-    } else {
-      os << ", (no hostent)";
-    }
+    os << StatusToString(result.status_) << " " << result.host_;
   } else {
     os << "(incomplete)";
   }
@@ -572,10 +515,8 @@ std::ostream& operator<<(std::ostream& os, const HostResult& result) {
 HostEnt::HostEnt(const struct hostent *hostent) : addrtype_(-1) {
   if (!hostent)
     return;
-
   if (hostent->h_name)
     name_ = hostent->h_name;
-
   if (hostent->h_aliases) {
     char** palias = hostent->h_aliases;
     while (*palias != nullptr) {
@@ -583,9 +524,7 @@ HostEnt::HostEnt(const struct hostent *hostent) : addrtype_(-1) {
       palias++;
     }
   }
-
   addrtype_ = hostent->h_addrtype;
-
   if (hostent->h_addr_list) {
     char** paddr = hostent->h_addr_list;
     while (*paddr != nullptr) {
@@ -597,11 +536,9 @@ HostEnt::HostEnt(const struct hostent *hostent) : addrtype_(-1) {
 }
 
 std::ostream& operator<<(std::ostream& os, const HostEnt& host) {
-  os << "{'";
-  if (host.name_.length() > 0) {
-    os << host.name_;
-  }
-  os << "' aliases=[";
+  os << '{';
+  os << "'" << host.name_ << "' "
+     << "aliases=[";
   for (size_t ii = 0; ii < host.aliases_.size(); ii++) {
     if (ii > 0) os << ", ";
     os << host.aliases_[ii];
@@ -620,15 +557,11 @@ std::ostream& operator<<(std::ostream& os, const HostEnt& host) {
 void HostCallback(void *data, int status, int timeouts,
                   struct hostent *hostent) {
   EXPECT_NE(nullptr, data);
-  if (data == nullptr)
-    return;
-
   HostResult* result = reinterpret_cast<HostResult*>(data);
   result->done_ = true;
   result->status_ = status;
   result->timeouts_ = timeouts;
-  if (hostent)
-    result->host_ = HostEnt(hostent);
+  result->host_ = HostEnt(hostent);
   if (verbose) std::cerr << "HostCallback(" << *result << ")" << std::endl;
 }
 

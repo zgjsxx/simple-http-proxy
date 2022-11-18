@@ -10,7 +10,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: c-ares
-URL: http://c-ares.org/
+URL: http://daniel.haxx.se/projects/c-ares/
 Description: asynchronous DNS lookup library
 Version: @VERSION@
 Requires: 

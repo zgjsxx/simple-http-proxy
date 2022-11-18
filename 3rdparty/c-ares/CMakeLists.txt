@@ -8,10 +8,10 @@ INCLUDE (CheckCSourceCompiles)
 INCLUDE (CheckStructHasMember)
 INCLUDE (CheckLibraryExists)
 
-PROJECT (c-ares LANGUAGES C VERSION "1.18.0" )
+PROJECT (c-ares LANGUAGES C VERSION "1.16.1" )
 
 # Set this version before release
-SET (CARES_VERSION "1.18.1")
+SET (CARES_VERSION "1.16.1")
 
 INCLUDE (GNUInstallDirs) # include this *AFTER* PROJECT(), otherwise paths are wrong.
 
@@ -26,7 +26,7 @@ INCLUDE (GNUInstallDirs) # include this *AFTER* PROJECT(), otherwise paths are w
 # For example, a version of 4:0:2 would generate output such as:
 #    libname.so   -> libname.so.2
 #    libname.so.2 -> libname.so.2.2.0
-SET (CARES_LIB_VERSIONINFO "7:1:5")
+SET (CARES_LIB_VERSIONINFO "6:1:4")
 
 
 OPTION (CARES_STATIC     "Build as a static library"                                             OFF)
@@ -37,11 +37,10 @@ OPTION (CARES_BUILD_TESTS "Build and run tests"                                 
 OPTION (CARES_BUILD_CONTAINER_TESTS "Build and run container tests (implies CARES_BUILD_TESTS, Linux only)" OFF)
 OPTION (CARES_BUILD_TOOLS "Build tools"                                                          ON)
 
-# Tests require static to be enabled on Windows to be able to access otherwise hidden symbols
-IF (CARES_BUILD_TESTS AND (NOT CARES_STATIC) AND WIN32)
+# Tests require static to be enabled
+IF (CARES_BUILD_TESTS)
 	SET (CARES_STATIC ON)
 	SET (CARES_STATIC_PIC ON)
-	MESSAGE (WARNING "Static building was requested be disabled, but reenabled to support tests")
 ENDIF ()
 
 # allow linking against the static runtime library in msvc
@@ -75,7 +74,6 @@ SET (PACKAGE_DIRECTORY ${PROJECT_BINARY_DIR}/package)
 # Destinations for installing different kinds of targets (pass to install command).
 SET (TARGETS_INST_DEST
 	RUNTIME DESTINATION  ${CMAKE_INSTALL_BINDIR}
-	BUNDLE DESTINATION   ${CMAKE_INSTALL_BINDIR}
 	LIBRARY DESTINATION  ${CMAKE_INSTALL_LIBDIR}
 	ARCHIVE DESTINATION  ${CMAKE_INSTALL_LIBDIR}
 )
@@ -139,26 +137,23 @@ return 0;
 	MACOS_V1012)
 ENDIF ()
 
-IF ((IOS OR APPLE OR ZOS) AND HAVE_LIBRESOLV)
+IF ((IOS OR APPLE) AND HAVE_LIBRESOLV)
 	SET (CARES_USE_LIBRESOLV 1)
 ENDIF()
 
 
 CARES_FUNCTION_IN_LIBRARY (gethostbyname nsl HAVE_LIBNSL)
 CARES_FUNCTION_IN_LIBRARY (gethostbyname socket HAVE_GHBN_LIBSOCKET)
-CARES_FUNCTION_IN_LIBRARY (gethostbyname network HAVE_LIBNETWORK)
 CARES_FUNCTION_IN_LIBRARY (socket socket HAVE_SOCKET_LIBSOCKET)
 IF (HAVE_GHBN_LIBSOCKET OR HAVE_SOCKET_LIBSOCKET)
 	SET(HAVE_LIBSOCKET TRUE)
 ENDIF ()
-CARES_FUNCTION_IN_LIBRARY (socket network HAVE_LIBNETWORK)
 CARES_FUNCTION_IN_LIBRARY (clock_gettime rt HAVE_LIBRT)
 
 
 # Look for necessary includes
 CHECK_INCLUDE_FILES (sys/types.h           HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_FILES (sys/socket.h          HAVE_SYS_SOCKET_H)
-CHECK_INCLUDE_FILES (sys/sockio.h          HAVE_SYS_SOCKIO_H)
 CHECK_INCLUDE_FILES (arpa/inet.h           HAVE_ARPA_INET_H)
 CHECK_INCLUDE_FILES (arpa/nameser_compat.h HAVE_ARPA_NAMESER_COMPAT_H)
 CHECK_INCLUDE_FILES (arpa/nameser.h        HAVE_ARPA_NAMESER_H)
@@ -171,6 +166,7 @@ CHECK_INCLUDE_FILES (malloc.h              HAVE_MALLOC_H)
 CHECK_INCLUDE_FILES (memory.h              HAVE_MEMORY_H)
 CHECK_INCLUDE_FILES (netdb.h               HAVE_NETDB_H)
 CHECK_INCLUDE_FILES (netinet/in.h          HAVE_NETINET_IN_H)
+CHECK_INCLUDE_FILES (netinet/tcp.h         HAVE_NETINET_TCP_H)
 CHECK_INCLUDE_FILES (net/if.h              HAVE_NET_IF_H)
 CHECK_INCLUDE_FILES (signal.h              HAVE_SIGNAL_H)
 CHECK_INCLUDE_FILES (socket.h              HAVE_SOCKET_H)
@@ -183,29 +179,21 @@ CHECK_INCLUDE_FILES (stropts.h             HAVE_STROPTS_H)
 CHECK_INCLUDE_FILES (sys/ioctl.h           HAVE_SYS_IOCTL_H)
 CHECK_INCLUDE_FILES (sys/param.h           HAVE_SYS_PARAM_H)
 CHECK_INCLUDE_FILES (sys/select.h          HAVE_SYS_SELECT_H)
+CHECK_INCLUDE_FILES (sys/socket.h          HAVE_SYS_SOCKET_H)
 CHECK_INCLUDE_FILES (sys/stat.h            HAVE_SYS_STAT_H)
 CHECK_INCLUDE_FILES (sys/time.h            HAVE_SYS_TIME_H)
+CHECK_INCLUDE_FILES (sys/types.h           HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_FILES (sys/uio.h             HAVE_SYS_UIO_H)
 CHECK_INCLUDE_FILES (time.h                HAVE_TIME_H)
 CHECK_INCLUDE_FILES (dlfcn.h               HAVE_DLFCN_H)
 CHECK_INCLUDE_FILES (unistd.h              HAVE_UNISTD_H)
 
-# On OpenBSD, you must include sys/types.h before netinet/tcp.h
-IF (HAVE_SYS_TYPES_H)
-  CHECK_INCLUDE_FILES ("sys/types.h;netinet/tcp.h"         HAVE_NETINET_TCP_H)
-ELSE ()
-  CHECK_INCLUDE_FILES (netinet/tcp.h                       HAVE_NETINET_TCP_H)
-ENDIF ()
-
 # Include order matters for these windows files.
-# As cygwin environment has both socket.h and winsock2.h
-# headers check WIN32 not to include the later one here
-IF (WIN32)
 CHECK_INCLUDE_FILES ("winsock2.h;windows.h"            HAVE_WINSOCK2_H)
 CHECK_INCLUDE_FILES ("winsock2.h;ws2tcpip.h;windows.h" HAVE_WS2TCPIP_H)
 CHECK_INCLUDE_FILES ("winsock.h;windows.h"             HAVE_WINSOCK_H)
 CHECK_INCLUDE_FILES (windows.h                         HAVE_WINDOWS_H)
-ENDIF ()
+
 
 # Set system-specific compiler flags
 IF (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -235,14 +223,11 @@ ENDIF ()
 IF (HAVE_LIBSOCKET)
 	LIST (APPEND CARES_DEPENDENT_LIBS socket)
 ENDIF ()
-IF (HAVE_LIBNETWORK)
-	LIST (APPEND CARES_DEPENDENT_LIBS network)
-ENDIF ()
 IF (HAVE_LIBRT)
 	LIST (APPEND CARES_DEPENDENT_LIBS rt)
 ENDIF ()
 IF (WIN32)
-	LIST (APPEND CARES_DEPENDENT_LIBS ws2_32 advapi32 iphlpapi)
+	LIST (APPEND CARES_DEPENDENT_LIBS ws2_32 Advapi32)
 ENDIF ()
 
 
@@ -276,7 +261,6 @@ CARES_EXTRAINCLUDE_IFSET (HAVE_STRINGS_H      strings.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_IOCTL_H    sys/ioctl.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_SELECT_H   sys/select.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_SOCKET_H   sys/socket.h)
-CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_SOCKIO_H	sys/sockio.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_TIME_H     sys/time.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_SYS_UIO_H      sys/uio.h)
 CARES_EXTRAINCLUDE_IFSET (HAVE_TIME_H         time.h)
@@ -395,10 +379,6 @@ CHECK_FUNCTION_EXISTS (__system_property_get HAVE___SYSTEM_PROPERTY_GET)
 SET (CMAKE_EXTRA_INCLUDE_FILES)
 SET (CMAKE_REQUIRED_DEFINITIONS)
 SET (CMAKE_REQUIRED_LIBRARIES)
-
-
-find_file(CARES_RANDOM_FILE urandom /dev)
-mark_as_advanced(CARES_RANDOM_FILE)
 
 
 ################################################################################
@@ -530,8 +510,7 @@ IF (HAVE_GETSERVBYPORT_R)
 	IF (CMAKE_SYSTEM_NAME STREQUAL "SunOS")
 		SET (GETSERVBYPORT_R_ARGS 5)
 	ELSEIF (CMAKE_SYSTEM_NAME STREQUAL "AIX" OR
-		CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR
-		HAIKU)
+		CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 		SET (GETSERVBYPORT_R_ARGS 4)
 	ELSE ()
 		# Probably linux
@@ -544,8 +523,7 @@ IF (HAVE_GETSERVBYNAME_R)
 	IF (CMAKE_SYSTEM_NAME STREQUAL "SunOS")
 		SET (GETSERVBYNAME_R_ARGS 5)
 	ELSEIF (CMAKE_SYSTEM_NAME STREQUAL "AIX" OR
-		CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR
-		HAIKU)
+		CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 		SET (GETSERVBYNAME_R_ARGS 4)
 	ELSE ()
 		# Probably linux
@@ -569,15 +547,12 @@ ENDIF()
 IF (HAVE_WINDOWS_H)
 	SET (CARES_HAVE_WINDOWS_H 1)
 ENDIF()
-IF (HAVE_ARPA_NAMESER_H)
-	SET (CARES_HAVE_ARPA_NAMESER_H 1)
-ENDIF()
-IF (HAVE_ARPA_NAMESER_COMPAT_H)
-	SET (CARES_HAVE_ARPA_NAMESER_COMPAT_H 1)
-ENDIF()
 
-# Record toplevel CMakeLists.txt path
-set(CARES_TOPLEVEL_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+# Write ares_build.h configuration file.  This is an installed file.
+CONFIGURE_FILE (ares_build.h.cmake ${PROJECT_BINARY_DIR}/ares_build.h)
+
+# Write ares_config.h configuration file.  This is used only for the build.
+CONFIGURE_FILE (ares_config.h.cmake ${PROJECT_BINARY_DIR}/ares_config.h)
 
 
 # TRANSFORM_MAKEFILE_INC
@@ -611,21 +586,124 @@ function(TRANSFORM_MAKEFILE_INC INPUT_FILE OUTPUT_FILE)
 	file(WRITE ${OUTPUT_FILE} ${MAKEFILE_INC_TEXT})
 endfunction()
 
-# Directory for includes
-ADD_SUBDIRECTORY (include)
+# run the function...
+transform_makefile_inc("Makefile.inc" "${PROJECT_BINARY_DIR}/Makefile.inc.cmake")
+include(${PROJECT_BINARY_DIR}/Makefile.inc.cmake)
 
-# Directory for lib and tools
-ADD_SUBDIRECTORY (src)
 
-# Docs
-ADD_SUBDIRECTORY (docs)
+# Build the dynamic/shared library
+IF (CARES_SHARED)
+	ADD_LIBRARY (${PROJECT_NAME} SHARED ${CSOURCES})
 
-# Tests
+	# Convert CARES_LIB_VERSIONINFO libtool version format into VERSION and SOVERSION
+	# Convert from ":" separated into CMake list format using ";"
+	STRING (REPLACE ":" ";" CARES_LIB_VERSIONINFO ${CARES_LIB_VERSIONINFO})
+	LIST (GET CARES_LIB_VERSIONINFO 0 CARES_LIB_VERSION_CURRENT)
+	LIST (GET CARES_LIB_VERSIONINFO 1 CARES_LIB_VERSION_REVISION)
+	LIST (GET CARES_LIB_VERSIONINFO 2 CARES_LIB_VERSION_AGE)
+	MATH (EXPR CARES_LIB_VERSION_MAJOR "${CARES_LIB_VERSION_CURRENT} - ${CARES_LIB_VERSION_AGE}")
+	SET  (CARES_LIB_VERSION_MINOR "${CARES_LIB_VERSION_AGE}")
+	SET  (CARES_LIB_VERSION_RELEASE "${CARES_LIB_VERSION_REVISION}")
+
+	SET_TARGET_PROPERTIES (${PROJECT_NAME} PROPERTIES
+		EXPORT_NAME                  cares
+		OUTPUT_NAME                  cares
+		COMPILE_PDB_NAME             cares
+		COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+		SOVERSION                    ${CARES_LIB_VERSION_MAJOR}
+		VERSION                      "${CARES_LIB_VERSION_MAJOR}.${CARES_LIB_VERSION_MINOR}.${CARES_LIB_VERSION_RELEASE}"
+	)
+
+	TARGET_INCLUDE_DIRECTORIES (${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>")
+	TARGET_INCLUDE_DIRECTORIES (${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>")
+	TARGET_INCLUDE_DIRECTORIES (${PROJECT_NAME} PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+	TARGET_COMPILE_DEFINITIONS (${PROJECT_NAME} PRIVATE HAVE_CONFIG_H=1 CARES_BUILDING_LIBRARY)
+
+	TARGET_LINK_LIBRARIES (${PROJECT_NAME} PUBLIC ${CARES_DEPENDENT_LIBS})
+
+	IF (CARES_INSTALL)
+		INSTALL (TARGETS ${PROJECT_NAME}
+			EXPORT ${PROJECT_NAME}-targets
+			COMPONENT Library
+			${TARGETS_INST_DEST}
+		)
+		INSTALL(FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cares.pdb
+			DESTINATION ${CMAKE_INSTALL_BINDIR}
+			COMPONENT Library
+			OPTIONAL
+		)
+	ENDIF ()
+	SET (STATIC_SUFFIX "_static")
+
+	# For chain building: add alias targets that look like import libs that would be returned by find_package(c-ares).
+	ADD_LIBRARY (${PROJECT_NAME}::cares_shared ALIAS ${PROJECT_NAME})
+	ADD_LIBRARY (${PROJECT_NAME}::cares        ALIAS ${PROJECT_NAME})
+ENDIF ()
+
+# Build the static library
+IF (CARES_STATIC)
+	SET (LIBNAME ${PROJECT_NAME}${STATIC_SUFFIX})
+
+	ADD_LIBRARY (${LIBNAME} STATIC ${CSOURCES})
+
+	SET_TARGET_PROPERTIES (${LIBNAME} PROPERTIES
+		EXPORT_NAME                  cares${STATIC_SUFFIX}
+		OUTPUT_NAME                  cares${STATIC_SUFFIX}
+		COMPILE_PDB_NAME             cares${STATIC_SUFFIX}
+		COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+	)
+
+	IF (CARES_STATIC_PIC)
+		SET_TARGET_PROPERTIES (${LIBNAME} PROPERTIES POSITION_INDEPENDENT_CODE True)
+	ENDIF ()
+
+	TARGET_INCLUDE_DIRECTORIES (${LIBNAME} PUBLIC "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>")
+	TARGET_INCLUDE_DIRECTORIES (${LIBNAME} PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>")
+	TARGET_INCLUDE_DIRECTORIES (${LIBNAME} PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+	TARGET_COMPILE_DEFINITIONS (${LIBNAME}
+		PUBLIC  CARES_STATICLIB
+		PRIVATE HAVE_CONFIG_H=1
+	)
+
+	TARGET_LINK_LIBRARIES (${LIBNAME} PUBLIC ${CARES_DEPENDENT_LIBS})
+	IF (CARES_INSTALL)
+		INSTALL (TARGETS ${LIBNAME} EXPORT ${PROJECT_NAME}-targets COMPONENT Devel
+			${TARGETS_INST_DEST}
+		)
+		INSTALL(FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cares${STATIC_SUFFIX}.pdb
+			DESTINATION ${CMAKE_INSTALL_BINDIR}
+			COMPONENT Library
+			OPTIONAL
+		)
+	ENDIF ()
+
+	# For chain building: add alias targets that look like import libs that would be returned by find_package(c-ares).
+	ADD_LIBRARY (${PROJECT_NAME}::cares_static ALIAS ${LIBNAME})
+	IF (NOT TARGET ${PROJECT_NAME}::cares)
+		# Only use static for the generic alias if shared lib wasn't built.
+		ADD_LIBRARY (${PROJECT_NAME}::cares ALIAS ${LIBNAME})
+	ENDIF ()
+ENDIF ()
+
 IF (CARES_BUILD_TESTS OR CARES_BUILD_CONTAINER_TESTS)
 	ENABLE_TESTING ()
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
 
+# Headers and Man Pages installation target
+IF (CARES_INSTALL)
+	SET (CARES_HEADERS ares.h ares_version.h ares_dns.h "${PROJECT_BINARY_DIR}/ares_build.h" ares_rules.h)
+	INSTALL (FILES ${CARES_HEADERS} COMPONENT Devel DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+	# ManPages
+	FILE (GLOB DevelManPages "." "*.3")
+	INSTALL (FILES ${DevelManPages}
+		DESTINATION ${CMAKE_INSTALL_MANDIR}/man3
+		COMPONENT Devel
+	)
+ENDIF ()
 
 # Export targets
 IF (CARES_INSTALL)
@@ -652,20 +730,58 @@ IF (CARES_INSTALL)
 	INSTALL (FILES "${CMAKE_CURRENT_BINARY_DIR}/libcares.pc" COMPONENT Devel DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 ENDIF ()
 
-
 # Legacy chain-building variables (provided for compatibility with old code).
 # Don't use these, external code should be updated to refer to the aliases directly (e.g., Cares::cares).
 SET (CARES_FOUND 1 CACHE INTERNAL "CARES LIBRARY FOUND")
 SET (CARES_LIBRARIES ${PROJECT_NAME}::cares CACHE INTERNAL "CARES LIBRARIES")
 
+IF (CARES_BUILD_TOOLS)
+	# Build ahost
+	ADD_EXECUTABLE (ahost ahost.c ${SAMPLESOURCES})
+	TARGET_COMPILE_DEFINITIONS (ahost PRIVATE HAVE_CONFIG_H=1)
+	TARGET_LINK_LIBRARIES (ahost PRIVATE ${PROJECT_NAME})
+	IF (CARES_INSTALL)
+		INSTALL (TARGETS ahost COMPONENT Tools ${TARGETS_INST_DEST})
+	ENDIF ()
+
+
+	# Build adig
+	ADD_EXECUTABLE (adig adig.c ${SAMPLESOURCES})
+	TARGET_COMPILE_DEFINITIONS (adig PRIVATE HAVE_CONFIG_H=1)
+	TARGET_LINK_LIBRARIES (adig PRIVATE ${PROJECT_NAME})
+	IF (CARES_INSTALL)
+		INSTALL (TARGETS adig COMPONENT Tools ${TARGETS_INST_DEST})
+	ENDIF ()
+
+
+	# Build acountry
+	ADD_EXECUTABLE (acountry acountry.c ${SAMPLESOURCES})
+	TARGET_COMPILE_DEFINITIONS (acountry PRIVATE HAVE_CONFIG_H=1)
+	TARGET_LINK_LIBRARIES (acountry PRIVATE ${PROJECT_NAME})
+	IF (CARES_INSTALL)
+		INSTALL (TARGETS acountry COMPONENT Tools ${TARGETS_INST_DEST})
+	ENDIF ()
+
+	# Install Man Pages
+	IF (CARES_INSTALL)
+		FILE (GLOB ToolManPages "." "*.1")
+		INSTALL (FILES ${ToolManPages}
+			DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+			COMPONENT Tools
+		)
+	ENDIF ()
+ENDIF ()
+
 
 IF (CARES_INSTALL)
+
     # Package creation
+
     set( CPACK_PACKAGE_NAME ${PROJECT_NAME} )
     set( CPACK_PACKAGE_VENDOR "Daniel Stenberg" ) # Github project owner
     set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "A C library for asynchronous DNS requests" )
-    set( CPACK_PACKAGE_HOMEPAGE_URL "https://c-ares.org/" )
-    set( CPACK_PACKAGE_CONTACT      "https://c-ares.org/" )
+    set( CPACK_PACKAGE_HOMEPAGE_URL "https://c-ares.haxx.se/" )
+    set( CPACK_PACKAGE_CONTACT      "https://c-ares.haxx.se/" )
     set( CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR} )
     set( CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR} )
     set( CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH} )
@@ -760,6 +876,7 @@ IF (CARES_INSTALL)
         set( CPACK_NSIS_PACKAGE_NAME ${PROJECT_NAME} )
         set( CPACK_NSIS_URL_INFO_ABOUT ${CPACK_PACKAGE_HOMEPAGE_URL} )
     endif()
+
 
     # This must always be last!
     include( CPack )

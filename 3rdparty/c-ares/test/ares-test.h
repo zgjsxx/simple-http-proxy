@@ -2,12 +2,12 @@
 #ifndef ARES_TEST_H
 #define ARES_TEST_H
 
-#include "ares_setup.h"
-#include "ares.h"
-
 #include "dns-proto.h"
 // Include ares internal file for DNS protocol constants
-#include "ares_nameser.h"
+#include "nameser.h"
+
+#include "ares_setup.h"
+#include "ares.h"
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -136,7 +136,7 @@ class DefaultChannelModeTest
 // Mock DNS server to allow responses to be scripted by tests.
 class MockServer {
  public:
-  MockServer(int family, int port);
+  MockServer(int family, int port, int tcpport = 0);
   ~MockServer();
 
   // Mock method indicating the processing of a particular <name, RRtype>
@@ -162,8 +162,7 @@ class MockServer {
  private:
   void ProcessRequest(int fd, struct sockaddr_storage* addr, int addrlen,
                       int qid, const std::string& name, int rrtype);
-  void ProcessPacket(int fd, struct sockaddr_storage *addr, socklen_t addrlen,
-                     byte *data, int len);
+
   int udpport_;
   int tcpport_;
   int udpfd_;
@@ -247,7 +246,6 @@ std::ostream& operator<<(std::ostream& os, const HostEnt& result);
 
 // Structure that describes the result of an ares_host_callback invocation.
 struct HostResult {
-  HostResult() : done_(false), status_(0), timeouts_(0) {}
   // Whether the callback has been invoked.
   bool done_;
   // Explicitly provided result information.
