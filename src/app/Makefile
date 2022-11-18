@@ -25,7 +25,7 @@ CFLAGS +=	-I./ \
 			-I../protocol \
 			-I../../3rdparty/st-srs/include \
 			-I../../3rdparty/openssl/include \
-			-I../../3rdparty/c-ares/include \
+			-I../../3rdparty/c-ares \
 			-std=c++11
 
 #
