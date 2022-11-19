@@ -1,0 +1,19 @@
+
+## 5.test samples 
+
+**http chunked data test sample**
+http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+
+https://blog.csdn.net/qq_36256590/article/details/114707235
+
+## 6. face issues
+1. http chunked data parse
+2. tls need add SNI
+3. close wait issue
+4. srs framework error code
+5. need to support HTTP options method
+6. http/https write flow
+
+
+ /etc/security/limits.conf
+ *               -       core            unlimited
