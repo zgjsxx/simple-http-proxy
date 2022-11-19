@@ -789,7 +789,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     // no next hip, connect directly, no need to foward connect request
     if(svr_skt == NULL)
     {
-        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 2);
+        svr_skt = new SrsTcpClient(client_http_req->get_dest_domain(), client_http_req->get_dest_port(), SRS_UTIME_SECONDS * 5);
         SrsTcpClient* server_skt = (SrsTcpClient*)svr_skt;
 
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
@@ -850,7 +850,11 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     srs_trace("write HTTP 200 connection to client");
 
     clt_ssl = new SrsSslConnection(clt_skt);
-    clt_ssl->handshake(fake_x509, server_key);
+    err = clt_ssl->handshake(fake_x509, server_key);
+    if(err != srs_success)
+    {
+        return srs_error_wrap(err, "client handshake");
+    }
 
     //free the http connect msg
     srs_freep(client_http_req);

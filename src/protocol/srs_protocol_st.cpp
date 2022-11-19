@@ -191,7 +191,7 @@ srs_error_t srs_tcp_connect(string server, int port, srs_utime_t tm, srs_netfd_t
     // }
 
     if (st_connect((st_netfd_t)stfd, (struct sockaddr *)&server_addr, sizeof(server_addr), timeout) == -1){
-        srs_trace("connect failed");
+        srs_trace("connect failed, errmsg: %s", strerror(errno));
         srs_close_stfd(stfd);
         return srs_error_new(ERROR_ST_CONNECT, "connect to %s:%d", server.c_str(), port);
     }
