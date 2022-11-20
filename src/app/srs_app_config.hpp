@@ -217,6 +217,10 @@ public:
     virtual bool get_asprocess();
     // Whether empty client IP is ok.
     virtual bool empty_ip_ok();
+    // Get the daemon config.
+    // If  true, SRS will run in daemon mode, fork and fork to reap the
+    // grand-child process to init process.
+    virtual bool get_daemon();
 public:
     virtual srs_utime_t get_threads_interval();
 // http api section

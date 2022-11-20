@@ -85,10 +85,14 @@ srs_error_t run_directly_or_daemon()
         return srs_error_new(-1, "fork father process");
     }   
 
-    // run directly
-    // if ((err = run_in_thread_pool()) != srs_success) {
-    //     return srs_error_wrap(err, "daemon run thread pool");
-    // }
+    bool run_as_daemon = _srs_config->get_daemon();
+
+    if(!run_as_daemon){
+        if ((err = run_in_thread_pool()) != srs_success) {
+            return srs_error_wrap(err, "daemon run thread pool");
+        }
+         return srs_success;
+    }
 
     // run with daemon
 

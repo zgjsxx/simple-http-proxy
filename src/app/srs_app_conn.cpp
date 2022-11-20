@@ -1,6 +1,7 @@
 #include <netinet/tcp.h> 
 #include <algorithm>
 #include <map>
+#include <crypto/err.h>
 #include <srs_app_conn.hpp>
 #include <netinet/in.h>
 #include <srs_kernel_error.hpp>
@@ -846,6 +847,10 @@ SrsSslClient::SrsSslClient(SrsTcpClient* tcp)
 
 SrsSslClient::~SrsSslClient()
 {
+    // CRYPTO_cleanup_all_ex_data();
+    // ERR_free_strings();
+    // ERR_remove_state(0);
+    // EVP_cleanup();
     if (ssl) {
         // this function will free bio_in and bio_out
         SSL_free(ssl);
@@ -856,6 +861,7 @@ SrsSslClient::~SrsSslClient()
         SSL_CTX_free(ssl_ctx);
         ssl_ctx = NULL;
     }
+
 }
 
 srs_error_t SrsSslClient::handshake()
@@ -1145,6 +1151,7 @@ srs_error_t SrsSslClient::prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* ser
 
 	int nid = NID_sha256WithRSAEncryption;
 	X509_sign(fake_x509, ca_key, EVP_get_digestbynid(nid));
+    X509_free(server_x509);
 }
 
 RSA* SrsSslClient::get_new_cert_rsa(int key_length)

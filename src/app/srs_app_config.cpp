@@ -1494,3 +1494,13 @@ string SrsConfig::get_next_hip_proxy_port()
 
     return conf->arg0();
 }
+
+bool SrsConfig::get_daemon()
+{
+    SrsConfDirective* conf = root->get("daemon");
+    if (!conf || conf->arg0().empty()) {
+        return true;
+    }
+    
+    return SRS_CONF_PERFER_TRUE(conf->arg0());
+}
