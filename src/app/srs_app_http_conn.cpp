@@ -1062,11 +1062,13 @@ int SrsHttpxProxyConn::pass(ISrsProtocolReadWriter* in, ISrsProtocolReadWriter* 
     ssize_t write_size = 0;
 
 	err = in->read(buf, IOBUFSIZE, &read_size);
+    //TODO fix memory leak for err
     srs_trace("read size is %zd", read_size);
 	if (read_size <= 0)
 		return -1;
 
 	err = out->write(buf, read_size, &write_size);
+    //TODO fix memory leak for err
     srs_trace("write size is %zd", read_size);
 	if (read_size != read_size)
 		return -1;
