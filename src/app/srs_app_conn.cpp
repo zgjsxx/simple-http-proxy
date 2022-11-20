@@ -1101,6 +1101,8 @@ srs_error_t SrsSslClient::prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* ser
 	X509_set_issuer_name(fake_x509, issuer);
 	X509_set_subject_name(fake_x509, X509_get_subject_name(server_x509));
 
+    X509_NAME_free(issuer);
+
 	ASN1_UTCTIME *s = ASN1_UTCTIME_new();
 	int days = 365;
 	X509_gmtime_adj(s, (long)60*60*24*days*(-1));
@@ -1114,6 +1116,8 @@ srs_error_t SrsSslClient::prepare_resign_endpoint(X509 *fake_x509, EVP_PKEY* ser
 	//EVP_PKEY* server_key = EVP_PKEY_new();
 	EVP_PKEY_set1_RSA(server_key, new_cert_rsa);
 	X509_set_pubkey(fake_x509, server_key);
+
+    RSA_free(new_cert_rsa);
 
 	//get subject alternative name (SAN) extension
 	std::vector<int> ext_id_list = {NID_subject_alt_name};

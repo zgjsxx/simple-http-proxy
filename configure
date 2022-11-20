@@ -4,7 +4,12 @@ echo $cpu_numer
 
 WORKSPACE=$(pwd)
 echo $WORKSPACE
-mkdir output
+OUTPUT_DIR=$WORKSPACE/output
+
+if [ ! -d $OUTPUT_DIR ];then
+    mkdir output
+fi
+
 # compile openssl
 OPENSSL_DEST_DIR=$WORKSPACE/output/openssl
 if [ ! -d $OPENSSL_DEST_DIR ];then
@@ -22,7 +27,9 @@ cd $WORKSPACE
 ST_LIB_PATH=$WORKSPACE/output/libst.a
 if [ ! -f $ST_LIB_PATH ]; then
     cd 3rdparty/st-srs
-    make linux-debug
+    #make linux-debug
+    make clean
+    make linux-debug EXTRA_CFLAGS="-DMD_VALGRIND"
 
     OS="LINUX"
     BUILD="DBG"
@@ -39,7 +46,7 @@ fi
 cd $WORKSPACE
 cd ./output
 GTEST_PATH=$WORKSPACE/output/gtest.a
-if [ ! -f GTEST_PATH ]; then
+if [ ! -f $GTEST_PATH ]; then
     cp -r ../3rdparty/gtest-fit/googletest gtest
     cd gtest
     make 
@@ -50,11 +57,11 @@ fi
 
 # compile c-ares
 cd $WORKSPACE
-mkdir output/c-ares
-
 cd 3rdparty/c-ares
+
 CARES_DEST_DIR=$WORKSPACE/output/c-ares
-if [ ! -d CARES_DEST_DIR ];then
+if [ ! -d $CARES_DEST_DIR ];then
+    mkdir output/c-ares
     ./configure --prefix=$CARES_DEST_DIR
     make -j$cpu_numer && make install
 fi

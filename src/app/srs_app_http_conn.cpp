@@ -560,7 +560,7 @@ srs_error_t SrsHttpxProxyConn::process_requests()
 
 srs_error_t SrsHttpxProxyConn::prepare403block()
 {
-    srs_error_t err;
+    srs_error_t err = srs_success;
     server_http_resp = new SrsHttpMessage();
     server_http_resp->set_basic(HTTP_RESPONSE, 0, 403, 0);
     SrsHttpHeader* block_header = server_http_resp->header();
@@ -584,6 +584,10 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
                 return srs_error_wrap(err, "parse message");
             }
             client_http_req = (SrsHttpMessage*)req;
+        }
+        else
+        {
+            req = client_http_req;
         }
         SrsAutoFree(ISrsHttpMessage, req);
         
@@ -680,15 +684,38 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
                     snprintf(temp, sizeof(temp), "%x", resp_body.size());
                     srs_trace("write chunk data to client, chunk size is %s", temp);
 
-                    clt_skt->write(temp, strlen(temp), NULL);
-                    clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
-                    clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
-                    clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+                    err = clt_skt->write(temp, strlen(temp), NULL);
+                    if(err != srs_success) 
+                    {
+                        return err;
+                    }
+
+                    err = clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+                    if(err != srs_success) 
+                    {
+                        return err;
+                    }
+
+                    err = clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                    if(err != srs_success) 
+                    {
+                        return err;
+                    }
+
+                    err = clt_skt->write(const_cast<char*>("\r\n"), 2, NULL);
+                    if(err != srs_success) 
+                    {
+                        return err;
+                    }
                 }
                 else if(server_http_resp->content_length() > 0)
                 {
                     srs_trace("resp_body is %d", resp_body.size());
-                    clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                    err = clt_skt->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
+                    if(err != srs_success) 
+                    {
+                        return err;
+                    }
                 }
 
                 if(finish)
@@ -794,6 +821,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         server_skt->set_recv_timeout(SRS_HTTP_RECV_TIMEOUT);
         if((err = server_skt->connect()) != srs_success)
         {
+            srs_freep(client_http_req);
             return err;
         }
         _srs_context->set_server_fd(server_skt->get_fd());
@@ -808,6 +836,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
         clt_skt->write(const_cast<char*>(res.c_str()), res.size(), NULL);
         srs_trace("write HTTP 200 connection to client");
         processHttpsTunnel();
+        srs_freep(client_http_req);
         return err;
     }
 
@@ -815,6 +844,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     svr_ssl->set_SNI(client_http_req->get_dest_domain());
     if((err = svr_ssl->handshake()) != srs_success)
     {
+        srs_freep(client_http_req);
         srs_trace("server hadnshake failed");
         return err;
     }
@@ -852,6 +882,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     err = clt_ssl->handshake(fake_x509, server_key);
     if(err != srs_success)
     {
+        srs_freep(client_http_req);
         return srs_error_wrap(err, "client handshake");
     }
 
@@ -875,7 +906,7 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
 
         if(_srs_policy->match_black_list(client_http_req->get_dest_domain()))
         {
-            prepare403block();
+            err = prepare403block();
             clt_ssl->write(const_cast<char*>(server_http_resp->get_raw_header().c_str()), server_http_resp->get_raw_header().size(), NULL);
             clt_ssl->write(const_cast<char*>(resp_body.c_str()), resp_body.size(), NULL);
             return err;

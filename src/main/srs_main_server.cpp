@@ -85,6 +85,13 @@ srs_error_t run_directly_or_daemon()
         return srs_error_new(-1, "fork father process");
     }   
 
+    // run directly
+    // if ((err = run_in_thread_pool()) != srs_success) {
+    //     return srs_error_wrap(err, "daemon run thread pool");
+    // }
+
+    // run with daemon
+
     // grandpa
     if(pid > 0) {
         int status = 0;
@@ -153,8 +160,8 @@ int main(int argc, char** argv)
 {
     srs_error_t err = do_main(argc, argv);
     if(err != srs_success) {
-        
+        srs_freep(err);
     }
-    // printf("start of programa2\n");
+
     return 0;
 }

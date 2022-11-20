@@ -35,6 +35,7 @@ void SrsPolicy::loadPolicy()
     while(1)
     {
         err = read->read(buf, sizeof(buf), &nread);
+        srs_freep(err);
         if(nread == 0)
         {
             break;
@@ -158,6 +159,7 @@ void SrsNotification::loadNotification()
     while(1)
     {
         err = read->read(buf, sizeof(buf), &nread);
+        srs_freep(err);
         if(nread == 0)
         {
             break;
@@ -169,7 +171,6 @@ void SrsNotification::loadNotification()
         notification_page.append(buf, nread);
         memset(buf, 0 , sizeof(buf));
     }
-    
 }
 
 std::string SrsNotification::getNotification(std::string domain, std::string client_ip)

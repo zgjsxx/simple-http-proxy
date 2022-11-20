@@ -307,6 +307,7 @@ SrsServer::SrsServer()
     http_api_mux = new SrsHttpServeMux();
     http_server = new SrsHttpServer(this);
     trd_ = new SrsSTCoroutine("srs", this, _srs_context->get_id());
+    reuse_api_over_server_ = false;
 }
 
 SrsServer::~SrsServer()

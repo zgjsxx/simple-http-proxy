@@ -38,7 +38,7 @@ func testUrl(){
         req, err := http.NewRequest("GET", val, nil)
         resp, err := client.Do(req)
         if err != nil {
-            fmt.Printf("%s err \n", val)
+            fmt.Printf("%s err %v\n", val, err)
             continue
             time.Sleep(1 * time.Second)
         }
