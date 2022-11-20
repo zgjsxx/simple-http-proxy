@@ -431,7 +431,6 @@ SrsHttpxProxyConn::~SrsHttpxProxyConn()
     {
         srs_freep(svr_ssl);
     }
-
 }
 
 srs_error_t SrsHttpxProxyConn::start()
@@ -1144,16 +1143,7 @@ std::string SrsHttpxProxyConn::desc()
 srs_error_t SrsHttpServer::initialize()
 {
     srs_error_t err = srs_success;
-    srs_trace("srs_success");
-    // // for SRS go-sharp to detect the status of HTTP server of SRS HTTP FLV Cluster.
-    // if ((err = http_static->mux.handle("/api/v1/versions", new SrsGoApiVersion())) != srs_success) {
-    //     return srs_error_wrap(err, "handle versions");
-    // }
-    
-    // if ((err = http_static->initialize()) != srs_success) {
-    //     return srs_error_wrap(err, "http static");
-    // }
-    
+
     return err;
 }
 
@@ -1171,13 +1161,11 @@ srs_error_t SrsHttpServer::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage
 SrsHttpServer::SrsHttpServer(SrsServer* svr)
 {
     server = svr;
-    // http_static = new SrsHttpStaticServer(svr);
 }
 
 SrsHttpServer::~SrsHttpServer()
 {
-    // srs_freep(http_stream);
-    // srs_freep(http_static);
+
 }
 
 

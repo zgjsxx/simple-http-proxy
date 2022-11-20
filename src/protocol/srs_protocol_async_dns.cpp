@@ -59,7 +59,7 @@ SrsAsyncDns::SrsAsyncDns()
 
 SrsAsyncDns::~SrsAsyncDns()
 {
-
+    ares_destroy(channel);  
 }
 
 void SrsAsyncDns::init()
