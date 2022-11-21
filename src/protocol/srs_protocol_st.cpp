@@ -14,6 +14,7 @@
 // nginx also set to 512
 #define SERVER_LISTEN_BACKLOG 512
 extern SrsAsyncDns* _srs_dns_query;
+extern __thread int _st_num_free_stacks;
 #ifdef __linux__
 #include <sys/epoll.h>
 
