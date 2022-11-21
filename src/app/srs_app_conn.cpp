@@ -847,10 +847,6 @@ SrsSslClient::SrsSslClient(SrsTcpClient* tcp)
 
 SrsSslClient::~SrsSslClient()
 {
-    // CRYPTO_cleanup_all_ex_data();
-    // ERR_free_strings();
-    // ERR_remove_state(0);
-    // EVP_cleanup();
     if (ssl) {
         // this function will free bio_in and bio_out
         SSL_free(ssl);

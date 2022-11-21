@@ -760,7 +760,12 @@ srs_error_t SrsConfDirective::read_token(SrsConfigBuffer* buffer, vector<string>
 
 SrsConfig::SrsConfig()
 {
-
+    show_help = false;
+    show_version = false;
+    show_signature = false;
+    root = new SrsConfDirective();
+    root->conf_line = 0;
+    root->name = "root";
 }
 
 SrsConfig::~SrsConfig()
@@ -1025,20 +1030,20 @@ srs_error_t SrsConfig::parse_buffer(SrsConfigBuffer* buffer)
     
     // mock by dolphin mode.
     // for the dolphin will start srs with specified params.
-    if (dolphin) {
-        // for RTMP.
-        set_config_directive(root, "listen", dolphin_rtmp_port);
+    // if (dolphin) {
+    //     // for RTMP.
+    //     set_config_directive(root, "listen", dolphin_rtmp_port);
         
-        // for HTTP
-        set_config_directive(root, "http_server", "");
-        SrsConfDirective* http_server = root->get("http_server");
-        set_config_directive(http_server, "enabled", "on");
-        set_config_directive(http_server, "listen", dolphin_http_port);
+    //     // for HTTP
+    //     set_config_directive(root, "http_server", "");
+    //     SrsConfDirective* http_server = root->get("http_server");
+    //     set_config_directive(http_server, "enabled", "on");
+    //     set_config_directive(http_server, "listen", dolphin_http_port);
         
-        // others.
-        set_config_directive(root, "daemon", "off");
-        set_config_directive(root, "srs_log_tank", "console");
-    }
+    //     // others.
+    //     set_config_directive(root, "daemon", "off");
+    //     set_config_directive(root, "srs_log_tank", "console");
+    // }
     
     return err;
 }

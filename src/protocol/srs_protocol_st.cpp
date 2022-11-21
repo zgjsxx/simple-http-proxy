@@ -11,7 +11,6 @@
 #include <srs_core.hpp>
 #include <srs_core_platform.hpp>
 #include <srs_core_auto_free.hpp>
-
 // nginx also set to 512
 #define SERVER_LISTEN_BACKLOG 512
 extern SrsAsyncDns* _srs_dns_query;
@@ -30,6 +29,11 @@ bool srs_st_epoll_is_supported(void)
     return (errno != ENOSYS);
 }
 #endif
+
+int srs_get_current_free_stack()
+{
+    return _st_num_free_stacks;
+}
 
 srs_error_t srs_st_init()
 {

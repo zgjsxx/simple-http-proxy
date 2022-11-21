@@ -14,6 +14,7 @@ typedef void* srs_mutex_t;
 
 
 using std::string;
+extern int srs_get_current_free_stack();
 // Initialize st, requires epoll.
 extern srs_error_t srs_st_init();
 
