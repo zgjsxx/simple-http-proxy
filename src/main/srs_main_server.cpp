@@ -79,11 +79,6 @@ srs_error_t run_hybrid_server(void* /*arg*/)
 srs_error_t run_directly_or_daemon()
 {
     srs_error_t err = srs_success;
-    srs_trace("start daemon mode...");
-    int pid = fork();
-    if(pid < 0) {
-        return srs_error_new(-1, "fork father process");
-    }   
 
     bool run_as_daemon = _srs_config->get_daemon();
 
@@ -94,8 +89,13 @@ srs_error_t run_directly_or_daemon()
          return srs_success;
     }
 
-    // run with daemon
+    srs_trace("start daemon mode...");
+    int pid = fork();
+    if(pid < 0) {
+        return srs_error_new(-1, "fork father process");
+    }   
 
+    // run with daemon
     // grandpa
     if(pid > 0) {
         int status = 0;
@@ -124,6 +124,7 @@ srs_error_t run_directly_or_daemon()
 srs_error_t do_main(int argc, char** argv)
 {
     srs_error_t err = srs_success;
+
     // Initialize global and thread-local variables.
     if ((err = srs_global_initialize()) != srs_success) {
         return srs_error_wrap(err, "global init");
@@ -151,8 +152,6 @@ srs_error_t do_main(int argc, char** argv)
         return srs_error_wrap(err, "log initialize");
     }
 
-    srs_trace("configure detail: ");
-
     if ((err = run_directly_or_daemon()) != srs_success) {
         return srs_error_wrap(err, "run");
     }
@@ -164,8 +163,10 @@ int main(int argc, char** argv)
 {
     srs_error_t err = do_main(argc, argv);
     if(err != srs_success) {
-        srs_freep(err);
+        srs_error("Failed, %s", srs_error_desc(err).c_str());
     }
 
-    return 0;
+    int ret = srs_error_code(err);
+    srs_freep(err);
+    return ret;
 }

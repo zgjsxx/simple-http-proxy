@@ -12,6 +12,7 @@
 #include <srs_protocol_log.hpp>
 #include <srs_app_hybrid.hpp>
 #include <srs_app_policy.hpp>
+#include <srs_app_utility.hpp>
 #include <srs_app_access_log.hpp>
 using namespace std;
 
@@ -144,7 +145,8 @@ SrsThreadPool::~SrsThreadPool()
 srs_error_t SrsThreadPool::setup_thread_locals()
 {
     srs_error_t err = srs_success;
-    // Initialize ST, which depends on pps cids.
+
+    // Initialize ST
     if ((err = srs_st_init()) != srs_success) {
         return srs_error_wrap(err, "initialize st failed");
     }
@@ -201,6 +203,13 @@ srs_error_t SrsThreadPool::run()
     srs_error_t err = srs_success;
 
     while (true) {
+        // Show statistics 
+        srs_update_proc_stat();
+        SrsProcSelfStat* u = srs_get_self_proc_stat();
+        // Resident Set Size: number of pages the process has in real memory.
+        int memory = (int)(u->rss * 4 / 1024);
+
+        srs_trace("Process: cpu=%.2f%%,%dMB, threads=%d", u->percent * 100, memory, (int)threads_.size());
         srs_usleep(1 * SRS_UTIME_SECONDS);
     }
     return err;
