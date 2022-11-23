@@ -149,6 +149,7 @@ srs_error_t srs_ioutil_read_part(ISrsReader* in, std::string& content, int size,
                 srs_freep(err);
                 return err;
             }
+            finish = 1;
             return srs_error_wrap(err, "read body");
         }
 
@@ -161,6 +162,5 @@ srs_error_t srs_ioutil_read_part(ISrsReader* in, std::string& content, int size,
             break;
         }
     }
-
     return err;
 }

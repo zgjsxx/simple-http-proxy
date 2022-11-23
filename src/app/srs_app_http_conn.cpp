@@ -676,7 +676,22 @@ srs_error_t SrsHttpxProxyConn::process_http_connection()
                 srs_trace("start to read body");
                 int finish = 0;
                 err = server_http_resp->body_read_part(resp_body, 4096, finish);
+                if(err != srs_success)
+                {
+                    return err;
+                }
                 srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
+
+                if(finish && resp_body.size() == 0)
+                {   
+                    srs_trace("meet eof");
+                    if(server_http_resp->is_chunked())
+                    {
+                        srs_trace("is chunked");
+                        clt_skt->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+                    }
+                    break;
+                }
 
                 if(server_http_resp->is_chunked())
                 {
@@ -968,6 +983,16 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
                 {
                     return err;
                 }
+                if(finish && resp_body.size() == 0)
+                {
+                    srs_trace("meet eof");
+                    if(server_http_resp->is_chunked())
+                    {
+                        clt_ssl->write(const_cast<char*>("0\r\n\r\n"), 5, NULL);
+                    }
+                    break;
+                }
+
                 srs_trace("server req is chunked: %d, content_length: %d", server_http_resp->is_chunked(), server_http_resp->content_length());
 
                 if(server_http_resp->is_chunked())
