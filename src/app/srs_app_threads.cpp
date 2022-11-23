@@ -14,6 +14,8 @@
 #include <srs_app_policy.hpp>
 #include <srs_app_utility.hpp>
 #include <srs_app_access_log.hpp>
+#include <srs_kernel_utility.hpp>
+
 using namespace std;
 
 extern SrsPolicy* _srs_policy;
@@ -22,6 +24,7 @@ extern SrsConfig* _srs_config;
 extern ISrsContext* _srs_context;
 extern SrsNotification* _srs_notification;
 extern SrsAccessLog* _srs_access_log;
+extern SrsCircuitBreaker* _srs_circuit_breaker;
 #ifdef SRS_OSX
     pid_t gettid() {
         return 0;
@@ -32,6 +35,118 @@ extern SrsAccessLog* _srs_access_log;
         #define gettid() syscall(SYS_gettid)
     #endif
 #endif
+
+
+SrsCircuitBreaker::SrsCircuitBreaker()
+{
+    enabled_ = false;
+    high_threshold_ = 0;
+    high_pulse_ = 0;
+    critical_threshold_ = 0;
+    critical_pulse_ = 0;
+    dying_threshold_ = 0;
+    dying_pulse_ = 0;
+
+    hybrid_high_water_level_ = 0;
+    hybrid_critical_water_level_ = 0;
+    hybrid_dying_water_level_ = 0;
+}
+
+SrsCircuitBreaker::~SrsCircuitBreaker()
+{
+}
+
+srs_error_t SrsCircuitBreaker::initialize()
+{
+    srs_error_t err = srs_success;
+
+    enabled_ = _srs_config->get_circuit_breaker();
+    high_threshold_ = _srs_config->get_high_threshold();
+    high_pulse_ = _srs_config->get_high_pulse();
+    critical_threshold_ = _srs_config->get_critical_threshold();
+    critical_pulse_ = _srs_config->get_critical_pulse();
+    dying_threshold_ = _srs_config->get_dying_threshold();
+    dying_pulse_ = _srs_config->get_dying_pulse();
+
+    // // Update the water level for circuit breaker.
+    // // @see SrsCircuitBreaker::on_timer()
+    _srs_hybrid->timer1s()->subscribe(this);
+
+    srs_trace("CircuitBreaker: enabled=%d, high=%dx%d, critical=%dx%d, dying=%dx%d", enabled_,
+        high_pulse_, high_threshold_, critical_pulse_, critical_threshold_,
+        dying_pulse_, dying_threshold_);
+
+    return err;
+}
+
+
+bool SrsCircuitBreaker::hybrid_high_water_level()
+{
+    return enabled_ && (hybrid_critical_water_level() || hybrid_high_water_level_);
+}
+
+bool SrsCircuitBreaker::hybrid_critical_water_level()
+{
+    return enabled_ && (hybrid_dying_water_level() || hybrid_critical_water_level_);
+}
+
+bool SrsCircuitBreaker::hybrid_dying_water_level()
+{
+    return enabled_ && dying_pulse_ && hybrid_dying_water_level_ >= dying_pulse_;
+}
+
+srs_error_t SrsCircuitBreaker::on_timer(srs_utime_t interval)
+{
+    srs_error_t err = srs_success;
+
+    // Update the CPU usage.
+    srs_update_proc_stat();
+    SrsProcSelfStat* stat = srs_get_self_proc_stat();
+
+    // Reset the high water-level when CPU is low for N times.
+    if (stat->percent * 100 > high_threshold_) {
+        hybrid_high_water_level_ = high_pulse_;
+    } else if (hybrid_high_water_level_ > 0) {
+        hybrid_high_water_level_--;
+    }
+
+    // Reset the critical water-level when CPU is low for N times.
+    if (stat->percent * 100 > critical_threshold_) {
+        hybrid_critical_water_level_ = critical_pulse_;
+    } else if (hybrid_critical_water_level_ > 0) {
+        hybrid_critical_water_level_--;
+    }
+
+    // Reset the dying water-level when CPU is low for N times.
+    if (stat->percent * 100 > dying_threshold_) {
+        hybrid_dying_water_level_ = srs_min(dying_pulse_ + 1, hybrid_dying_water_level_ + 1);
+    } else if (hybrid_dying_water_level_ > 0) {
+        hybrid_dying_water_level_ = 0;
+    }
+
+    // Show statistics for RTC server.
+    SrsProcSelfStat* u = srs_get_self_proc_stat();
+    // Resident Set Size: number of pages the process has in real memory.
+    int memory = (int)(u->rss * 4 / 1024);
+
+    // The hybrid thread cpu and memory.
+    float thread_percent = stat->percent * 100;
+
+    static char buf[128];
+
+    string snk_desc;
+
+    if (enabled_ && (hybrid_high_water_level() || hybrid_critical_water_level())) {
+        srs_trace("CircuitBreaker: cpu=%.2f%%,%dMB, break=%d,%d,%d, cond=%.2f%%%s",
+            u->percent * 100, memory,
+            hybrid_high_water_level(), hybrid_critical_water_level(), hybrid_dying_water_level(), // Whether Circuit-Break is enable.
+            thread_percent, // The conditions to enable Circuit-Breaker.
+            snk_desc.c_str()
+        );
+    }
+
+    return err;
+}
 
 SrsThreadMutex::SrsThreadMutex()
 {
@@ -87,6 +202,7 @@ srs_error_t srs_global_initialize()
     _srs_policy = new SrsPolicy();
     _srs_notification = new SrsNotification();
     _srs_access_log = new SrsAccessLog();
+    _srs_circuit_breaker = new SrsCircuitBreaker();
     return err;
 }
 

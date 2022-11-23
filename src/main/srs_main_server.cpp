@@ -28,6 +28,8 @@ SrsPolicy* _srs_policy = NULL;
 SrsNotification* _srs_notification = NULL;
 
 SrsAccessLog* _srs_access_log = NULL;
+
+SrsCircuitBreaker* _srs_circuit_breaker = NULL;
 #include <iostream>
 using namespace std;
 
@@ -65,6 +67,12 @@ srs_error_t run_hybrid_server(void* /*arg*/)
     if ((err = _srs_hybrid->initialize()) != srs_success) {
         return srs_error_wrap(err, "hybrid initialize");
     }
+
+    // Circuit breaker to protect server, which depends on hybrid.
+    if ((err = _srs_circuit_breaker->initialize()) != srs_success) {
+        return srs_error_wrap(err, "init circuit breaker");
+    }
+
     // Should run util hybrid servers all done.
     if ((err = _srs_hybrid->run()) != srs_success) {
         return srs_error_wrap(err, "hybrid run");

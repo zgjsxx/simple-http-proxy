@@ -14,11 +14,12 @@ ISrsHybridServer::~ISrsHybridServer()
 
 SrsHybridServer::SrsHybridServer()
 {
-
+    timer1s_ = new SrsFastTimer("hybrid", 1 * SRS_UTIME_SECONDS);
 }
 
 SrsHybridServer::~SrsHybridServer()
 {
+    srs_freep(timer1s_);
     vector<ISrsHybridServer*>::iterator it;
     for (it = servers.begin(); it != servers.end(); ++it) {
         ISrsHybridServer* server = *it;
@@ -45,9 +46,9 @@ srs_error_t SrsHybridServer::initialize()
     //     return srs_error_wrap(err, "start timer");
     // }
 
-    // if ((err = timer1s_->start()) != srs_success) {
-    //     return srs_error_wrap(err, "start timer");
-    // }
+    if ((err = timer1s_->start()) != srs_success) {
+        return srs_error_wrap(err, "start timer");
+    }
 
     // if ((err = timer5s_->start()) != srs_success) {
     //     return srs_error_wrap(err, "start timer");
@@ -80,6 +81,11 @@ srs_error_t SrsHybridServer::initialize()
     return err;
 }
 
+SrsFastTimer* SrsHybridServer::timer1s()
+{
+    return timer1s_;
+}
+
 srs_error_t SrsHybridServer::run()
 {
     srs_trace("SrsHybridServer::run()");
@@ -96,7 +102,7 @@ srs_error_t SrsHybridServer::run()
             return srs_error_wrap(err, "run server");
         }
     }
-    srs_trace("wg.wait");
+
     // Wait for all server to quit.
     wg.wait();
 

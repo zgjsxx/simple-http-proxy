@@ -1509,3 +1509,136 @@ bool SrsConfig::get_daemon()
     
     return SRS_CONF_PERFER_TRUE(conf->arg0());
 }
+
+bool SrsConfig::get_circuit_breaker()
+{
+    // SRS_OVERWRITE_BY_ENV_BOOL2("srs.circuit_breaker.enabled");
+
+    static bool DEFAULT = true;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("enabled");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return SRS_CONF_PERFER_TRUE(conf->arg0());
+}
+
+int SrsConfig::get_high_threshold()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.high_threshold");
+
+    static int DEFAULT = 90;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("high_threshold");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}
+
+int SrsConfig::get_high_pulse()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.high_pulse");
+
+    static int DEFAULT = 2;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("high_pulse");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}
+
+int SrsConfig::get_critical_threshold()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.critical_threshold");
+
+    static int DEFAULT = 95;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("critical_threshold");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}
+
+int SrsConfig::get_critical_pulse()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.critical_pulse");
+
+    static int DEFAULT = 1;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("critical_pulse");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}
+
+int SrsConfig::get_dying_threshold()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.dying_threshold");
+
+    static int DEFAULT = 99;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("dying_threshold");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}
+
+int SrsConfig::get_dying_pulse()
+{
+    // SRS_OVERWRITE_BY_ENV_INT("srs.circuit_breaker.dying_threshold");
+
+    static int DEFAULT = 5;
+
+    SrsConfDirective* conf = root->get("circuit_breaker");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    conf = conf->get("dying_pulse");
+    if (!conf) {
+        return DEFAULT;
+    }
+
+    return ::atoi(conf->arg0().c_str());
+}

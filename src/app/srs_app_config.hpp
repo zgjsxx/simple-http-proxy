@@ -223,6 +223,13 @@ public:
     virtual bool get_daemon();
 public:
     virtual srs_utime_t get_threads_interval();
+    virtual bool get_circuit_breaker();
+    virtual int get_high_threshold();
+    virtual int get_high_pulse();
+    virtual int get_critical_threshold();
+    virtual int get_critical_pulse();
+    virtual int get_dying_threshold();
+    virtual int get_dying_pulse();
 // http api section
 private:
     // Whether http api enabled

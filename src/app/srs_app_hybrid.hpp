@@ -29,6 +29,7 @@ class SrsHybridServer : public ISrsFastTimer
 {
 private:
     std::vector<ISrsHybridServer*> servers;
+    SrsFastTimer* timer1s_;
 public:
     SrsHybridServer();
     virtual ~SrsHybridServer();
@@ -40,6 +41,7 @@ public:
     virtual void stop();
 public:
     virtual SrsServerAdapter* srs();
+    SrsFastTimer* timer1s();
 // interface ISrsFastTimer
 private:
     srs_error_t on_timer(srs_utime_t interval);
