@@ -148,6 +148,14 @@ public:
     SrsServer();
     virtual ~SrsServer();
 public:
+    // The destroy is for gmc to analysis the memory leak,
+    // if not destroy global/static data, the gmc will warning memory leak.
+    // In service, server never destroy, directly exit when restart.
+    virtual void destroy();
+    // When SIGTERM, SRS should do cleanup, for example,
+    // to stop all ingesters, cleanup HLS and dvr.
+    virtual void dispose();
+public:
     // Initialize server with callback handler ch.
     // @remark user must free the handler.
     virtual srs_error_t initialize(ISrsServerCycle* ch);

@@ -312,7 +312,36 @@ SrsServer::SrsServer()
 
 SrsServer::~SrsServer()
 {
-    // destroy();
+    destroy();
+}
+
+void SrsServer::destroy()
+{
+    srs_warn("start destroy server");
+    
+    dispose();
+
+    srs_freep(trd_);
+    srs_freep(signal_manager);
+    srs_freep(conn_manager);
+    srs_freep(http_server);
+    srs_freep(http_api_mux);
+}
+
+void SrsServer::dispose()
+{
+    // _srs_config->unsubscribe(this);
+    
+    // prevent fresh clients.
+    close_listeners(SrsListenerRtmpStream);
+    close_listeners(SrsListenerHttpApi);
+    close_listeners(SrsListenerHttpsApi);
+    close_listeners(SrsListenerHttpStream);
+    close_listeners(SrsListenerHttpsStream);
+    close_listeners(SrsListenerMpegTsOverUdp);
+    close_listeners(SrsListenerFlv);
+    close_listeners(SrsListenerTcp);
+
 }
 
 srs_error_t SrsServer::initialize(ISrsServerCycle* ch)
