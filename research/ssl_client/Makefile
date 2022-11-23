@@ -15,12 +15,11 @@ ADDITIONAL_CPP_SOURCES += ssl_client.cpp
 
 
 CFLAGS +=	-I./ \
-			-I../core \
-			-I../kernel \
-			-I../app \
-			-I../protocol \
+			-I../../src/core \
+			-I../../src/kernel \
+			-I../../src/app \
+			-I../../src/protocol \
 			-I../../3rdparty/st-srs \
-			-I../proxy/include \
 			-I../../3rdparty/openssl/include \
 			-I../../3rdparty/c-ares
 	
