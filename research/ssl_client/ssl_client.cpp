@@ -35,7 +35,7 @@ SrsPolicy* _srs_policy = NULL;
 SrsNotification* _srs_notification = NULL;
 
 SrsAccessLog* _srs_access_log = NULL;
-
+SrsCircuitBreaker* _srs_circuit_breaker = NULL;
 void ShowCerts(SSL * ssl)
 {
     X509 *cert;
