@@ -444,7 +444,8 @@ srs_error_t SrsServer::do_cycle()
             srs_trace("cleanup for quit signal fast=%d, grace=%d", signal_fast_quit, signal_gracefully_quit);
             return err;
         }
-
+        srs_trace("SrsServer::do_cycle");
+        srs_trace("current free stack number= %d", srs_get_current_free_stack());
         srs_usleep(1 * SRS_UTIME_SECONDS);
     }
     return err;
