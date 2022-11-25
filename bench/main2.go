@@ -16,14 +16,13 @@ import (
   "bench/Util"
   "math/rand"
 )
-var num int = 10000
+var num int = 1000000
 func httpClient() *http.Client {
     client := &http.Client{
         Transport: &http.Transport{
-                        Proxy: http.ProxyFromEnvironment,
-                        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-                        MaxIdleConns:          10,
-						MaxConnsPerHost:       10,
+                Proxy: http.ProxyFromEnvironment,
+                TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+                MaxIdleConns:          50,
         },
         Timeout: 10 * time.Second,
     }
@@ -60,22 +59,20 @@ func sendRequest(client *http.Client) {
         val := Util.Testurl[index]
         fmt.Printf("index = %d, test url = %s\n", index, val)
 
-		req, err := http.NewRequest("GET", val, nil)
-		if err != nil {
-				log.Fatalf("Error Occured. %+v", err)
-		}
+        req, err := http.NewRequest("GET", val, nil)
+        if err != nil {
+                        log.Fatalf("Error Occured. %+v", err)
+        }
 
-		response, err := client.Do(req)
-		if err != nil {
-				log.Fatalf("Error sending request to API endpoint. %+v", err)
-		}
+        response, err := client.Do(req)
+        if err != nil {
+                        log.Fatalf("Error sending request to API endpoint. %+v", err)
+        }
         fmt.Printf("%s GET Response = %s \n", val, response.Status)
-		
-		time.Sleep(time.Duration(1)*time.Second)
-		// Close the connection to reuse it
-		defer response.Body.Close()
+        // Close the connection to reuse it
+        defer response.Body.Close()
     }
-        return
+    return
 }
 
 func main() {

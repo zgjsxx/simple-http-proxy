@@ -1,6 +1,7 @@
 #include <netinet/tcp.h> 
 #include <algorithm>
 #include <map>
+#include <malloc.h>
 #include <crypto/err.h>
 #include <srs_app_conn.hpp>
 #include <netinet/in.h>
@@ -146,6 +147,8 @@ void SrsResourceManager::do_clear()
         srs_trace("free conn");
         ISrsResource* conn = copy.at(i);
         srs_freep(conn);
+        
+        // malloc_trim(0);
     }
 }
 
