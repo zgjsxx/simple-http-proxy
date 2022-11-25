@@ -75,6 +75,8 @@ extern int srs_poll(struct pollfd *pds, int npds, srs_utime_t timeout);
 
 extern ssize_t srs_read(srs_netfd_t stfd, void *buf, size_t nbyte, srs_utime_t timeout);
 
+extern ssize_t srs_peek(srs_netfd_t stfd, void *buf, size_t nbyte, srs_utime_t timeout);
+
 extern int srs_netfd_fileno(srs_netfd_t stfd);
 
 extern int srs_usleep(srs_utime_t usecs);
@@ -133,6 +135,7 @@ public:
     // @param nwrite, the actual write bytes, ignore if NULL.
     virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
     virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
+    virtual srs_error_t peek(void* buf, size_t size, ssize_t* nread);
 };
 
 // The client to connect to server over TCP.
