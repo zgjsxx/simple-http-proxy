@@ -523,15 +523,17 @@ srs_error_t SrsServer::http_handle()
     //     }
     // }
 
-    srs_trace("http_api_mux handle");
+
     if ((err = http_api_mux->handle("/api/", new SrsGoApiApi())) != srs_success) {
         return srs_error_wrap(err, "handle api");
     }
     if ((err = http_api_mux->handle("/api/mytest", new SrsMytest())) != srs_success) {
         return srs_error_wrap(err, "handle mytest");
     }
+    if ((err = http_api_mux->handle("/api/v1/self_proc_stats", new SrsGoApiSelfProcStats())) != srs_success) {
+        return srs_error_wrap(err, "handle self proc stats");
+    }
 
-    srs_trace("http_api_mux handle end");
     return err;
 }
 

@@ -9,6 +9,7 @@
 #include <srs_kernel_error.hpp>
 #include <srs_core_auto_free.hpp>
 #include <srs_kernel_log.hpp>
+#include <srs_app_utility.hpp>
 
 srs_error_t srs_api_response_jsonp(ISrsHttpResponseWriter* w, string callback, string data)
 {
@@ -200,6 +201,119 @@ srs_error_t SrsMytest::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
     
     obj->set("code", SrsJsonAny::integer(ERROR_SUCCESS));
     obj->set("msg", SrsJsonAny::str("Hello"));
+    
+    return srs_api_response(w, r, obj->dumps());
+}
+
+SrsGoApiSystemProcStats::SrsGoApiSystemProcStats()
+{
+}
+
+SrsGoApiSystemProcStats::~SrsGoApiSystemProcStats()
+{
+}
+
+srs_error_t SrsGoApiSystemProcStats::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
+{   
+    // SrsJsonObject* obj = SrsJsonAny::object();
+    // SrsAutoFree(SrsJsonObject, obj);
+    
+    // obj->set("code", SrsJsonAny::integer(ERROR_SUCCESS));
+    
+    // SrsJsonObject* data = SrsJsonAny::object();
+    // obj->set("data", data);
+    
+    // SrsProcSystemStat* s = srs_get_system_proc_stat();
+    
+    // data->set("ok", SrsJsonAny::boolean(s->ok));
+    // data->set("sample_time", SrsJsonAny::integer(s->sample_time));
+    // data->set("percent", SrsJsonAny::number(s->percent));
+    // data->set("user", SrsJsonAny::integer(s->user));
+    // data->set("nice", SrsJsonAny::integer(s->nice));
+    // data->set("sys", SrsJsonAny::integer(s->sys));
+    // data->set("idle", SrsJsonAny::integer(s->idle));
+    // data->set("iowait", SrsJsonAny::integer(s->iowait));
+    // data->set("irq", SrsJsonAny::integer(s->irq));
+    // data->set("softirq", SrsJsonAny::integer(s->softirq));
+    // data->set("steal", SrsJsonAny::integer(s->steal));
+    // data->set("guest", SrsJsonAny::integer(s->guest));
+    
+    // return srs_api_response(w, r, obj->dumps());
+}
+
+SrsGoApiSelfProcStats::SrsGoApiSelfProcStats()
+{
+}
+
+SrsGoApiSelfProcStats::~SrsGoApiSelfProcStats()
+{
+}
+
+srs_error_t SrsGoApiSelfProcStats::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
+{
+    // SrsStatistic* stat = SrsStatistic::instance();
+    
+    SrsJsonObject* obj = SrsJsonAny::object();
+    SrsAutoFree(SrsJsonObject, obj);
+    
+    obj->set("code", SrsJsonAny::integer(ERROR_SUCCESS));
+    // obj->set("server", SrsJsonAny::str(stat->server_id().c_str()));
+    
+    SrsJsonObject* data = SrsJsonAny::object();
+    obj->set("data", data);
+    
+    SrsProcSelfStat* u = srs_get_self_proc_stat();
+    
+    string state;
+    state += (char)u->state;
+    
+    data->set("ok", SrsJsonAny::boolean(u->ok));
+    data->set("sample_time", SrsJsonAny::integer(u->sample_time));
+    data->set("percent", SrsJsonAny::number(u->percent));
+    data->set("pid", SrsJsonAny::integer(u->pid));
+    data->set("comm", SrsJsonAny::str(u->comm));
+    data->set("state", SrsJsonAny::str(state.c_str()));
+    data->set("ppid", SrsJsonAny::integer(u->ppid));
+    data->set("pgrp", SrsJsonAny::integer(u->pgrp));
+    data->set("session", SrsJsonAny::integer(u->session));
+    data->set("tty_nr", SrsJsonAny::integer(u->tty_nr));
+    data->set("tpgid", SrsJsonAny::integer(u->tpgid));
+    data->set("flags", SrsJsonAny::integer(u->flags));
+    data->set("minflt", SrsJsonAny::integer(u->minflt));
+    data->set("cminflt", SrsJsonAny::integer(u->cminflt));
+    data->set("majflt", SrsJsonAny::integer(u->majflt));
+    data->set("cmajflt", SrsJsonAny::integer(u->cmajflt));
+    data->set("utime", SrsJsonAny::integer(u->utime));
+    data->set("stime", SrsJsonAny::integer(u->stime));
+    data->set("cutime", SrsJsonAny::integer(u->cutime));
+    data->set("cstime", SrsJsonAny::integer(u->cstime));
+    data->set("priority", SrsJsonAny::integer(u->priority));
+    data->set("nice", SrsJsonAny::integer(u->nice));
+    data->set("num_threads", SrsJsonAny::integer(u->num_threads));
+    data->set("itrealvalue", SrsJsonAny::integer(u->itrealvalue));
+    data->set("starttime", SrsJsonAny::integer(u->starttime));
+    data->set("vsize", SrsJsonAny::integer(u->vsize));
+    data->set("rss", SrsJsonAny::integer(u->rss));
+    data->set("rsslim", SrsJsonAny::integer(u->rsslim));
+    data->set("startcode", SrsJsonAny::integer(u->startcode));
+    data->set("endcode", SrsJsonAny::integer(u->endcode));
+    data->set("startstack", SrsJsonAny::integer(u->startstack));
+    data->set("kstkesp", SrsJsonAny::integer(u->kstkesp));
+    data->set("kstkeip", SrsJsonAny::integer(u->kstkeip));
+    data->set("signal", SrsJsonAny::integer(u->signal));
+    data->set("blocked", SrsJsonAny::integer(u->blocked));
+    data->set("sigignore", SrsJsonAny::integer(u->sigignore));
+    data->set("sigcatch", SrsJsonAny::integer(u->sigcatch));
+    data->set("wchan", SrsJsonAny::integer(u->wchan));
+    data->set("nswap", SrsJsonAny::integer(u->nswap));
+    data->set("cnswap", SrsJsonAny::integer(u->cnswap));
+    data->set("exit_signal", SrsJsonAny::integer(u->exit_signal));
+    data->set("processor", SrsJsonAny::integer(u->processor));
+    data->set("rt_priority", SrsJsonAny::integer(u->rt_priority));
+    data->set("policy", SrsJsonAny::integer(u->policy));
+    data->set("delayacct_blkio_ticks", SrsJsonAny::integer(u->delayacct_blkio_ticks));
+    data->set("guest_time", SrsJsonAny::integer(u->guest_time));
+    data->set("cguest_time", SrsJsonAny::integer(u->cguest_time));
     
     return srs_api_response(w, r, obj->dumps());
 }

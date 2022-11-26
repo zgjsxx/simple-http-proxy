@@ -45,4 +45,23 @@ public:
 public:
     virtual srs_error_t serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r);
 };
+
+class SrsGoApiSystemProcStats : public ISrsHttpHandler
+{
+public:
+    SrsGoApiSystemProcStats();
+    virtual ~SrsGoApiSystemProcStats();
+public:
+    virtual srs_error_t serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r);
+};
+
+class SrsGoApiSelfProcStats : public ISrsHttpHandler
+{
+public:
+    SrsGoApiSelfProcStats();
+    virtual ~SrsGoApiSelfProcStats();
+public:
+    virtual srs_error_t serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r);
+};
+
 #endif

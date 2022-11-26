@@ -10,17 +10,17 @@
 #
 # Variants will be:
 #  The variants which must be defined:
-#  	"MODULE": 		the filename of the module, such as "libhttpproxy.so", "iwss-process", "support.a"
+#  	"MODULE": 		the filename of the module, such as "libprotocol.so", "myproxy", "libapp.a"
 #
 #   "MODULE_DEPS":  the libraries for linking the "MODULE"
 #
 #	"BINARY_TYPE": 	the module type (dynamic library, static library or a executable file),
 #					the value can be one of:
-#						"so": 		dynamic library in /usr/iwss/lib (for example: "BINARY_TYPE = so")
-#						"plugin": 	dynamic library in /usr/iwss/plugin (for example: "BINARY_TYPE = plugin")
+#						"so": 		dynamic library  (for example: "BINARY_TYPE = so")
+#						"plugin": 	dynamic library  (for example: "BINARY_TYPE = plugin")
 #						"a":		archive file or static library (for example: "BINARY_TYPE = a")
-#						"bin": 		execute file in /usr/iwss path (for example: "BINARY_TYPE = bin")
-#						"bin_bin": 	execute file in /usr/iwss/bin path (for example: "BINARY_TYPE = bin_bin")
+#						"bin": 		execute file in (for example: "BINARY_TYPE = bin")
+#						"bin_bin": 	execute file in (for example: "BINARY_TYPE = bin_bin")
 #						"na":		dont generate link rule
 #
 #	"SOURCE_PATH": 	the paths where the source codes (*.cpp, *.c, *.cc) are in.
@@ -39,7 +39,7 @@
 #	"CFLAGS":		the CFLAGS should be changed to add include files path, (for example, "CFLAGS += $(DAEMON_INC_CFLAGS)")
 #					the CFLAGS should not be reset by "=", it should be changed by adding some values using "+=".
 #
-#	"LDFLAGS":		the LDFLAGS should be changed to add library path, (for example, "LDFLAGS += -liwsslog")
+#	"LDFLAGS":		the LDFLAGS should be changed to add library path, (for example, "LDFLAGS += -lapp")
 #					the LDFLAGS should not be reset by "=", it should be changed by adding some values using "+=".
 #					the path "$(OUT_PATH)/bin/lib" has been added to LDFLAGS.
 #
