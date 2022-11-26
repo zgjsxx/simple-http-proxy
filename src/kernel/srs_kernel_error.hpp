@@ -94,6 +94,7 @@
 #define ERROR_PB_NO_SPACE                   1084
 #define ERROR_CLS_INVALID_CONFIG            1085
 #define ERROR_CLS_EXCEED_SIZE               1086
+#define ERROR_SOCKET_PEEK                   1087
 
 ///////////////////////////////////////////////////////
 // RTMP protocol error.

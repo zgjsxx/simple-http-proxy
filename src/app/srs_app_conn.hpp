@@ -122,6 +122,7 @@ public:
     virtual srs_utime_t get_send_timeout();
     virtual srs_error_t write(void* buf, size_t size, ssize_t* nwrite);
     virtual srs_error_t writev(const iovec *iov, int iov_size, ssize_t* nwrite);
+    virtual srs_error_t peek(void* buf, size_t size, ssize_t* nread);
 };
 
 // The SSL connection over TCP transport, in server mode.

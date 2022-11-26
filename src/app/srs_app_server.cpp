@@ -239,45 +239,37 @@ srs_error_t SrsServerAdapter::initialize()
 
 srs_error_t SrsServerAdapter::run(SrsWaitGroup* wg)
 {
-    srs_trace("SrsServerAdapter::run");
     srs_error_t err = srs_success;
 
-    srs_trace("SrsServerAdapter::initialize");
     // Initialize the whole system, set hooks to handle server level events.
     if ((err = srs->initialize(NULL)) != srs_success) {
         return srs_error_wrap(err, "server initialize");
     }
-    srs_trace("SrsServerAdapter::initialize_st");
+
     if ((err = srs->initialize_st()) != srs_success) {
         return srs_error_wrap(err, "initialize st");
     }
-    srs_trace("SrsServerAdapter::initialize_signal");
+
     if ((err = srs->initialize_signal()) != srs_success) {
         return srs_error_wrap(err, "initialize signal");
     }
-    srs_trace("SrsServerAdapter::listen");
+
     if ((err = srs->listen()) != srs_success) {
         return srs_error_wrap(err, "listen");
     }
-    srs_trace("SrsServerAdapter::listen end");
 
     // if ((err = srs->register_signal()) != srs_success) {
     //     return srs_error_wrap(err, "register signal");
     // }
-    srs_trace("SrsServerAdapter::http_handle");
+
     if ((err = srs->http_handle()) != srs_success) {
         return srs_error_wrap(err, "http handle");
     }
-    srs_trace("SrsServerAdapter::http_handle end");
-    // if ((err = srs->ingest()) != srs_success) {
-    //     return srs_error_wrap(err, "ingest");
-    // }
-    srs_trace("SrsServerAdapter::srs->start");
+
     if ((err = srs->start(wg)) != srs_success) {
         return srs_error_wrap(err, "start");
     }
 
-    srs_trace("SrsServerAdapter::end");
     return err;
 }
 
@@ -531,15 +523,17 @@ srs_error_t SrsServer::http_handle()
     //     }
     // }
 
-    srs_trace("http_api_mux handle");
+
     if ((err = http_api_mux->handle("/api/", new SrsGoApiApi())) != srs_success) {
         return srs_error_wrap(err, "handle api");
     }
     if ((err = http_api_mux->handle("/api/mytest", new SrsMytest())) != srs_success) {
         return srs_error_wrap(err, "handle mytest");
     }
+    if ((err = http_api_mux->handle("/api/v1/self_proc_stats", new SrsGoApiSelfProcStats())) != srs_success) {
+        return srs_error_wrap(err, "handle self proc stats");
+    }
 
-    srs_trace("http_api_mux handle end");
     return err;
 }
 

@@ -359,6 +359,11 @@ srs_error_t SrsTcpConnection::read(void* buf, size_t size, ssize_t* nread)
     return skt->read(buf, size, nread);
 }
 
+srs_error_t SrsTcpConnection::peek(void* buf, size_t size, ssize_t* nread)
+{
+    return skt->peek(buf, size, nread);
+}
+
 void SrsTcpConnection::set_send_timeout(srs_utime_t tm)
 {
     skt->set_send_timeout(tm);

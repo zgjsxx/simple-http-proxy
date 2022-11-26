@@ -142,6 +142,7 @@ extern st_netfd_t st_accept(st_netfd_t fd, struct sockaddr *addr, int *addrlen, 
 extern int st_connect(st_netfd_t fd, const struct sockaddr *addr, int addrlen, st_utime_t timeout);
 extern ssize_t st_read(st_netfd_t fd, void *buf, size_t nbyte, st_utime_t timeout);
 extern ssize_t st_read_fully(st_netfd_t fd, void *buf, size_t nbyte, st_utime_t timeout);
+extern ssize_t st_peek(st_netfd_t fd, void *buf, size_t nbyte, st_utime_t timeout);
 extern int st_read_resid(st_netfd_t fd, void *buf, size_t *resid, st_utime_t timeout);
 extern ssize_t st_readv(st_netfd_t fd, const struct iovec *iov, int iov_size, st_utime_t timeout);
 extern int st_readv_resid(st_netfd_t fd, struct iovec **iov, int *iov_size, st_utime_t timeout);

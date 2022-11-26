@@ -372,6 +372,31 @@ ssize_t st_read(_st_netfd_t *fd, void *buf, size_t nbyte, st_utime_t timeout)
     return n;
 }
 
+ssize_t st_peek(_st_netfd_t *fd, void *buf, size_t nbyte, st_utime_t timeout)
+{
+    ssize_t n;
+
+    #if defined(DEBUG) && defined(DEBUG_STATS)
+    ++_st_stat_read;
+    #endif
+    
+    while ((n = recv(fd->osfd, buf, nbyte, MSG_PEEK)) < 0) {
+        if (errno == EINTR)
+            continue;
+        if (!_IO_NOT_READY_ERROR)
+            return -1;
+
+        #if defined(DEBUG) && defined(DEBUG_STATS)
+        ++_st_stat_read_eagain;
+        #endif
+
+        /* Wait until the socket becomes readable */
+        if (st_netfd_poll(fd, POLLIN, timeout) < 0)
+            return -1;
+    }
+    
+    return n;
+}
 
 int st_read_resid(_st_netfd_t *fd, void *buf, size_t *resid, st_utime_t timeout)
 {

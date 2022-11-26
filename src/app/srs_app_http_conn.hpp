@@ -151,6 +151,8 @@ private:
     SrsSslConnection* clt_ssl;
     //server ssl
     SrsSslClient* svr_ssl;
+    //client http connect message if it has
+    SrsHttpMessage* client_connect_req;
     //client http message
     SrsHttpMessage* client_http_req;
     //server http message
@@ -166,6 +168,8 @@ private:
     // The ip and port of client.
     std::string ip;
     int port;
+    //check whether connection is a https request
+    bool is_https;
 public:
     SrsHttpxProxyConn(ISrsProtocolReadWriter* io, ISrsResourceManager* cm, ISrsHttpServeMux* m, std::string cip, int port);
     virtual ~SrsHttpxProxyConn();
@@ -182,6 +186,7 @@ public:
     virtual std::string desc();
     virtual std::string remote_ip();
 public:
+    virtual srs_error_t check_http_or_https();
     virtual srs_error_t process_http_connection();
     virtual srs_error_t process_https_connection();
     virtual int pass(ISrsProtocolReadWriter* in, ISrsProtocolReadWriter* out);

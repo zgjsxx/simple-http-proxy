@@ -298,6 +298,11 @@ ssize_t srs_read(srs_netfd_t stfd, void *buf, size_t nbyte, srs_utime_t timeout)
     return st_read((st_netfd_t)stfd, buf, nbyte, (st_utime_t)timeout);
 }
 
+ssize_t srs_peek(srs_netfd_t stfd, void *buf, size_t nbyte, srs_utime_t timeout)
+{
+    return st_peek((st_netfd_t)stfd, buf, nbyte, (st_utime_t)timeout);
+}
+
 int srs_netfd_fileno(srs_netfd_t stfd)
 {
     return st_netfd_fileno((st_netfd_t)stfd);
@@ -431,6 +436,43 @@ srs_error_t SrsStSocket::read_fully(void* buf, size_t size, ssize_t* nread)
     }
     
     rbytes += nb_read;
+    
+    return err;
+}
+
+srs_error_t SrsStSocket::peek(void* buf, size_t size, ssize_t* nread)
+{
+    srs_error_t err = srs_success;
+
+    srs_assert(stfd_);
+
+    ssize_t nb_read;
+    if (rtm == SRS_UTIME_NO_TIMEOUT) {
+        nb_read = st_peek((st_netfd_t)stfd_, buf, size, ST_UTIME_NO_TIMEOUT);
+    } else {
+        nb_read = st_peek((st_netfd_t)stfd_, buf, size, rtm);
+    }
+    
+    if (nread) {
+        *nread = nb_read;
+    }
+    
+    // On success a non-negative integer indicating the number of bytes actually read is returned
+    // (a value of 0 means the network connection is closed or end of file is reached).
+    // Otherwise, a value of -1 is returned and errno is set to indicate the error.
+    if (nb_read <= 0) {
+        if (nb_read < 0 && errno == ETIME) {
+            srs_trace("socket %d is timeout", srs_netfd_fileno(stfd_));
+            return srs_error_new(ERROR_SOCKET_TIMEOUT, "timeout %d ms", srsu2msi(rtm));
+        }
+        
+        if (nb_read == 0) {
+            srs_trace("socket %d is close", srs_netfd_fileno(stfd_));
+            errno = ECONNRESET;
+        }
+        
+        return srs_error_new(ERROR_SOCKET_PEEK, "read error: %s", strerror(errno));
+    }
     
     return err;
 }
