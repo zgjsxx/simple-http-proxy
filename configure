@@ -1,9 +1,26 @@
 #!/bin/bash
+#####################################################################################
+# create the main objs
+SRS_WORKDIR="."
+SRS_OBJS_DIR="output"
+SRS_OBJS="${SRS_WORKDIR}/${SRS_OBJS_DIR}"
+SRS_MAKEFILE="Makefile"
+
+# linux shell color support.
+RED="\\033[31m"
+GREEN="\\033[32m"
+YELLOW="\\033[33m"
+BLACK="\\033[0m"
+
+#####################################################################################
+# parse options, exit with error when parse options invalid.
+. build/auto/options.sh
+
 cpu_numer=`cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l`
-echo $cpu_numer
+echo "CPU number is "$cpu_numer
 
 WORKSPACE=$(pwd)
-echo $WORKSPACE
+echo "Workspace is "$WORKSPACE
 OUTPUT_DIR=$WORKSPACE/output
 
 if [ ! -d $OUTPUT_DIR ];then
@@ -27,9 +44,13 @@ cd $WORKSPACE
 ST_LIB_PATH=$WORKSPACE/output/libst.a
 if [ ! -f $ST_LIB_PATH ]; then
     cd 3rdparty/st-srs
-    #make linux-debug
+
     make clean
-    make linux-debug EXTRA_CFLAGS="-DMD_VALGRIND"
+    if [[ $SRS_VALGRIND == YES ]]; then
+        make linux-debug EXTRA_CFLAGS="-DMD_VALGRIND"
+    else
+        make linux-debug
+    fi
 
     OS="LINUX"
     BUILD="DBG"
@@ -67,4 +88,63 @@ if [ ! -d $CARES_DEST_DIR ];then
 fi
 
 cd $WORKSPACE
-echo "configure success"
+
+cat << END > ${SRS_WORKDIR}/${SRS_MAKEFILE}
+PROJ_PATH=\$(shell pwd)
+
+all:app core kernel protocol main
+app:
+	\$(MAKE) -C \$(PROJ_PATH)/src/app
+core:
+	\$(MAKE) -C \$(PROJ_PATH)/src/core
+kernel:
+	\$(MAKE) -C \$(PROJ_PATH)/src/kernel
+protocol:
+	\$(MAKE) -C \$(PROJ_PATH)/src/protocol
+main:app core kernel protocol
+	\$(MAKE) -C \$(PROJ_PATH)/src/main
+END
+
+if [[ $SRS_UTEST == YES ]];then
+    cat << END >> ${SRS_WORKDIR}/${SRS_MAKEFILE}
+utest:app core kernel protocol
+	\$(MAKE) -C \$(PROJ_PATH)/src/utest
+END
+fi
+
+cat << END >> ${SRS_WORKDIR}/${SRS_MAKEFILE}
+clean:
+	rm -rf \$(PROJ_PATH)/output/myproxy
+	rm -rf \$(PROJ_PATH)/output/myproxy_utest
+	rm -rf \$(PROJ_PATH)/output/libapp.a
+	rm -rf \$(PROJ_PATH)/output/libcore.a
+	rm -rf \$(PROJ_PATH)/output/libkernel.a
+	rm -rf \$(PROJ_PATH)/output/protocol.a
+full_clean:
+	rm -rf \$(PROJ_PATH)/output
+	rm -rf \$(PROJ_PATH)/tmpobj
+END
+
+echo 'Configure ok! '
+
+#####################################################################################
+# configure summary
+#####################################################################################
+# summary
+echo ""
+echo "Configure summary:"
+if [ $SRS_UTEST = YES ]; then
+    echo -e "${GREEN}The utests are enabled.${BLACK}"
+else
+    echo -e "${YELLOW}Note: The utests are disabled.${BLACK}"
+fi
+
+if [ $SRS_VALGRIND = YES ]; then
+    echo -e "${GREEN}The valgrind is enabled.${BLACK}"
+else
+    echo -e "${GREEN}Note: The valgrind is disabled.${BLACK}"
+fi
+
+echo ""
+echo "You can build myproxy:"
+echo "\" make \" to build the SRS server"
