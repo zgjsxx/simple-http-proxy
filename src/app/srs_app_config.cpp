@@ -55,6 +55,89 @@ void set_config_directive(SrsConfDirective* parent, string dir, string value)
     d->args.push_back(value);
 }
 
+bool srs_directive_equals_self(SrsConfDirective* a, SrsConfDirective* b)
+{
+    // both NULL, equal.
+    if (!a && !b) {
+        return true;
+    }
+    
+    if (!a || !b) {
+        return false;
+    }
+    
+    if (a->name != b->name) {
+        return false;
+    }
+    
+    if (a->args.size() != b->args.size()) {
+        return false;
+    }
+    
+    for (int i = 0; i < (int)a->args.size(); i++) {
+        if (a->args.at(i) != b->args.at(i)) {
+            return false;
+        }
+    }
+    
+    if (a->directives.size() != b->directives.size()) {
+        return false;
+    }
+    
+    return true;
+}
+
+bool srs_directive_equals(SrsConfDirective* a, SrsConfDirective* b)
+{
+    // both NULL, equal.
+    if (!a && !b) {
+        return true;
+    }
+    
+    if (!srs_directive_equals_self(a, b)) {
+        return false;
+    }
+    
+    for (int i = 0; i < (int)a->directives.size(); i++) {
+        SrsConfDirective* a0 = a->at(i);
+        SrsConfDirective* b0 = b->at(i);
+        
+        if (!srs_directive_equals(a0, b0)) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+bool srs_directive_equals(SrsConfDirective* a, SrsConfDirective* b, string except)
+{
+    // both NULL, equal.
+    if (!a && !b) {
+        return true;
+    }
+    
+    if (!srs_directive_equals_self(a, b)) {
+        return false;
+    }
+    
+    for (int i = 0; i < (int)a->directives.size(); i++) {
+        SrsConfDirective* a0 = a->at(i);
+        SrsConfDirective* b0 = b->at(i);
+        
+        // donot compare the except child directive.
+        if (a0->name == except) {
+            continue;
+        }
+        
+        if (!srs_directive_equals(a0, b0, except)) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
 void SrsConfDirective::remove(SrsConfDirective* v)
 {
     std::vector<SrsConfDirective*>::iterator it;
@@ -782,6 +865,73 @@ void SrsConfig::subscribe(ISrsReloadHandler* handler)
     }
 
     subscribes.push_back(handler);
+}
+
+// LCOV_EXCL_START
+srs_error_t SrsConfig::reload()
+{
+    srs_error_t err = srs_success;
+    
+    SrsConfig conf;
+    
+    if ((err = conf.parse_file(config_file.c_str())) != srs_success) {
+        return srs_error_wrap(err, "parse file");
+    }
+
+    // if ((err = conf.check_config()) != srs_success) {
+    //     return srs_error_wrap(err, "check config");
+    // }
+    
+    if ((err = reload_conf(&conf)) != srs_success) {
+        return srs_error_wrap(err, "reload config");
+    }
+    
+    return err;
+}
+// LCOV_EXCL_STOP
+
+srs_error_t SrsConfig::reload_conf(SrsConfig* conf)
+{
+    srs_error_t err = srs_success;
+    
+    SrsConfDirective* old_root = root;
+    SrsAutoFree(SrsConfDirective, old_root);
+    
+    root = conf->root;
+    conf->root = NULL;
+    
+    // never support reload:
+    //      daemon
+    //
+    // always support reload without additional code:
+    //      chunk_size, ff_log_dir,
+    //      http_hooks, heartbeat,
+    //      security
+    
+    // merge config: listen
+    if (!srs_directive_equals(root->get("listen"), old_root->get("listen"))) {
+        if ((err = do_reload_listen()) != srs_success) {
+            return srs_error_wrap(err, "listen");
+        }
+    }
+    
+    return err;
+}
+
+srs_error_t SrsConfig::do_reload_listen()
+{
+    srs_error_t err = srs_success;
+    
+    vector<ISrsReloadHandler*>::iterator it;
+    for (it = subscribes.begin(); it != subscribes.end(); ++it) {
+        ISrsReloadHandler* subscribe = *it;
+        if ((err = subscribe->on_reload_listen()) != srs_success) {
+            return srs_error_wrap(err, "notify subscribes reload listen failed");
+        }
+    }
+    srs_trace("reload listen success.");
+    
+    return err;
 }
 
 void SrsConfig::unsubscribe(ISrsReloadHandler* handler)

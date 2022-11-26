@@ -8,6 +8,7 @@
 #include <string.h>
 #define SRS_DEFAULT_CONFIG "conf/srs.conf"
 class SrsConfig;
+class SrsConfDirective;
 
 namespace srs_internal
 {
@@ -33,6 +34,10 @@ namespace srs_internal
         virtual bool empty();
     };
 };
+
+// Deep compare directive.
+extern bool srs_directive_equals(SrsConfDirective* a, SrsConfDirective* b);
+extern bool srs_directive_equals(SrsConfDirective* a, SrsConfDirective* b, std::string except);
 
 class SrsConfDirective
 {
@@ -196,7 +201,16 @@ protected:
 public:
     // Get the config file path.
     // virtual std::string config();
-
+public:
+    // Reload  the config file.
+    // @remark, user can test the config before reload it.
+    virtual srs_error_t reload();
+protected:
+    // Reload  from the config.
+    // @remark, use protected for the utest to override with mock.
+    virtual srs_error_t reload_conf(SrsConfig* conf);
+private:
+    virtual srs_error_t do_reload_listen();
 public:
     // Get the pid file path.
     // The pid file is used to save the pid of SRS,
