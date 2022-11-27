@@ -910,7 +910,6 @@ srs_error_t SrsHttpxProxyConn::process_https_connection()
     err = clt_ssl->handshake(fake_x509, server_key);
     if(err != srs_success)
     {
-        srs_freep(client_http_req);
         return srs_error_wrap(err, "client handshake");
     }
 
