@@ -1,0 +1,16 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      # Git checkout
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build image
+        run: docker build --tag proxy:v1 -f Dockerfile .
