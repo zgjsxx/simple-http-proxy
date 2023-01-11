@@ -19,3 +19,4 @@ The features of simple http proxy
 - [x] support get a chunk data and then send a chunk data, instead of getting all body and then transfer to client
 - [x] support async dns query 
 - [x] add cpu and memory monitor
+- [x] integrade with Github Actions 
