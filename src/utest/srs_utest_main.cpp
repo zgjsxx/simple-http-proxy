@@ -13,6 +13,8 @@ SrsPolicy* _srs_policy = NULL;
 SrsNotification* _srs_notification = NULL;
 
 SrsAccessLog* _srs_access_log = NULL;
+
+SrsCircuitBreaker* _srs_circuit_breaker = NULL;
 // Initialize global settings.
 srs_error_t prepare_main() {
     srs_error_t err = srs_success;

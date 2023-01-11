@@ -1,7 +1,7 @@
 # Features
 
 The features of simple http proxy
-
+- [x] support configure with --utest and --valgrind parameter
 - [x] support http/https api
 - [x] support forward http/https traffic
 - [x] support descrypt https traffic

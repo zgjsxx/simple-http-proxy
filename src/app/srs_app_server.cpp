@@ -438,6 +438,18 @@ srs_error_t SrsServer::do_cycle()
         }
         srs_trace("SrsServer::do_cycle");
         srs_trace("current free stack number= %d", srs_get_current_free_stack());
+
+        // do reload the config.
+        if (signal_reload) {
+            signal_reload = false;
+            srs_info("get signal to reload the config.");
+
+            if ((err = _srs_config->reload()) != srs_success) {
+                return srs_error_wrap(err, "config reload");
+            }
+            srs_trace("reload config success.");
+        }
+        
         srs_usleep(1 * SRS_UTIME_SECONDS);
     }
     return err;
@@ -641,6 +653,7 @@ void SrsServer::on_signal(int signo)
         signal_gracefully_quit = true;
         return;
     }
+
 }
 
 srs_error_t SrsServer::listen_http_api()
